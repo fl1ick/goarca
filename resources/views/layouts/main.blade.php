@@ -15,7 +15,7 @@
     @yield('custom-head')
 </head>
 
-<body>
+<body class="layout-top-nav layout-footer-fixed">
     <div class="wrapper">
         <!-- Preloader -->
 
