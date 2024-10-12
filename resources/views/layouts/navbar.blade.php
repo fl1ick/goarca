@@ -5,7 +5,7 @@
             <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
                 <a href="/" class="d-flex align-items-center me-5 mb-2 mb-lg-0 text-white text-decoration-none">
                     <img class="me-2" width="72" height="72" role="img" src="dist/img/UmpakSumbing.png" />
-                    <b>Umpak Sumbing</b>
+                    <b>yoh</b>
                 </a>
     
                 <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
