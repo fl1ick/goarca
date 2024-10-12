@@ -1,42 +1,55 @@
-<!-- Navbar -->
-<header>
-    <header class="bg-dark text-white">
-        <div class="container">
-            <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-                <a href="/" class="d-flex align-items-center me-5 mb-2 mb-lg-0 text-white text-decoration-none">
-                    <img class="me-2" width="72" height="72" role="img" src="dist/img/UmpakSumbing.png" />
-                    <b>yoh</b>
+<nav class="navbar navbar-expand-lg navbar-white bg-dark mb-5">
+                <div class="container-fluid">
+                <a class="navbar-brand me-5 text-" href="#">
+                    <img src="{{ asset('dist/img/logo.png') }}" alt="" width="30" height="30"
+                        class="d-inline-block align-text-top me-2 ms-5">
+                    <strong>GoArca</strong>
                 </a>
-    
-                <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                    <li class="nav-item d-none d-sm-inline-block me-3">
-                        <a href="/"
-                            class="nav-link  text-white {{ Request::is('/') ? 'active-custom' : '' }}">Beranda</a>
-                    </li>
-                    <ul class="navbar-nav">
-                        <li class="nav-item dropdown me-3">
-                            <a href="/profil" class="nav-link dropdown-toggle text-white" id="navbarDarkDropdownMenuLink"
-                                role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Profil BKAD
-                            </a>
-                            <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
-                                <li><a class="dropdown-item" href="#">Sejarah</a></li>
-                                <li><a class="dropdown-item" href="#">Visi & Misi</a></li>
-                                <li><a class="dropdown-item" href="#">Struktur</a></li>
-                            </ul>
-                        </li>
+                  <button
+                    class="navbar-toggler"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation"
+                  >
+                    <span class="navbar-toggler-icon"></span>
+                  </button>
+                  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                      <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="/"
+                        {{ Request::is('/') ? 'active-custom' : '' }}>Beranda</a>
+                      </li>
+                      <li class="nav-item dropdown">
+                        <a
+                          class="nav-link dropdown-toggle"
+                          href="javascript:void(0)"
+                          id="navbarDropdown"
+                          role="button"
+                          data-bs-toggle="dropdown"
+                          aria-expanded="false"
+                        >
+                          Data
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                          <li><a class="dropdown-item" href="{{{route('kategory')}}}">Kategori</a></li>
+                          <li><a class="dropdown-item" href="{{route('jra')}}">Jra</a></li>
+                          <li><a class="dropdown-item" href="javascript:void(0)">Daftar</a></li>
+                        </ul>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="/"
+                        {{ Request::is('/') ? 'active-custom' : '' }}>Daftar</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link disabled" href="javascript:void(0)" tabindex="-1">Disabled</a>
+                      </li>
                     </ul>
-                    <li class="nav-item d-none d-sm-inline-block me-3">
-                        <a href="/peta-wisata"
-                            class="nav-link  text-white {{ Request::is('peta-wisata') ? 'active-custom' : '' }}">
-                            Peta Wisata</a>
-                    </li>
-                </ul>
-    
-                <div class="text-end">
-                    <a href="/login" type="button" class="btn btn-outline-light me-2">Login</a>
+                  </div>
+                  <div class="d-flex flex-wrap">    
+                    <a href="#" type="button" class="btn btn-outline-secondary ms-2">Login</a>
                 </div>
-            </div>
-        </div>
-    </header>
-<!-- Navbar End -->
+                </div>
+              </nav>
