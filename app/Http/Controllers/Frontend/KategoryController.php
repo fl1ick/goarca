@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\Controller;
 use App\Models\Kategory;
 use Illuminate\Http\Request;
+use Excel;
 
 class KategoryController extends Controller
 {
