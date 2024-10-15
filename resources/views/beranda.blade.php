@@ -1,94 +1,104 @@
 @extends('layouts.main')
 
 @section('content')
-<div class="container-fluid">
-              <div class="row" data-masonry='{"percentPosition": true }'>
-                <div class="col-sm-6 col-lg-4 mb-4">
-                  <div class="card">
-                    <img class="card-img-top" src="{{asset('templates/assets/img/elements/5.jpg')}}" alt="Card image cap" />
-                    <div class="card-body">
-                      <h5 class="card-title">Card title that wraps to a new line</h5>
-                      <p class="card-text">
-                        This is a longer card with supporting text below as a natural lead-in to additional content.
-                        This content is a little bit longer.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-sm-6 col-lg-4 mb-4">
-                  <div class="card p-3">
-                    <figure class="p-3 mb-0">
-                      <blockquote class="blockquote">
-                        <p>A well-known quote, contained in a blockquote element.</p>
-                      </blockquote>
-                      <figcaption class="blockquote-footer mb-0 text-muted">
-                        Someone famous in <cite title="Source Title">Source Title</cite>
-                      </figcaption>
-                    </figure>
-                  </div>
-                </div>
-                <div class="col-sm-6 col-lg-4 mb-4">
-                  <div class="card">
-                    <img class="card-img-top" src="{{asset('templates/assets/img/elements/18.jpg')}}" alt="Card image cap" />
-                    <div class="card-body">
-                      <h5 class="card-title">Card title</h5>
-                      <p class="card-text">
-                        This card has supporting text below as a natural lead-in to additional content.
-                      </p>
-                      <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-sm-6 col-lg-4 mb-4">
-                  <div class="card bg-primary text-white text-center p-3">
-                    <figure class="mb-0">
-                      <blockquote class="blockquote">
-                        <p>A well-known quote, contained in a blockquote element.</p>
-                      </blockquote>
-                      <figcaption class="blockquote-footer mb-0 text-white">
-                        Someone famous in <cite title="Source Title">Source Title</cite>
-                      </figcaption>
-                    </figure>
-                  </div>
-                </div>
-                <div class="col-sm-6 col-lg-4 mb-4">
-                  <div class="card text-center">
-                    <div class="card-body">
-                      <h5 class="card-title">Card title</h5>
-                      <p class="card-text">This card has a regular title and short paragraph of text below it.</p>
-                      <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-sm-6 col-lg-4 mb-4">
-                  <div class="card">
-                    <img class="card-img-top" src="{{asset('templates/assets/img/elements/4.jpg')}}" alt="Card image cap" />
-                  </div>
-                </div>
-                <div class="col-sm-6 col-lg-4 mb-4">
-                  <div class="card p-3 text-end">
-                    <figure class="mb-0">
-                      <blockquote class="blockquote">
-                        <p>A well-known quote, contained in a blockquote element.</p>
-                      </blockquote>
-                      <figcaption class="blockquote-footer mb-0 text-muted">
-                        Someone famous in <cite title="Source Title">Source Title</cite>
-                      </figcaption>
-                    </figure>
-                  </div>
-                </div>
-                <div class="col-sm-6 col-lg-4 mb-4">
-                  <div class="card">
-                    <div class="card-body">
-                      <h5 class="card-title">Card title</h5>
-                      <p class="card-text">
-                        This is another card with title and supporting text below. This card has some additional content
-                        to make it slightly taller overall.
-                      </p>
-                      <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              </div>
+<section id="content">
+		<!-- NAVBAR -->
+		<nav>
+			<i class='bx bx-menu' ></i>
+			<a href="#" class="nav-link">Arsip Kota Magelang</a>
+			<form action="#">
+				<div class="form-input">
+					<input type="search" placeholder="Search...">
+					<button type="submit" class="search-btn"><i class='bx bx-search' ></i></button>
+				</div>
+			</form>
+			<input type="checkbox" id="switch-mode" hidden>
+			<label for="switch-mode" class="switch-mode"></label>
+			<a href="#" class="notification">
+				<i class='bx bxs-bell' ></i>
+				<span class="num">8</span>
+			</a>
+			<a href="#" class="profile">
+				<img src="img/people.png">
+			</a>
+		</nav>
+		<!-- NAVBAR -->
+
+		<!-- MAIN -->
+		<main>
+			<div class="head-title">
+				<div class="left">
+					<h1>Dashboard</h1>
+					<ul class="breadcrumb">
+						<li>
+							<a href="#">Dashboard</a>
+						</li>
+						<li><i class='bx bx-chevron-right' ></i></li>
+						<li>
+							<a class="active" href="#">Home</a>
+						</li>
+					</ul>
+				</div>
+				<a href="#" class="btn-download">
+					<i class='bx bxs-cloud-download' ></i>
+					<span class="text">Download PDF</span>
+				</a>
+			</div>
+
+			<ul class="box-info">
+				<li>
+					<i class='bx bxs-calendar-check' ></i>
+					<span class="text">
+						<h3>1020</h3>
+						<p>Data arsip Masuk</p>
+					</span>
+				</li>
+				<li>
+					<i class='bx bxs-hot'></i>
+					<span class="text">
+						<h3>2834</h3>
+						<p>Surat Musnah</p>
+					</span>
+				</li>
+				<li>
+					<i class='bx bx-category-alt' ></i>
+					<span class="text">
+						<h3>9</h3>
+						<p>Kategori Arsip</p>
+					</span>
+				</li>
+			</ul>
+
+
+			<div class="table-data">
+				<div class="order">
+					<div class="head">
+						<h3>Kategori Data</h3>
+						<i class='bx bx-search' ></i>
+						<i class='bx bx-filter' ></i>
+					</div>
+					<table>
+						<thead>
+							<tr>
+								<th>Kategori</th>
+								<th>Kode Surat</th>
+								<th>Sifat</th>
+							</tr>
+						</thead>
+						<tbody>
+							
+						</tbody>
+					</table>
+				</div>
+				<div class="todo">
+					<div class="head">
+						<h3>List Data</h3>
+						<i class='bx bx-plus' ></i>
+						<i class='bx bx-filter' ></i>
+					</div>
+				</div>
+			</div>
+		</main>
+		<!-- MAIN -->
+	</section>
 @endsection
