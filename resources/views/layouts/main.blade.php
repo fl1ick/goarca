@@ -14,15 +14,18 @@
 <body>
 
 
+
 	<!-- SIDEBAR -->
 	@include('layouts.sidebar')
 	<!-- SIDEBAR -->
-
+	 <section id="content">
+	 @include('layouts.navbar')
+	 
 
 	<!-- CONTENT -->
 	@yield('content')
 	<!-- CONTENT -->
-	
+	</section>
 
 	<script src="{{ asset('customs/script.js')}}"></script>
 </body>

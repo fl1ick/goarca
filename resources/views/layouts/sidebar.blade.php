@@ -5,26 +5,50 @@
 		</a>
 		<ul class="side-menu top">
 			<li class="active">
-				<a href="index.html">
+				<a href="beranda">
 					<i class='bx bxs-dashboard' ></i>
-					<span class="text">Dashboard</span>
+					<span class="text">Beranda</span>
+				</a>
+			</li>
+			<li>
+				<a href="{{route('jra')}}">
+				<i class='bx bxs-cabinet'></i>
+					<span class="text">Data Jra</span>
+				</a>
+			</li>
+			<li>
+				<a href="{{route('kategory')}}">
+					<i class='bx bxs-package' ></i>
+					<span class="text">Data Kategori</span>
 				</a>
 			</li>
 			<li>
 				<a href="data.html">
 					<i class='bx bxs-layer'></i>
-					<span class="text">Data</span>
+					<span class="text">Upload Berkas</span>
 				</a>
 			</li>
 			<li>
 				<a href="daftar.html">
-					<i class='bx bxs-receipt'></i>
-					<span class="text">Daftar</span>
+					<i class='bx bx-collection'></i>
+					<span class="text">Daftar Arsip</span>
 				</a>
 			</li>
 			<li>
-				<a href="tatacara.html">
-					<i class='bx bxs-detail'></i>
+				<a href="aktif">
+					<i class='bx bxs-archive-in'></i>
+					<span class="text">Daftar Aktif</span>
+				</a>
+			</li>
+			<li>
+				<a href="penjelasan.html">
+					<i class='bx bx-folder-minus'></i>	
+					<span class="text">Daftar Inaktif</span>
+				</a>
+			</li>
+			<li>
+				<a href="penjelasan.html">
+					<i class='bx bxs-detail'></i>	
 					<span class="text">Tatacara</span>
 				</a>
 			</li>
