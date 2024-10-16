@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('kategory_id')->constrained('kategories')->onDelete('cascade'); // relasi dengan kategori
             $table->string('kode_klasifikasi');
-            $table->string('klasifikasi');
+            $table->longText('klasifikasi');
             $table->string('KKAD');
             $table->integer('retensi_aktif');
             $table->integer('retensi_inaktif');

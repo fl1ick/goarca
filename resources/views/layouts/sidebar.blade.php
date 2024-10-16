@@ -5,7 +5,7 @@
 		</a>
 		<ul class="side-menu top">
 			<li class="active">
-				<a href="beranda">
+				<a href="{{route('beranda')}}">
 					<i class='bx bxs-dashboard' ></i>
 					<span class="text">Beranda</span>
 				</a>

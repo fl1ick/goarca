@@ -25,7 +25,7 @@ class JraController extends Controller
                       $q->where('kategori', 'like', "%{$search}%");
                   });
         }
-        $jras = $query->paginate(10);
+        $jras = $query->paginate(25);
         return view('page.jras.index', compact('jras'));
     }
 
