@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
-use App\Models\jra;
-use App\Models\kategory;
+use App\Models\Jra;
+use App\Models\Kategory;
 use Illuminate\Http\Request;
 
 class JraController extends Controller

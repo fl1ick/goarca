@@ -23,7 +23,7 @@
 				</a>
 			</li>
 			<li>
-				<a href="data.html">
+				<a href="{{route('arsip')}}">
 					<i class='bx bxs-layer'></i>
 					<span class="text">Upload Berkas</span>
 				</a>

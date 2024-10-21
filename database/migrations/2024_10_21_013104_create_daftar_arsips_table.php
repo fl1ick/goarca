@@ -11,12 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('jras', function (Blueprint $table) {
+        Schema::create('daftar_arsips', function (Blueprint $table) {
             $table->id();
-            $table->string('kode_kategori');
+            $table->string('isi_berkas');
+            $table->integer('tahun_berkas');
+            $table->string('kategori');
             $table->string('kode_klasifikasi');
             $table->longText('klasifikasi');
-            $table->string('KKAD');
             $table->integer('retensi_aktif');
             $table->integer('retensi_inaktif');
             $table->integer('jumlah_retensi');
@@ -30,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('jras');
+        Schema::dropIfExists('daftar_arsips');
     }
 };
