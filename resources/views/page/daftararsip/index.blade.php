@@ -32,6 +32,9 @@
             </select>
         </div>
 
+        <!-- Tambahkan input hidden untuk klasifikasi -->
+        <input type="hidden" name="klasifikasi_hidden" id="klasifikasi_hidden">
+
         <div class="form-group">
             <label for="kode_klasifikasi">Kode Klasifikasi:</label>
             <input type="text" name="kode_klasifikasi" id="kode_klasifikasi" readonly>
@@ -68,6 +71,7 @@
         fetch('/getKlasifikasi/' + kodeKategori)
             .then(response => response.json())
             .then(data => {
+                console.log(data);
                 var klasifikasiSelect = document.getElementById('klasifikasi');
                 klasifikasiSelect.innerHTML = '<option value="">--Pilih Klasifikasi--</option>';
                 data.forEach(function(klasifikasi) {
@@ -85,7 +89,8 @@
     // Mengisi otomatis berdasarkan klasifikasi yang dipilih
     document.getElementById('klasifikasi').addEventListener('change', function() {
         var selectedOption = this.options[this.selectedIndex];
-        document.getElementById('kode_klasifikasi').value = selectedOption.value;
+        document.getElementById('kode_klasifikasi').value = selectedOption.value;  // Tetap mengambil kode klasifikasi
+        document.getElementById('klasifikasi_hidden').value = selectedOption.getAttribute('data-klasifikasi');  // Simpan nama klasifikasi ke hidden input
         document.getElementById('retensi_aktif').value = selectedOption.getAttribute('data-retensi-aktif');
         document.getElementById('retensi_inaktif').value = selectedOption.getAttribute('data-retensi-inaktif');
         document.getElementById('jumlah_retensi').value = selectedOption.getAttribute('data-jumlah-retensi');

@@ -25,7 +25,6 @@ class DaftarArsipController extends Controller
     {
         $kategories = Kategory::all(); // Ambil semua kategori
         return view('page.daftararsip.index', compact('kategories')); // Kirim variabel kategories ke view
-    
     }
 
     /**
@@ -38,28 +37,26 @@ class DaftarArsipController extends Controller
             'tahun_berkas' => 'required|integer',
             'kategori' => 'required|string',
             'kode_klasifikasi' => 'required|string',
-            'klasifikasi' => 'required|string',
+            'klasifikasi_hidden' => 'required|string', // Ini sekarang diambil dari input hidden
             'retensi_aktif' => 'required|integer',
             'retensi_inaktif' => 'required|integer',
             'jumlah_retensi' => 'required|integer',
             'nasib' => 'required|string',
         ]);
 
-        // Simpan data ke tabel DaftarArsip
+        // Simpan data ke database
         DaftarArsip::create([
             'isi_berkas' => $request->isi_berkas,
             'tahun_berkas' => $request->tahun_berkas,
             'kategori' => $request->kategori,
             'kode_klasifikasi' => $request->kode_klasifikasi,
-            'klasifikasi' => $request->klasifikasi,
+            'klasifikasi' => $request->klasifikasi_hidden,  // Menggunakan hidden input
             'retensi_aktif' => $request->retensi_aktif,
             'retensi_inaktif' => $request->retensi_inaktif,
             'jumlah_retensi' => $request->jumlah_retensi,
             'nasib' => $request->nasib,
         ]);
 
-        // Redirect atau tampilkan pesan sukses
-        DaftarArsip::create($request->all()); // Simpan semua data
         return redirect()->route('arsip')->with('success', 'Data arsip berhasil disimpan.');
     }
 
