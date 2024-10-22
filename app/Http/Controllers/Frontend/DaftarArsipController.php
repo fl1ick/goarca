@@ -11,12 +11,49 @@ class DaftarArsipController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $daftararsip = DaftarArsip::all(); // Mengambil semua data dari tabel DaftarArsip
-        $kategories = Kategory::all(); // Ambil semua kategori
-        return view('page.daftararsip.index', compact('daftararsip', 'kategories')); // Mengirimkan data ke view
+        $query = DaftarArsip::query(); // Mulai query builder dari DaftarArsip
+    
+        // Menambahkan filter berdasarkan request input
+        if ($request->filled('isi_berkas')) {
+            $query->where('isi_berkas', 'like', '%' . $request->isi_berkas . '%');
+        }
+    
+        if ($request->filled('tahun_berkas')) {
+            $query->where('tahun_berkas', $request->tahun_berkas);
+        }
+    
+        if ($request->filled('kategori')) {
+            $query->where('kategori', $request->kategori);
+        }
+    
+        if ($request->filled('klasifikasi')) {
+            $query->where('klasifikasi', $request->klasifikasi);
+        }
+    
+        if ($request->filled('nasib')) {
+            $query->where('nasib', 'like', '%' . $request->nasib . '%');
+        }
+    
+        // Ambil data hasil query dengan pagination
+        $daftararsip = $query->paginate(10); // Ganti dengan pagination sesuai kebutuhan
+    
+        // Ambil semua kategori dan klasifikasi yang terkait
+        $kategories = Kategory::all(); // Semua kategori
+        $klasifikasis = [];
+    
+        // Jika kategori dipilih, ambil klasifikasi yang terkait
+        if ($request->filled('kategori')) {
+            $klasifikasis = DaftarArsip::where('kategori', $request->kategori)
+                                       ->select('klasifikasi')
+                                       ->distinct()
+                                       ->get();
+        }
+    
+        return view('page.daftararsip.index', compact('daftararsip', 'kategories', 'klasifikasis')); // Mengirimkan data ke view
     }
+    
 
     /**
      * Show the form for creating a new resource.
@@ -24,7 +61,7 @@ class DaftarArsipController extends Controller
     public function create()
     {
         $kategories = Kategory::all(); // Ambil semua kategori
-        return view('page.daftararsip.index', compact('kategories')); // Kirim variabel kategories ke view
+        return view('page.daftararsip.create', compact('kategories')); // Kirim variabel kategories ke view
     }
 
     /**
@@ -36,29 +73,37 @@ class DaftarArsipController extends Controller
             'isi_berkas' => 'required|string|max:255',
             'tahun_berkas' => 'required|integer',
             'kategori' => 'required|string',
-            'kode_klasifikasi' => 'required|string',
-            'klasifikasi_hidden' => 'required|string', // Ini sekarang diambil dari input hidden
+            'kode_klasifikasi' => 'required|string|max:255',
+            'klasifikasi_hidden' => 'required|string', // Mengubah dari longtext ke string
             'retensi_aktif' => 'required|integer',
             'retensi_inaktif' => 'required|integer',
             'jumlah_retensi' => 'required|integer',
-            'nasib' => 'required|string',
+            'nasib' => 'required|string|max:255',
         ]);
-
-        // Simpan data ke database
+    
+        // Ambil nama kategori berdasarkan kode yang dipilih
+        $kategori = Kategory::where('kode', $request->kategori)->first(); // Ambil nama kategori
+        
+        if (!$kategori) {
+            return back()->withErrors(['error' => 'Kategori tidak ditemukan.']);
+        }
+    
+        // Simpan data arsip dengan nama kategori, bukan kode kategori
         DaftarArsip::create([
             'isi_berkas' => $request->isi_berkas,
             'tahun_berkas' => $request->tahun_berkas,
-            'kategori' => $request->kategori,
+            'kategori' => $kategori->kategori, // Simpan nama kategori
             'kode_klasifikasi' => $request->kode_klasifikasi,
-            'klasifikasi' => $request->klasifikasi_hidden,  // Menggunakan hidden input
+            'klasifikasi' => $request->klasifikasi_hidden,
             'retensi_aktif' => $request->retensi_aktif,
             'retensi_inaktif' => $request->retensi_inaktif,
             'jumlah_retensi' => $request->jumlah_retensi,
             'nasib' => $request->nasib,
         ]);
-
+    
         return redirect()->route('arsip')->with('success', 'Data arsip berhasil disimpan.');
     }
+    
 
     /**
      * Display the specified resource.
