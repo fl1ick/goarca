@@ -1,72 +1,98 @@
 @extends('layouts.main')
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
 
 @section('content')
 <main>
-<div class="container">
-    <h2>Form Daftar Arsip</h2>
-    <form action="{{ route('arsip.store') }}" method="POST">
-        @csrf
-        <div class="form-group">
-            <label for="isi_berkas">Isi Berkas:</label>
-            <input type="text" name="isi_berkas" id="isi_berkas" required>
+    <div class="table-data">
+        <div class="order">
+            <h2>Form Daftar Arsip</h2>
+            <form action="{{ route('arsip.store') }}" method="POST">
+                @csrf
+                <div class="my-3 p-3 bg-body rounded shadow-sm">
+                    <div class="mb-3 row">
+                        <label for="isi_berkas" class="col-sm-2 col-form-label">Isi Berkas:</label>
+                        <div class="col-sm-10">
+                            <textarea class="form-control w-100" name="isi_berkas" id="isi_berkas" rows="3" required></textarea>
+                        </div>
+                    </div>
+
+                    <div class="mb-3 row">
+                        <label for="tahun_berkas" class="col-sm-2 col-form-label">Tahun Berkas:</label>
+                        <div class="col-sm-10">
+                            <input class="form-control w-25" type="number" name="tahun_berkas" id="tahun_berkas" required>
+                        </div>
+                    </div>
+
+                    <div class="mb-3 row">
+                        <label for="kategori" class="col-sm-2 col-form-label">Kategori:</label>
+                        <div class="col-sm-10">
+                            <select name="kategori" id="kategori" class="form-control w-25" required>
+                                <option value="">--Pilih Kategori--</option>
+                                @foreach($kategories as $kategori)
+                                <option value="{{ $kategori->kode }}">{{ $kategori->kategori }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="mb-3 row">
+                        <label for="klasifikasi" class="col-sm-2 col-form-label">Klasifikasi:</label>
+                        <div class="col-sm-10">
+                            <select name="klasifikasi" id="klasifikasi" class="form-control w-75" required>
+                                <option value="">--Pilih Klasifikasi--</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Tambahkan input hidden untuk klasifikasi -->
+                    <input type="hidden" name="klasifikasi_hidden" id="klasifikasi_hidden">
+
+                    <div class="mb-3 row">
+                        <label for="kode_klasifikasi" class="col-sm-2 col-form-label">Kode Klasifikasi:</label>
+                        <div class="col-sm-10">
+                        <input class="form-control w-25" type="text" name="kode_klasifikasi" id="kode_klasifikasi" readonly>
+                        </div>
+                    </div>
+
+                    <div class="mb-3 row">
+                        <label for="retensi_aktif" class="col-sm-2 col-form-label">Retensi Aktif:</label>
+                        <div class="col-sm-10">
+                        <input class="form-control w-25" type="number" name="retensi_aktif" id="retensi_aktif" readonly>
+                        </div>
+                    </div>
+
+                    <div class="mb-3 row">
+                        <label for="retensi_inaktif" class="col-sm-2 col-form-label">Retensi Inaktif:</label>
+                        <div class="col-sm-10">
+                        <input class="form-control w-25" type="number" name="retensi_inaktif" id="retensi_inaktif" readonly>
+                        </div>
+                    </div>
+
+                    <div class="mb-3 row">
+                        <label for="jumlah_retensi" class="col-sm-2 col-form-label">Jumlah Retensi:</label>
+                        <div class="col-sm-10">
+                        <input class="form-control w-25" type="number" name="jumlah_retensi" id="jumlah_retensi" readonly>
+                        </div>
+                    </div>
+
+                    <div class="mb-3 row">
+                        <label for="nasib" class="col-sm-2 col-form-label">Nasib:</label>
+                        <div class="col-sm-10">
+                        <input class="form-control w-25" type="text" name="nasib" id="nasib" readonly>
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label for="submit" class="col-sm-2 col-form-label"></label>
+                        <div class="col-sm-10"><button type="submit" class="btn btn-primary">Submit</button></div>
+                    </div>
+
+                </div>
+            </form>
         </div>
+    </div>
 
-        <div class="form-group">
-            <label for="tahun_berkas">Tahun Berkas:</label>
-            <input type="number" name="tahun_berkas" id="tahun_berkas" required>
-        </div>
-
-        <div class="form-group">
-            <label for="kategori">Kategori:</label>
-            <select name="kategori" id="kategori" required>
-                <option value="">--Pilih Kategori--</option>
-                @foreach($kategories as $kategori)
-                    <option value="{{ $kategori->kode }}">{{ $kategori->kategori }}</option>
-                @endforeach
-            </select>
-        </div>
-
-        <div class="form-group">
-            <label for="klasifikasi">Klasifikasi:</label>
-            <select name="klasifikasi" id="klasifikasi" required>
-                <option value="">--Pilih Klasifikasi--</option>
-            </select>
-        </div>
-
-        <!-- Tambahkan input hidden untuk klasifikasi -->
-        <input type="hidden" name="klasifikasi_hidden" id="klasifikasi_hidden">
-
-        <div class="form-group">
-            <label for="kode_klasifikasi">Kode Klasifikasi:</label>
-            <input type="text" name="kode_klasifikasi" id="kode_klasifikasi" readonly>
-        </div>
-
-        <div class="form-group">
-            <label for="retensi_aktif">Retensi Aktif:</label>
-            <input type="number" name="retensi_aktif" id="retensi_aktif" readonly>
-        </div>
-
-        <div class="form-group">
-            <label for="retensi_inaktif">Retensi Inaktif:</label>
-            <input type="number" name="retensi_inaktif" id="retensi_inaktif" readonly>
-        </div>
-
-        <div class="form-group">
-            <label for="jumlah_retensi">Jumlah Retensi:</label>
-            <input type="number" name="jumlah_retensi" id="jumlah_retensi" readonly>
-        </div>
-
-        <div class="form-group">
-            <label for="nasib">Nasib:</label>
-            <input type="text" name="nasib" id="nasib" readonly>
-        </div>
-
-        <button type="submit">Submit</button>
-    </form>
-</div>
-</main>
-
-<script>
+    <script>
     // Mengambil klasifikasi berdasarkan kategori yang dipilih
     document.getElementById('kategori').addEventListener('change', function() {
         var kodeKategori = this.value;
@@ -91,13 +117,15 @@
     // Mengisi otomatis berdasarkan klasifikasi yang dipilih
     document.getElementById('klasifikasi').addEventListener('change', function() {
         var selectedOption = this.options[this.selectedIndex];
-        document.getElementById('kode_klasifikasi').value = selectedOption.value;  // Tetap mengambil kode klasifikasi
-        document.getElementById('klasifikasi_hidden').value = selectedOption.getAttribute('data-klasifikasi');  // Simpan nama klasifikasi ke hidden input
+        document.getElementById('kode_klasifikasi').value = selectedOption
+            .value; // Tetap mengambil kode klasifikasi
+        document.getElementById('klasifikasi_hidden').value = selectedOption.getAttribute(
+            'data-klasifikasi'); // Simpan nama klasifikasi ke hidden input
         document.getElementById('retensi_aktif').value = selectedOption.getAttribute('data-retensi-aktif');
         document.getElementById('retensi_inaktif').value = selectedOption.getAttribute('data-retensi-inaktif');
         document.getElementById('jumlah_retensi').value = selectedOption.getAttribute('data-jumlah-retensi');
         document.getElementById('nasib').value = selectedOption.getAttribute('data-nasib');
     });
-</script>
-
+    </script>
+</main>
 @endsection
