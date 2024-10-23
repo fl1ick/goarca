@@ -8,6 +8,9 @@
 	<link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
 	<!-- My CSS -->
 	<link rel="stylesheet" href="{{ asset('customs/style.css')}}">
+	<!-- Tabulator Table -->
+	<link href="https://unpkg.com/tabulator-tables/dist/css/tabulator.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/tabulator-tables/dist/css/tabulator_bootstrap4.min.css" rel="stylesheet">
 
 	<title>Arsip Kota Magelang</title>
 </head>
@@ -28,5 +31,7 @@
 	</section>
 
 	<script src="{{ asset('customs/script.js')}}"></script>
+	<!-- Tabulator Table Script -->
+	<script src="https://unpkg.com/tabulator-tables/dist/js/tabulator.min.js"></script>
 </body>
 </html>
