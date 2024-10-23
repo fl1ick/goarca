@@ -23,13 +23,13 @@
 				</a>
 			</li>
 			<li>
-				<a href="{{route('arsip')}}">
+				<a href="{{route('arsip.create')}}">
 					<i class='bx bxs-layer'></i>
 					<span class="text">Upload Berkas</span>
 				</a>
 			</li>
 			<li>
-				<a href="daftar.html">
+				<a href="{{route('arsip')}}">
 					<i class='bx bx-collection'></i>
 					<span class="text">Daftar Arsip</span>
 				</a>

@@ -2,67 +2,81 @@
 
 @section('content')
 <div class="container">
-    <h2>Form Daftar Arsip</h2>
-    <form action="{{ route('arsip.store') }}" method="POST">
-        @csrf
+    <h2>Daftar Arsip</h2>
+
+    <!-- Filter Form -->
+    <form method="GET" action="{{ route('arsip') }}">
         <div class="form-group">
             <label for="isi_berkas">Isi Berkas:</label>
-            <input type="text" name="isi_berkas" id="isi_berkas" required>
+            <input type="text" name="isi_berkas" id="isi_berkas" value="{{ request()->isi_berkas }}">
         </div>
 
         <div class="form-group">
             <label for="tahun_berkas">Tahun Berkas:</label>
-            <input type="number" name="tahun_berkas" id="tahun_berkas" required>
+            <input type="number" name="tahun_berkas" id="tahun_berkas" value="{{ request()->tahun_berkas }}">
         </div>
 
         <div class="form-group">
             <label for="kategori">Kategori:</label>
-            <select name="kategori" id="kategori" required>
+            <select name="kategori" id="kategori">
                 <option value="">--Pilih Kategori--</option>
                 @foreach($kategories as $kategori)
-                    <option value="{{ $kategori->kode }}">{{ $kategori->kategori }}</option>
+                    <option value="{{ $kategori->kode }}" {{ request()->kategori == $kategori->kode ? 'selected' : '' }}>{{ $kategori->kategori }}</option>
                 @endforeach
             </select>
         </div>
 
         <div class="form-group">
             <label for="klasifikasi">Klasifikasi:</label>
-            <select name="klasifikasi" id="klasifikasi" required>
+            <select name="klasifikasi" id="klasifikasi">
                 <option value="">--Pilih Klasifikasi--</option>
             </select>
         </div>
 
         <div class="form-group">
-            <label for="kode_klasifikasi">Kode Klasifikasi:</label>
-            <input type="text" name="kode_klasifikasi" id="kode_klasifikasi" readonly>
-        </div>
-
-        <div class="form-group">
-            <label for="retensi_aktif">Retensi Aktif:</label>
-            <input type="number" name="retensi_aktif" id="retensi_aktif" readonly>
-        </div>
-
-        <div class="form-group">
-            <label for="retensi_inaktif">Retensi Inaktif:</label>
-            <input type="number" name="retensi_inaktif" id="retensi_inaktif" readonly>
-        </div>
-
-        <div class="form-group">
-            <label for="jumlah_retensi">Jumlah Retensi:</label>
-            <input type="number" name="jumlah_retensi" id="jumlah_retensi" readonly>
-        </div>
-
-        <div class="form-group">
             <label for="nasib">Nasib:</label>
-            <input type="text" name="nasib" id="nasib" readonly>
+            <input type="text" name="nasib" id="nasib" value="{{ request()->nasib }}">
         </div>
 
-        <button type="submit">Submit</button>
+        <button type="submit">Filter</button>
     </form>
+
+    <!-- Daftar Arsip Table -->
+    <table class="table">
+        <thead>
+            <tr>
+            <th>No</th>
+                <th>Isi Berkas</th>
+                <th>Tahun Berkas</th>
+                <th>Kategori</th>
+                <th>Kode Klasifikasi</th>
+                <th>Klasifikasi</th>
+                <th>Retensi Aktif</th>
+                <th>Retensi Inaktif</th>
+                <th>Jumlah Retensi</th>
+                <th>Nasib</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach($daftararsip as $arsip)
+                <tr>
+                    <td>{{ $loop->iteration }}</td>
+                    <td>{{ $arsip->isi_berkas }}</td>
+                    <td>{{ $arsip->tahun_berkas }}</td>
+                    <td>{{ $arsip->kategori }}</td>
+                    <td>{{ $arsip->kode_klasifikasi }}</td>
+                    <td>{{ $arsip->klasifikasi }}</td>
+                    <td>{{ $arsip->retensi_aktif }}</td>
+                    <td>{{ $arsip->retensi_inaktif }}</td>
+                    <td>{{ $arsip->jumlah_retensi }}</td>
+                    <td>{{ $arsip->nasib }}</td>
+                </tr>
+            @endforeach
+        </tbody>
+    </table>
 </div>
 
 <script>
-    // Mengambil klasifikasi berdasarkan kategori yang dipilih
     document.getElementById('kategori').addEventListener('change', function() {
         var kodeKategori = this.value;
         fetch('/getKlasifikasi/' + kodeKategori)
@@ -71,26 +85,18 @@
                 var klasifikasiSelect = document.getElementById('klasifikasi');
                 klasifikasiSelect.innerHTML = '<option value="">--Pilih Klasifikasi--</option>';
                 data.forEach(function(klasifikasi) {
-                    klasifikasiSelect.innerHTML += `<option value="${klasifikasi.kode_klasifikasi}" 
-                        data-klasifikasi="${klasifikasi.klasifikasi}" 
-                        data-retensi-aktif="${klasifikasi.retensi_aktif}" 
-                        data-retensi-inaktif="${klasifikasi.retensi_inaktif}" 
-                        data-jumlah-retensi="${klasifikasi.jumlah_retensi}" 
-                        data-nasib="${klasifikasi.nasib}">
+                    klasifikasiSelect.innerHTML += `<option value="${klasifikasi.klasifikasi}" 
+                        ${klasifikasi.klasifikasi == "{{ request()->klasifikasi }}" ? 'selected' : ''}>
                         ${klasifikasi.klasifikasi}</option>`;
                 });
             });
     });
 
-    // Mengisi otomatis berdasarkan klasifikasi yang dipilih
-    document.getElementById('klasifikasi').addEventListener('change', function() {
-        var selectedOption = this.options[this.selectedIndex];
-        document.getElementById('kode_klasifikasi').value = selectedOption.value;
-        document.getElementById('retensi_aktif').value = selectedOption.getAttribute('data-retensi-aktif');
-        document.getElementById('retensi_inaktif').value = selectedOption.getAttribute('data-retensi-inaktif');
-        document.getElementById('jumlah_retensi').value = selectedOption.getAttribute('data-jumlah-retensi');
-        document.getElementById('nasib').value = selectedOption.getAttribute('data-nasib');
-    });
+    // Untuk preselecting klasifikasi dropdown jika sudah ada request sebelumnya
+    if(document.getElementById('kategori').value) {
+        document.getElementById('kategori').dispatchEvent(new Event('change'));
+    }
 </script>
 
 @endsection
+    
