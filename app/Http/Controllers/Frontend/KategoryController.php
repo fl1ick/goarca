@@ -14,14 +14,23 @@ class KategoryController extends Controller
      */
     public function index(Request $request)
     {
-        $kategories = Kategory::get();
+        // Mengambil semua data kategori tanpa filter untuk keperluan lain jika diperlukan
+        $kategory = Kategory::all();  // Opsional jika kamu ingin tetap menggunakan data all
+
+        // Query dasar
         $query = Kategory::query();
+
+        // Memeriksa apakah ada parameter pencarian
         if ($request->has('search')) {
             $search = $request->input('search');
             $query->where('kode_kategori', 'like', "%{$search}%")
-                  ->orWhere('kategori', 'like', "%{$search}%");
+                ->orWhere('kategori', 'like', "%{$search}%");
         }
+
+        // Mengambil data dengan pagination, baik hasil pencarian atau semua data
         $kategories = $query->paginate(10);
+
+        // Mengirimkan data hasil paginasi (baik hasil pencarian atau tidak) ke view
         return view('page.kategories.index', compact('kategories'));
     }
 
@@ -49,10 +58,7 @@ class KategoryController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Kategory $kategory)
-    {
-        
-    }
+    public function show(Kategory $kategory) {}
 
     /**
      * Show the form for editing the specified resource.
