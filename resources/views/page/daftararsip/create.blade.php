@@ -1,6 +1,7 @@
 @extends('layouts.main')
 
 @section('content')
+<main>
 <div class="container">
     <h2>Form Daftar Arsip</h2>
     <form action="{{ route('arsip.store') }}" method="POST">
@@ -63,6 +64,7 @@
         <button type="submit">Submit</button>
     </form>
 </div>
+</main>
 
 <script>
     // Mengambil klasifikasi berdasarkan kategori yang dipilih

@@ -45,20 +45,30 @@
     <table class="table">
         <thead>
             <tr>
+            <th>No</th>
                 <th>Isi Berkas</th>
                 <th>Tahun Berkas</th>
                 <th>Kategori</th>
+                <th>Kode Klasifikasi</th>
                 <th>Klasifikasi</th>
+                <th>Retensi Aktif</th>
+                <th>Retensi Inaktif</th>
+                <th>Jumlah Retensi</th>
                 <th>Nasib</th>
             </tr>
         </thead>
         <tbody>
             @foreach($daftararsip as $arsip)
                 <tr>
+                    <td>{{ $loop->iteration }}</td>
                     <td>{{ $arsip->isi_berkas }}</td>
                     <td>{{ $arsip->tahun_berkas }}</td>
                     <td>{{ $arsip->kategori }}</td>
+                    <td>{{ $arsip->kode_klasifikasi }}</td>
                     <td>{{ $arsip->klasifikasi }}</td>
+                    <td>{{ $arsip->retensi_aktif }}</td>
+                    <td>{{ $arsip->retensi_inaktif }}</td>
+                    <td>{{ $arsip->jumlah_retensi }}</td>
                     <td>{{ $arsip->nasib }}</td>
                 </tr>
             @endforeach
