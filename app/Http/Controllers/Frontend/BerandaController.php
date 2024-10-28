@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\DaftarAktif;
+use App\Models\DaftarArsip;
 use App\Models\Jra;
 use App\Models\Log;
 use App\Models\Kategory;
@@ -18,7 +20,8 @@ class BerandaController extends Controller
         #dd($logs);
         $Hasiljras = Jra::selectRaw('COUNT(*) as total_data_jras')->first();
         $Hasilkategory = Kategory::selectRaw('COUNT(*) as total_data_kategory')->first();
+        $Hasildataarsip = DaftarArsip::selectRaw('COUNT(*) as total_data_daftararsip')->first();
 
-        return view('beranda', compact('Hasiljras', 'Hasilkategory', 'jras', 'kategory','logs'));
+        return view('beranda', compact('Hasiljras', 'Hasilkategory', 'jras', 'kategory','logs','Hasildataarsip'));
     }
 }

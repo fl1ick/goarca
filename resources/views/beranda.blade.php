@@ -17,7 +17,7 @@
             <li>
                 <i class='bx bxs-calendar-check'></i>
                 <span class="text">
-                    <h3>1020</h3>
+                    <h3>{{ $Hasildataarsip->total_data_daftararsip }}</h3>
                     <p>Data arsip Masuk</p>
                 </span>
             </li>
@@ -44,7 +44,7 @@
                     <h3>Log Data</h3>
                 </div>
                 <table>
-                    <thead>
+                        <thead>
                         <tr>
                             <th>Action</th>
                             <th>Table_name</th>
