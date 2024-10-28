@@ -44,6 +44,15 @@
                     <h3>Log Data</h3>
                 </div>
                 <table>
+                    <thead>
+                        <tr>
+                            <th>Action</th>
+                            <th>Table_name</th>
+                            <th>record_id</th>
+                            <th>old_data</th>
+                            <th>new_data</th>
+                        </tr>
+                    </thead>
                     <tbody>
                         @foreach ($logs as $log)
                             <tr>
