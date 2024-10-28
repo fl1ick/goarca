@@ -7,6 +7,8 @@ use App\Models\Log;
 
 class DaftarArsipObserver
 {
+
+    protected $logAttributes = ['isi_berkas', 'tahun_berkas', 'kategori', 'kode_klasifikasi', 'klasifikasi', 'updated_at', 'created_at'];
     /**
      * Handle the DaftarArsip "created" event.
      */
@@ -16,7 +18,7 @@ class DaftarArsipObserver
             'action' => 'created',
             'table_name' => 'daftar_arsips',
             'record_id' => $daftarArsip->id,
-            'new_data' => json_encode($daftarArsip->getAttributes()),
+            'new_data' => json_encode($daftarArsip->only($this->logAttributes)),
         ]);
     }
 
@@ -29,7 +31,7 @@ class DaftarArsipObserver
             'action' => 'updated',
             'table_name' => 'daftar_arsips',
             'record_id' => $daftarArsip->id,
-            'new_data' => json_encode($daftarArsip->getAttributes()),
+            'new_data' => json_encode($daftarArsip->only($this->logAttributes)),
         ]);
     }
 
@@ -42,7 +44,7 @@ class DaftarArsipObserver
             'action' => 'deleted',
             'table_name' => 'daftar_arsips',
             'record_id' => $daftarArsip->id,
-            'new_data' => json_encode($daftarArsip->getAttributes()),
+            'new_data' => json_encode($daftarArsip->only($this->logAttributes)),
         ]);
     }
 

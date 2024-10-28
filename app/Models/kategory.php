@@ -9,6 +9,5 @@ class Kategory extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'kategori', 'kode'
-    ]; 
+        'kategori', 'kode'];
 }
