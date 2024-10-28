@@ -41,18 +41,39 @@
         <div class="table-data">
             <div class="order">
                 <div class="head">
-                    <h3>History Data</h3>
+                    <h3>Log Data</h3>
                 </div>
                 <table>
-                    <thead>
-                        <tr>
-                            <th>Kategori</th>
-                            <th>Kode Surat</th>
-                            <th>Sifat</th>
-                        </tr>
-                    </thead>
                     <tbody>
-
+                        @foreach ($logs as $log)
+                            <tr>
+                                <td>{{ $log->action }}</td>
+                                <td>{{ $log->table_name }}</td>
+                                <td>{{ $log->record_id }}</td>
+                                <td>
+                                    @php
+                                        $oldData = json_decode($log->old_data, true);
+                                    @endphp
+                                    @if($oldData)
+                                        {{ json_encode($oldData) }}
+                                    @else
+                                        N/A
+                                    @endif
+                                </td>
+                                <td>
+                                    @php
+                                        $newData = json_decode($log->new_data, true);
+                                    @endphp
+                                    @if($newData)
+                                        @foreach ($newData as $key => $value)
+                                            {{ $key }}: {{ $value }}<br>
+                                        @endforeach
+                                    @else
+                                        N/A
+                                    @endif
+                                </td>
+                            </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>
