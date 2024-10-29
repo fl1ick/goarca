@@ -17,7 +17,7 @@
             <li>
                 <i class='bx bxs-calendar-check'></i>
                 <span class="text">
-                    <h3>1020</h3>
+                    <h3>{{ $Hasildataarsip->total_data_daftararsip }}</h3>
                     <p>Data arsip Masuk</p>
                 </span>
             </li>
@@ -41,18 +41,48 @@
         <div class="table-data">
             <div class="order">
                 <div class="head">
-                    <h3>History Data</h3>
+                    <h3>Log Data</h3>
                 </div>
                 <table>
-                    <thead>
+                        <thead>
                         <tr>
-                            <th>Kategori</th>
-                            <th>Kode Surat</th>
-                            <th>Sifat</th>
+                            <th>Action</th>
+                            <th>Table_name</th>
+                            <th>record_id</th>
+                            <th>old_data</th>
+                            <th>new_data</th>
                         </tr>
                     </thead>
                     <tbody>
-
+                        @foreach ($logs as $log)
+                            <tr>
+                                <td>{{ $log->action }}</td>
+                                <td>{{ $log->table_name }}</td>
+                                <td>{{ $log->record_id }}</td>
+                                <td>
+                                    @php
+                                        $oldData = json_decode($log->old_data, true);
+                                    @endphp
+                                    @if($oldData)
+                                        {{ json_encode($oldData) }}
+                                    @else
+                                        N/A
+                                    @endif
+                                </td>
+                                <td>
+                                    @php
+                                        $newData = json_decode($log->new_data, true);
+                                    @endphp
+                                    @if($newData)
+                                        @foreach ($newData as $key => $value)
+                                            {{ $key }}: {{ $value }}<br>
+                                        @endforeach
+                                    @else
+                                        N/A
+                                    @endif
+                                </td>
+                            </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>

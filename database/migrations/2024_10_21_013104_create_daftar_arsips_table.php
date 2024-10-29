@@ -14,13 +14,13 @@ return new class extends Migration
         Schema::create('daftar_arsips', function (Blueprint $table) {
             $table->id();
             $table->string('isi_berkas');
-            $table->integer('tahun_berkas');
+            $table->date('tahun_berkas');
             $table->string('kategori');
             $table->string('kode_klasifikasi');
             $table->longText('klasifikasi');
-            $table->integer('retensi_aktif');
-            $table->integer('retensi_inaktif');
-            $table->integer('jumlah_retensi');
+            $table->string('retensi_aktif');
+            $table->string('retensi_inaktif');
+            $table->string('jumlah_retensi');
             $table->string('nasib');
             $table->timestamps();
         });

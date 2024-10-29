@@ -8,9 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Kategory extends Model
 {
     use HasFactory;
-    protected $guarded = ['id'];
-    public function jras()
-    {
-        return $this->hasMany(Jra::class);
-    }
+    protected $fillable = [
+        'kategori', 'kode'];
 }

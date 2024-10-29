@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\Controller;
 use App\Models\{DaftarArsip,Jra,Kategory};
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\DaftarArsipExport;
 
 class DaftarArsipController extends Controller
 {
@@ -69,9 +71,11 @@ class DaftarArsipController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request->all());
+
         $request->validate([
             'isi_berkas' => 'required|string|max:255',
-            'tahun_berkas' => 'required|integer',
+            'tahun_berkas' => 'required|date',
             'kategori' => 'required|string',
             'kode_klasifikasi' => 'required|string|max:255',
             'klasifikasi_hidden' => 'required|string', // Mengubah dari longtext ke string
@@ -95,9 +99,9 @@ class DaftarArsipController extends Controller
             'kategori' => $kategori->kategori, // Simpan nama kategori
             'kode_klasifikasi' => $request->kode_klasifikasi,
             'klasifikasi' => $request->klasifikasi_hidden,
-            'retensi_aktif' => $request->retensi_aktif,
-            'retensi_inaktif' => $request->retensi_inaktif,
-            'jumlah_retensi' => $request->jumlah_retensi,
+            'retensi_aktif' => $request->retensi_aktif . ' tahun',
+            'retensi_inaktif' => $request->retensi_inaktif . ' tahun',
+            'jumlah_retensi' => $request->jumlah_retensi . ' tahun',
             'nasib' => $request->nasib,
         ]);
     
@@ -132,6 +136,7 @@ class DaftarArsipController extends Controller
     /**
      * Remove the specified resource from storage.
      */
+    
     public function destroy(DaftarArsip $daftarArsip)
     {
         //
