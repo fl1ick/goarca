@@ -14,19 +14,8 @@ class JraController extends Controller
      */
     public function index(request $request)
     {
-        $jras = Jra::get();
-        $query = Jra::query();
-        if ($request->has('search')) {
-            $search = $request->input('search');
-            $query->where('kode_klasifikasi', 'like', "%{$search}%")
-                  ->orWhere('klasifikasi', 'like', "%{$search}%")
-                  ->orWhere('nasib', 'like', "%{$search}%")
-                  ->orWhereHas('kategory', function ($q) use ($search) {
-                      $q->where('kategori', 'like', "%{$search}%");
-                  });
-        }
-        $jras = $query->paginate(25);
-        return view('page.jras.index', compact('jras'));
+        $jrasData = Jra::all();
+        return view('page.jras.index', compact('jrasData'));
     }
 
     /**

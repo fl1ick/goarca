@@ -1,57 +1,85 @@
 @extends('layouts.main')
 
 @section('content')
-<!-- Borderless Table -->
-<main>
-  <div class="table-data">
-      <div class="order">
-        <div class="head">
-          <h3>Data Jra</h3>
-        </div>
-        <table>
-          <thead>
-            <tr>
-              <th>No</th>
-              <th>Kategori</th>
-              <th>Kode Klasifikasi</th>
-              <th>Klasifikasi</th>
-              <th>KKAD</th>
-              <th>Retensi Aktif</th>
-              <th>Retensi InAktif</th>
-              <th>Jumlah Retensi</th>
-              <th>Nasib</th>
-            </tr>
-          </thead>
-          <tbody>
-            @forelse($jras as $jra)
-            <tr data-entry-id="{{ $jra->id }}">
-              <td>{{ $loop->iteration }}</td>
-              <td>{{ optional($jra->kategory)->kategori ?? 'N/A' }}</td>
-              <td>{{ $jra->kode_klasifikasi }}</td>
-              <td>{{ $jra->klasifikasi }}</td>
-              <td>{{ $jra->KKAD }}</td>
-              <td>{{ $jra->retensi_aktif }}</td>
-              <td>{{ $jra->retensi_inaktif }}</td>
-              <td>{{ $jra->retensi_aktif + $jra->retensi_inaktif }}</td> <!-- Hitung jumlah retensi di sini -->
-              <td>@if ($jra->nasib == 'Musnah')
-                <span class="badge bg-label-danger me-1">{{ $jra->nasib }}</span>
-                @elseif ($jra->nasib == 'Permanen')
-                <span class="badge bg-label-success me-1">{{ $jra->nasib }}</span>
-                @else
-                <span class="badge bg-label-secondary me-1">{{ $jra->nasib }}</span>
-                @endif
-                </span>
-              </td>
-            </tr>
-            @empty
-            <tr>
-              <td colspan="7" class="text-center">{{ __('Data Empty') }}</td>
-            </tr>
-            @endforelse
-          </tbody>
-        </table>
-      </div>
-    </div>
-</main>
-<!--/ Borderless Table -->
+    <!-- Borderless Table -->
+    <main>
+        <div id="jras-table"></div>
+    </main>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Data dari Laravel (diambil dari controller)
+            var JrasData = @json($jrasData);
+
+            // Inisialisasi Tabulator
+            var table = new Tabulator("#jras-table", {
+                data: JrasData, // Assign data from the controller
+                layout: "fitColumns",
+                pagination: "local",
+                paginationSize: 10,
+                columns: [{
+                        title: "No",
+                        field: "id",
+                        sorter: "string"
+                    },
+                    {
+                        title: "Kategori",
+                        field: "kode_kategori",
+                        sorter: "string"
+                    },
+                    {
+                        title: "Kode Kategori",
+                        field: "kode_klasifikasi",
+                        sorter: "string"
+                    },
+                    {
+                        title: "Klasifikasi",
+                        field: "klasifikasi",
+                        sorter: "string"
+                    },
+                    {
+                        title: "KKAD",
+                        field: "KKAD",
+                        sorter: "string"
+                    },
+                    {
+                        title: "Retensi Aktif",
+                        field: "retensi_aktif",
+                        sorter: "string"
+                    },
+                    {
+                        title: "Retensi Inaktif",
+                        field: "retensi_inaktif",
+                        sorter: "string"
+                    },
+                    {
+                        title: "Jumlah Retensi",
+                        field: "jumlah_retensi",
+                        sorter: "string"
+                    },
+                    {
+                        title: "Nasib",
+                        field: "nasib",
+                        sorter: "string"
+                    },
+                ],
+            });
+
+            // // Fungsi pencarian
+            // function searchTable() {
+            //     var searchValue = document.getElementById('search-input').value;
+            //     table.setFilter([{
+            //             field: "kode_kategori",
+            //             type: "like",
+            //             value: searchValue
+            //         },
+            //         {
+            //             field: "kategori",
+            //             type: "like",
+            //             value: searchValue
+            //         }
+            //     ]);
+            // }
+        });
+    </script>
+    <!--/ Borderless Table -->
 @endsection
