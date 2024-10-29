@@ -20,7 +20,7 @@
                     <div class="mb-3 row">
                         <label for="tahun_berkas" class="col-sm-2 col-form-label">Tahun Berkas:</label>
                         <div class="col-sm-10">
-                            <input class="form-control w-25" type="number" name="tahun_berkas" id="tahun_berkas" required>
+                            <input class="form-control w-25" type="date" name="tahun_berkas" id="tahun_berkas" required>
                         </div>
                     </div>
 
