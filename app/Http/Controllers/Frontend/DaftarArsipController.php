@@ -99,9 +99,9 @@ class DaftarArsipController extends Controller
             'kategori' => $kategori->kategori, // Simpan nama kategori
             'kode_klasifikasi' => $request->kode_klasifikasi,
             'klasifikasi' => $request->klasifikasi_hidden,
-            'retensi_aktif' => $request->retensi_aktif . ' tahun',
-            'retensi_inaktif' => $request->retensi_inaktif . ' tahun',
-            'jumlah_retensi' => $request->jumlah_retensi . ' tahun',
+            'retensi_aktif' => $request->retensi_aktif,
+            'retensi_inaktif' => $request->retensi_inaktif,
+            'jumlah_retensi' => $request->jumlah_retensi,
             'nasib' => $request->nasib,
         ]);
     

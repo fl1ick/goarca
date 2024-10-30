@@ -18,9 +18,9 @@ return new class extends Migration
             $table->string('kategori');
             $table->string('kode_klasifikasi');
             $table->longText('klasifikasi');
-            $table->string('retensi_aktif');
-            $table->string('retensi_inaktif');
-            $table->string('jumlah_retensi');
+            $table->integer('retensi_aktif');
+            $table->integer('retensi_inaktif');
+            $table->integer('jumlah_retensi');
             $table->string('nasib');
             $table->timestamps();
         });

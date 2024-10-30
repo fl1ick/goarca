@@ -4,31 +4,31 @@
 			<span class="text">Arsip Kota Magelang</span>
 		</a>
 		<ul class="side-menu top">
-			<li class="active">
+			<li class="{{ request()->routeIs('beranda') ? 'active' : '' }}">
 				<a href="{{route('beranda')}}">
 					<i class='bx bxs-dashboard' ></i>
 					<span class="text">Beranda</span>
 				</a>
 			</li>
-			<li>
+			<li class="{{ request()->routeIs('jra') ? 'active' : '' }}">
 				<a href="{{route('jra')}}">
 				<i class='bx bxs-cabinet'></i>
 					<span class="text">Data Jra</span>
 				</a>
 			</li>
-			<li>
+			<li class="{{ request()->routeIs('kategory') ? 'active' : '' }}">
 				<a href="{{route('kategory')}}">
 					<i class='bx bxs-package' ></i>
 					<span class="text">Data Kategori</span>
 				</a>
 			</li>
-			<li>
+			<li class="{{ request()->routeIs('arsip.create') ? 'active' : '' }}">
 				<a href="{{route('arsip.create')}}">
 					<i class='bx bxs-layer'></i>
 					<span class="text">Upload Berkas</span>
 				</a>
 			</li>
-			<li>
+			<li class="{{ request()->routeIs('arsip') ? 'active' : '' }}">
 				<a href="{{route('arsip')}}">
 					<i class='bx bx-collection'></i>
 					<span class="text">Daftar Arsip</span>
