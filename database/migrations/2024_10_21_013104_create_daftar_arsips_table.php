@@ -22,6 +22,7 @@ return new class extends Migration
             $table->integer('retensi_inaktif');
             $table->integer('jumlah_retensi');
             $table->string('nasib');
+            $table->string('status');
             $table->timestamps();
         });
     }
