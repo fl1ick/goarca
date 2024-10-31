@@ -30,25 +30,25 @@ class UpdateRetentionStatus extends Command
     public function handle()
     {
         $today = Carbon::now()->toDateString();
-    
+
         // Ambil semua data yang dibutuhkan dari tabel daftar_arsips
-        $arsips = DB::table('daftar_arsips')->get(['id', 'tahun_berkas', 'jumlah_retensi', 'nasib']);
-    
+        $arsips = DB::table('daftar_arsips')->get(['id', 'tahun_berkas', 'jumlah_retensi', 'nasib', 'status']);
+
         foreach ($arsips as $arsip) {
             // Hitung tahun_musnah (tahun_berkas + jumlah_retensi)
             $tahun_musnah = Carbon::createFromDate($arsip->tahun_berkas)->addYears($arsip->jumlah_retensi)->toDateString();
-    
+
             // Jika tahun_musnah lebih kecil dari hari ini, update status 'nasib' menjadi 'Permanen'
-            if ($tahun_musnah > $today) {
+            if ($tahun_musnah < $today) {
                 // Ambil data lama sebelum diupdate
                 $oldData = [
-                    'nasib' => $arsip->nasib,
+                    'status' => $arsip->status,
                 ];
 
                 // Update status 'nasib' menjadi 'Permanen'
                 DB::table('daftar_arsips')
                     ->where('id', $arsip->id)
-                    ->update(['nasib' => 'Musnah']);
+                    ->update(['status' => 'Inaktif']);
 
                 // Simpan log perubahan
                 Log::create([
@@ -58,9 +58,19 @@ class UpdateRetentionStatus extends Command
                     'old_data' => json_encode($oldData), // Data sebelum perubahan
                     'new_data' => json_encode(['nasib' => 'Musnah']), // Data sesudah perubahan
                 ]);
+            } elseif ($tahun_musnah > $today) {
+                // Ambil data lama sebelum diupdate
+                $oldData = [
+                    'status' => $arsip->status,
+                ];
+
+                // Update status 'nasib' menjadi 'Permanen'
+                DB::table('daftar_arsips')
+                    ->where('id', $arsip->id)
+                    ->update(['status' => 'Aktif']);
             }
         }
-    
+
         $this->info('Cek barang kedaluwarsa selesai.');
     }
 }

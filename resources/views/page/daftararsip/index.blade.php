@@ -55,6 +55,7 @@
                 <th>Retensi Inaktif</th>
                 <th>Jumlah Retensi</th>
                 <th>Nasib</th>
+                <th>Status</th>
             </tr>
         </thead>
         <tbody>
@@ -70,6 +71,7 @@
                     <td>{{ $arsip->retensi_inaktif }}</td>
                     <td>{{ $arsip->jumlah_retensi }}</td>
                     <td>{{ $arsip->nasib }}</td>
+                    <td>{{ $arsip->status }}</td>
                 </tr>
             @endforeach
         </tbody>
