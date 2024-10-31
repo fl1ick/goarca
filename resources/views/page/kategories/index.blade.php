@@ -16,7 +16,7 @@
                 pagination: "local",
                 paginationSize: 10,
                 columns: [{
-                        title: "Kode Kategori",
+                        title: "Kode Kategori", 
                         field: "kode",
                         sorter: "string"
                     },
