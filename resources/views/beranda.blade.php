@@ -86,13 +86,6 @@
                     </tbody>
                 </table>
             </div>
-            <div class="todo">
-                <div class="head">
-                    <h3>List Data</h3>
-                    <i class='bx bx-plus'></i>
-                    <i class='bx bx-filter'></i>
-                </div>
-            </div>
         </div>
     </main>
     <!-- MAIN -->
