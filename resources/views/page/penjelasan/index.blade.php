@@ -1,0 +1,62 @@
+@extends('layouts.main')
+
+@section('content')
+<div id="blog" class="page-section py-5" style="background-color: #e3f2fd;"> <!-- Warna biru muda -->
+    <div class="container bg-white py-4 px-4 rounded shadow"> <!-- Latar putih pada bagian konten -->
+        <div class="row">
+            <div class="col text-center">
+                <h1 class="font-weight-bold">PANDUAN</h1>
+                <div class="line-dec mb-4"></div>
+            </div>
+        </div>
+        
+        <!-- Centered "Beranda" Image Section -->
+        <div class="row justify-content-center">
+            <div class="col-md-6 text-center">
+                <div class="image mb-3">
+                    <img src="{{ asset('img/beranda1.png') }}" class="img-fluid rounded border" style="width: 100%; border: 5px solid #2196f3; border-radius: 10px;" alt="Beranda Image"> <!-- Bingkai biru -->
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-4">
+            <div class="col-md-12">
+                <p class="font-weight-bold" style="font-size: 1.5rem;">1. Pilih Data Jra</p>
+            </div>
+            <div class="col-md-4">
+                <img src="{{ asset('img/sidebarjra.jpg') }}" width="200" height="620" class="img-fluid rounded border" style="border: 3px solid #2196f3; border-radius: 10px;" alt="Side Bar"> <!-- Bingkai biru -->
+            </div>
+            <div class="col-md-8">
+                <img src="{{ asset('img/datajra.jpg') }}" class="img-fluid rounded border" style="width: 100%; border: 3px solid #2196f3; border-radius: 10px;" alt="Data Jra"> <!-- Bingkai biru -->
+            </div>
+            <!-- Tambahkan Penjelasan -->
+            <div class="col-md-12 mt-2">
+                <p>Untuk mengakses data Jra, pilih menu 'Data Jra' pada sidebar di sebelah kiri.
+                   Di halaman ini, kamu dapat melihat data Jadwal Retensi Arsip, yang mencakup informasi mengenai retensi arsip aktif dan inaktif.
+                   Pastikan kamu memahami setiap kategori sebelum mengarsipkan data.
+                </p>
+            </div>
+        </div>
+
+        <div class="row mt-4">
+            <div class="col-md-12">
+                <p class="font-weight-bold" style="font-size: 1.5rem;">2. Pilih Data Kategori</p>
+            </div>
+            <div class="col-md-4">
+                <img src="{{ asset('img/sbkategori.jpg') }}" width="200" height="620" class="img-fluid rounded border" style="border: 3px solid #2196f3; border-radius: 10px;" alt="Side Bar"> <!-- Bingkai biru -->
+            </div>
+            <div class="col-md-8">
+                <img src="{{ asset('img/datakategori.jpg') }}" class="img-fluid rounded border" style="width: 100%; border: 3px solid #2196f3; border-radius: 10px;" alt="Data Kategori"> <!-- Bingkai biru -->
+            </div>
+            <!-- Tambahkan Penjelasan -->
+            <div class="col-md-12 mt-2">
+                <p>Untuk mengakses data Kategori, pilih menu 'Data Kategori' pada sidebar di sebelah kiri.
+                   Di halaman ini, kamu dapat melihat data kategori yang digunakan dalam pengarsipan.
+                </p>
+            </div>
+        </div>
+        
+        <!-- Tambahkan langkah lainnya sesuai kebutuhan -->
+    </div>
+</div>
+@endsection
