@@ -22,12 +22,6 @@
 					<span class="text">Data Kategori</span>
 				</a>
 			</li>
-			<li class="{{ request()->routeIs('arsip.create') ? 'active' : '' }}">
-				<a href="{{route('arsip.create')}}">
-					<i class='bx bxs-layer'></i>
-					<span class="text">Upload Berkas</span>
-				</a>
-			</li>
 			<li class="{{ request()->routeIs('arsip') ? 'active' : '' }}">
 				<a href="{{route('arsip')}}">
 					<i class='bx bx-collection'></i>
@@ -60,12 +54,6 @@
 			</li>
 		</ul>
 		<ul class="side-menu">
-			<li>
-				<a href="#">
-					<i class='bx bxs-cog' ></i>
-					<span class="text">Settings</span>
-				</a>
-			</li>
 			<li>
 				<a href="#" class="logout">
 					<i class='bx bxs-log-out-circle' ></i>

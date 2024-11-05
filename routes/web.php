@@ -16,6 +16,6 @@ Route::get('/kategory', [KategoryController::class, 'index'])->name("kategory");
 Route::get('/jra', [JraController::class, 'index'])->name("jra");
 
 Route::get('/arsip', [DaftarArsipController::class, 'index'])->name("arsip");
-Route::get('/arsipcreate', [DaftarArsipController::class, 'create'])->name("arsip.create");
+
 Route::post('/arsip', [DaftarArsipController::class, 'store'])->name('arsip.store');
 Route::get('/getKlasifikasi/{kodeKategori}', [DaftarArsipController::class, 'getKlasifikasi']);
