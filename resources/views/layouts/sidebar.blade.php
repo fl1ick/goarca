@@ -28,16 +28,16 @@
 					<span class="text">Daftar Arsip</span>
 				</a>
 			</li>
-			<li>
-				<a href="aktif">
-					<i class='bx bxs-archive-in'></i>
-					<span class="text">Daftar Aktif</span>
+			<li class="{{ request()->routeIs('aktif') ? 'active' : '' }}">
+				<a href="{{route('aktif')}}">
+					<i class='bx bx-collection'></i>
+					<span class="text">Berkas Aktif</span>
 				</a>
 			</li>
-			<li>
-				<a href="penjelasan.html">
-					<i class='bx bx-folder-minus'></i>	
-					<span class="text">Daftar Inaktif</span>
+			<li class="{{ request()->routeIs('inaktif') ? 'active' : '' }}">
+				<a href="{{route('inaktif')}}">
+					<i class='bx bx-collection'></i>
+					<span class="text">Berkas Inaktif</span>
 				</a>
 			</li>
 			<li>
