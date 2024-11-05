@@ -13,14 +13,15 @@ return new class extends Migration
     {
         Schema::create('berkasaktif', function (Blueprint $table) {
             $table->id();
-            $table->longText('isiberkas');
-            $table->date('tglberkas');
-            $table->integer('kode_klasifikasi');
+            $table->string('isi_berkas');
+            $table->date('tahun_berkas');
+            $table->string('kategori');
+            $table->string('kode_klasifikasi');
             $table->longText('klasifikasi');
             $table->integer('retensi_aktif');
             $table->integer('retensi_inaktif');
             $table->integer('jumlah_retensi');
-            $table->date('tahun_musnah');
+            $table->string('nasib');
             $table->string('status');
             $table->timestamps();
         });

@@ -191,6 +191,8 @@
                             <th>Retensi Inaktif</th>
                             <th>Jumlah Retensi</th>
                             <th>Nasib</th>
+                            <th>Status</th>
+                            <th>Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -206,6 +208,15 @@
                             <td>{{ $arsip->retensi_inaktif }}</td>
                             <td>{{ $arsip->jumlah_retensi }}</td>
                             <td>{{ $arsip->nasib }}</td>
+                            <td>{{ $arsip->status }}</td>
+                            <td>
+                                <!-- Form untuk tombol hapus -->
+                                <form action="{{ route('arsip.destroy', $arsip->id) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus arsip ini?');">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger btn-sm">Hapus</button>
+                                </form>
+                            </td>
                         </tr>
                         @endforeach
                     </tbody>

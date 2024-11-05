@@ -5,8 +5,7 @@ namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\Controller;
 use App\Models\{DaftarArsip,Jra,Kategory};
 use Illuminate\Http\Request;
-use Maatwebsite\Excel\Facades\Excel;
-use App\Exports\DaftarArsipExport;
+
 
 class DaftarArsipController extends Controller
 {
@@ -83,6 +82,7 @@ class DaftarArsipController extends Controller
             'retensi_inaktif' => 'required|integer',
             'jumlah_retensi' => 'required|integer',
             'nasib' => 'required|string|max:255',
+            'status' => 'required|string|max:255',
         ]);
     
         // Ambil nama kategori berdasarkan kode yang dipilih
@@ -103,6 +103,7 @@ class DaftarArsipController extends Controller
             'retensi_inaktif' => $request->retensi_inaktif,
             'jumlah_retensi' => $request->jumlah_retensi,
             'nasib' => $request->nasib,
+            'status' => $request->status,
         ]);
     
         return redirect()->route('arsip')->with('success', 'Data arsip berhasil disimpan.');
@@ -137,10 +138,14 @@ class DaftarArsipController extends Controller
      * Remove the specified resource from storage.
      */
     
-    public function destroy(DaftarArsip $daftarArsip)
-    {
-        //
-    }
+     public function destroy(DaftarArsip $daftarArsip)
+     {
+        // Hapus data arsip
+        $daftarArsip->delete();
+     
+        return redirect()->route('arsip')->with('success', 'Data arsip berhasil dihapus.');
+     }
+     
     public function getKlasifikasi($kodeKategori)
     {
         $klasifikasi = Jra::where('kode_kategori', $kodeKategori)->get();
