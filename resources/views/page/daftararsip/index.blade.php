@@ -1,6 +1,9 @@
 @extends('layouts.main')
 
 @section('content')
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+
 <main>
     <div class="table-data">
         <div class="order">
@@ -55,121 +58,125 @@
                                 Filter</button>
                         </div>
                     </div>
+                    <div class="col-md-6">
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                            data-bs-target="#exampleModal">
+                            + Tambah Arsip
+                        </button>
+                    </div>
                 </div>
             </form>
-            <!-- Modal 
-                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                        aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">Tambah Arsip</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <form action="{{ route('arsip.store') }}" method="POST">
-                                        @csrf
-                                        <div class="my-3 p-3 bg-body rounded shadow-sm">
-                                            <div class="mb-3 row">
-                                                <label for="isi_berkas" class="col-sm-2 col-form-label">Isi
-                                                    Berkas:</label>
-                                                <div class="col-sm-10">
-                                                    <textarea class="form-control w-100" name="isi_berkas"
-                                                        id="isi_berkas" rows="3" required></textarea>
-                                                </div>
-                                            </div>
 
-                                            <div class="mb-3 row">
-                                                <label for="tahun_berkas" class="col-sm-2 col-form-label">Tahun
-                                                    Berkas:</label>
-                                                <div class="col-sm-10">
-                                                    <input class="form-control w-25" type="date" name="tahun_berkas"
-                                                        id="tahun_berkas" required>
-                                                </div>
-                                            </div>
-
-                                            <div class="mb-3 row">
-                                                <label for="kategori" class="col-sm-2 col-form-label">Kategori:</label>
-                                                <div class="col-sm-10">
-                                                    <select name="kategori" id="kategori" class="form-control w-25"
-                                                        required>
-                                                        <option value="">--Pilih Kategori--</option>
-                                                        @foreach($kategories as $kategori)
-                                                        <option value="{{ $kategori->kode }}">{{ $kategori->kategori }}
-                                                        </option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-                                            </div>
-
-                                            <div class="mb-3 row">
-                                                <label for="klasifikasi"
-                                                    class="col-sm-2 col-form-label">Klasifikasi:</label>
-                                                <div class="col-sm-10">
-                                                    <select name="klasifikasi" id="klasifikasi"
-                                                        class="form-control w-75" required>
-                                                        <option value="">--Pilih Klasifikasi--</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-
-                                            <input type="hidden" name="klasifikasi_hidden" id="klasifikasi_hidden">
-
-                                            <div class="mb-3 row">
-                                                <label for="kode_klasifikasi" class="col-sm-2 col-form-label">Kode
-                                                    Klasifikasi:</label>
-                                                <div class="col-sm-10">
-                                                    <input class="form-control w-25" type="text" name="kode_klasifikasi"
-                                                        id="kode_klasifikasi" readonly>
-                                                </div>
-                                            </div>
-
-                                            <div class="mb-3 row">
-                                                <label for="retensi_aktif" class="col-sm-2 col-form-label">Retensi
-                                                    Aktif:</label>
-                                                <div class="col-sm-10">
-                                                    <input class="form-control w-25" type="number" name="retensi_aktif"
-                                                        id="retensi_aktif" readonly>
-                                                </div>
-                                            </div>
-
-                                            <div class="mb-3 row">
-                                                <label for="retensi_inaktif" class="col-sm-2 col-form-label">Retensi
-                                                    Inaktif:</label>
-                                                <div class="col-sm-10">
-                                                    <input class="form-control w-25" type="number"
-                                                        name="retensi_inaktif" id="retensi_inaktif" readonly>
-                                                </div>
-                                            </div>
-
-                                            <div class="mb-3 row">
-                                                <label for="jumlah_retensi" class="col-sm-2 col-form-label">Jumlah
-                                                    Retensi:</label>
-                                                <div class="col-sm-10">
-                                                    <input class="form-control w-25" type="number" name="jumlah_retensi"
-                                                        id="jumlah_retensi" readonly>
-                                                </div>
-                                            </div>
-
-                                            <div class="mb-3 row">
-                                                <label for="nasib" class="col-sm-2 col-form-label">Nasib:</label>
-                                                <div class="col-sm-10">
-                                                    <input class="form-control w-25" type="text" name="nasib" id="nasib"
-                                                        readonly>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary"
-                                        data-bs-dismiss="modal">Close</button>
-                                    <button type="submit" class="btn btn-primary">Submit</button>
-                                </div>
-                            </div>
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog modal-75w">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Tambah Arsip</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                    </div>-->
+                        <div class="modal-body">
+                            <form action="{{ route('arsip.store') }}" method="POST">
+                                @csrf
+                                <div class="my-3 p-3 bg-body rounded shadow-sm">
+                                    <div class="mb-3 row">
+                                        <label for="isi_berkas" class="col-sm-2 col-form-label">Isi Berkas:</label>
+                                        <div class="col-sm-10">
+                                            <textarea class="form-control w-100" name="isi_berkas" id="isi_berkas"
+                                                rows="3" required></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3 row">
+                                        <label for="tahun_berkas" class="col-sm-2 col-form-label">Tahun Berkas:</label>
+                                        <div class="col-sm-10">
+                                            <input class="form-control w-25" type="date" name="tahun_berkas"
+                                                id="tahun_berkas" required>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3 row">
+                                        <label for="kategori" class="col-sm-2 col-form-label">Kategori:</label>
+                                        <div class="col-sm-10">
+                                            <select name="kategori" id="kategori" class="form-control w-25" required>
+                                                <option value="">--Pilih Kategori--</option>
+                                                @foreach($kategories as $kategori)
+                                                <option value="{{ $kategori->kode }}">{{ $kategori->kategori }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3 row">
+                                        <label for="klasifikasi" class="col-sm-2 col-form-label">Klasifikasi:</label>
+                                        <div class="col-sm-10">
+                                            <select name="klasifikasi" id="klasifikasi" class="form-control w-75"
+                                                required>
+                                                <option value="">--Pilih Klasifikasi--</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <input type="hidden" name="klasifikasi_hidden" id="klasifikasi_hidden">
+                                    <div class="mb-3 row">
+                                        <label for="kode_klasifikasi" class="col-sm-2 col-form-label">Kode
+                                            Klasifikasi:</label>
+                                        <div class="col-sm-10">
+                                            <input class="form-control w-25" type="text" name="kode_klasifikasi"
+                                                id="kode_klasifikasi" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3 row">
+                                        <label for="retensi_aktif" class="col-sm-2 col-form-label">Retensi
+                                            Aktif:</label>
+                                        <div class="col-sm-10">
+                                            <input class="form-control w-25" type="number" name="retensi_aktif"
+                                                id="retensi_aktif" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3 row">
+                                        <label for="retensi_inaktif" class="col-sm-2 col-form-label">Retensi
+                                            Inaktif:</label>
+                                        <div class="col-sm-10">
+                                            <input class="form-control w-25" type="number" name="retensi_inaktif"
+                                                id="retensi_inaktif" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3 row">
+                                        <label for="jumlah_retensi" class="col-sm-2 col-form-label">Jumlah
+                                            Retensi:</label>
+                                        <div class="col-sm-10">
+                                            <input class="form-control w-25" type="number" name="jumlah_retensi"
+                                                id="jumlah_retensi" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3 row">
+                                        <label for="nasib" class="col-sm-2 col-form-label">Nasib:</label>
+                                        <div class="col-sm-10">
+                                            <input class="form-control w-25" type="text" name="nasib" id="nasib"
+                                                readonly>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <style>
+            .modal-75w {
+                max-width: 75%;
+                /* Set the modal width to 75% of the screen */
+            }
+
+            .sidebar a {
+                text-decoration: none;
+                /* Menghapus garis bawah */
+            }
+            </style>
+
+
 
 
 
@@ -191,8 +198,6 @@
                             <th>Retensi Inaktif</th>
                             <th>Jumlah Retensi</th>
                             <th>Nasib</th>
-                            <th>Status</th>
-                            <th>Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -208,15 +213,6 @@
                             <td>{{ $arsip->retensi_inaktif }}</td>
                             <td>{{ $arsip->jumlah_retensi }}</td>
                             <td>{{ $arsip->nasib }}</td>
-                            <td>{{ $arsip->status }}</td>
-                            <td>
-                                <!-- Form untuk tombol hapus -->
-                                <form action="{{ route('arsip.destroy', $arsip->id) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus arsip ini?');">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-danger btn-sm">Hapus</button>
-                                </form>
-                            </td>
                         </tr>
                         @endforeach
                     </tbody>
@@ -224,6 +220,25 @@
             </div>
         </div>
     </div>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const sidebar = document.getElementById('sidebar');
+        const modal = document.getElementById('myModal');
+
+        if (modal) {
+            // Saat modal terbuka, matikan sidebar
+            modal.addEventListener('show.bs.modal', function() {
+                if (sidebar) sidebar.classList.remove('active');
+            });
+
+            // Saat modal tertutup, aktifkan kembali sidebar
+            modal.addEventListener('hide.bs.modal', function() {
+                if (sidebar) sidebar.classList.add('active');
+            });
+        }
+    });
+    </script>
 
     <script>
     document.getElementById('kategori').addEventListener('change', function() {
