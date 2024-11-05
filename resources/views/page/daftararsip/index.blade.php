@@ -113,6 +113,17 @@
                                             </select>
                                         </div>
                                     </div>
+                                    <div class="mb-3 row">
+                                        <label for="status" class="col-sm-2 col-form-label">Status:</label>
+                                        <div class="col-sm-10">
+                                            <select name="status" id="status" class="form-control w-25" required>
+                                                <option value="">--Pilih Status--</option>
+                                                <option value="proses">Proses</option>
+                                                <option value="aktif">Aktif</option>
+                                                <option value="inaktif">Inaktif</option>
+                                            </select>
+                                        </div>
+                                    </div>
                                     <input type="hidden" name="klasifikasi_hidden" id="klasifikasi_hidden">
                                     <div class="mb-3 row">
                                         <label for="kode_klasifikasi" class="col-sm-2 col-form-label">Kode
