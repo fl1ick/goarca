@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Frontend\{BerandaController,KategoryController,JraController,BerkasAktifController,DaftarArsipController,BerkasInaktifController};
+use App\Http\Controllers\Frontend\{BerandaController,KategoryController,JraController,BerkasAktifController,DaftarArsipController,BerkasInaktifController,TatacaraController,PenjelasanController};
 
 // Route::get('/', function () {return view('beranda');});
 // Route::get('/beranda', function () {return view('beranda');});
@@ -20,3 +20,6 @@ Route::delete('/arsip/{daftarArsip}', [DaftarArsipController::class, 'destroy'])
 Route::get('/arsipcreate', [DaftarArsipController::class, 'create'])->name("arsip.create");
 Route::post('/arsip', [DaftarArsipController::class, 'store'])->name('arsip.store');
 Route::get('/getKlasifikasi/{kodeKategori}', [DaftarArsipController::class, 'getKlasifikasi']);
+
+Route::get('/tatacara', [TatacaraController::class, 'index'])->name('tatacara');
+Route::get('/penjelasan', [PenjelasanController::class, 'index'])->name('penjelasan');

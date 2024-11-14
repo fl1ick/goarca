@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
 @section('content')
-<div id="blog" class="page-section py-5" style="background-color: #e3f2fd;"> <!-- Warna biru muda -->
+<!-- <div id="blog" class="page-section py-5" style="background-color: #e3f2fd;"> Warna biru muda -->
     <div class="container bg-white py-4 px-4 rounded shadow"> <!-- Latar putih pada bagian konten -->
         <div class="row">
             <div class="col text-center">

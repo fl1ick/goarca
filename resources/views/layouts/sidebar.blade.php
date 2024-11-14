@@ -40,16 +40,16 @@
 					<span class="text">Berkas Inaktif</span>
 				</a>
 			</li>
-			<li>
-				<a href="penjelasan.html" style="text-decoration: none;">
-					<i class='bx bxs-detail'></i>	
-					<span class="text">Tatacara</span>
+			<li class="{{ request()->routeIs('tatacara') ? 'active' : '' }}">
+				<a href="{{route('tatacara')}}" style="text-decoration: none;">
+				<i class='bx bxs-cabinet'></i>
+					<span class="text">Tata Cara</span>
 				</a>
 			</li>
-			<li>
-				<a href="penjelasan.html" style="text-decoration: none;">
-					<i class='bx bxs-bookmarks'></i>	
-					<span class="text">penjelasan</span>
+			<li class="{{ request()->routeIs('penjelasan') ? 'active' : '' }}">
+				<a href="{{route('penjelasan')}}" style="text-decoration: none;">
+				<i class='bx bxs-cabinet'></i>
+					<span class="text">Penjelasan</span>
 				</a>
 			</li>
 		</ul>

@@ -105,7 +105,7 @@ class DaftarArsipController extends Controller
             'nasib' => $request->nasib,
             'status' => $request->status,
         ]);
-    
+
         return redirect()->route('arsip')->with('success', 'Data arsip berhasil disimpan.');
     }
     
