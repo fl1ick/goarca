@@ -17,7 +17,7 @@
                     </div>
                     <div class="col-md-6">
                         <label for="tahun_berkas">Tahun Berkas:</label>
-                        <input class="form-control w-25" type="number" name="tahun_berkas" id="tahun_berkas"
+                        <input class="form-control w-25" type="date" name="tahun_berkas" id="tahun_berkas"
                             value="{{ request()->tahun_berkas }}">
                     </div>
 
@@ -47,13 +47,25 @@
 
                     <div class="col-md-6">
                         <label for="nasib">Status:</label>
-                        <input class="form-control w-50" type="text" name="nasib1" id="nasib1"
-                            value="{{ request()->nasib }}">
+                        <div>
+                            <div>
+                                <select name="status1" id="status1" class="form-control w-50">
+                                    <option value="">--Pilih status--</option>
+                                    @foreach($daftararsip as $arsip)
+                                    <option value="{{ $arsip->status }}"
+                                        {{ request()->status == $kategori->status ? 'selected' : '' }}>
+                                        {{ $arsip->status }}
+                                    </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
                     </div>
                     <div class="col-md-6">
                         <div class="col-md-8 d-flex justify-content-center mb-4">
                             <button type="submit" class="form-control w-25 btn btn-primary"><i class='bx bx-filter'></i>
-                                Filter</button>
+                                Filter
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -209,6 +221,7 @@
                             <th>Retensi Inaktif</th>
                             <th>Jumlah Retensi</th>
                             <th>Nasib</th>
+                            <th>Status</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -224,6 +237,7 @@
                             <td>{{ $arsip->retensi_inaktif }}</td>
                             <td>{{ $arsip->jumlah_retensi }}</td>
                             <td>{{ $arsip->nasib }}</td>
+                            <td>{{ $arsip->status }}</td>
                         </tr>
                         @endforeach
                     </tbody>
@@ -271,9 +285,27 @@
         document.getElementById('jumlah_retensi').value = selectedOption.getAttribute('data-jumlah-retensi');
         document.getElementById('nasib').value = selectedOption.getAttribute('data-nasib');
     });
-    </script>
+</script>
+<script>
+    // Mengisi otomatis klasifikasi berdasarkan kategori yang dipilih di form filter
+    document.getElementById('kategori1').addEventListener('change', function() {
+        var kodeKategori = this.value;
+        fetch('/getKlasifikasi/' + kodeKategori)
+            .then(response => response.json())
+            .then(data => {
+                var klasifikasiSelect = document.getElementById('klasifikasi1');
+                klasifikasiSelect.innerHTML = '<option value="">--Pilih Klasifikasi--</option>';
+                data.forEach(function(klasifikasi) {
+                    klasifikasiSelect.innerHTML += `<option value="${klasifikasi.kode_klasifikasi}">
+                        ${klasifikasi.klasifikasi}</option>`;
+                });
+            })
+            .catch(error => console.error('Error:', error));
+    });
+</script>
 
-    <script>
+
+<script>
     document.addEventListener('DOMContentLoaded', function() {
         const sidebar = document.getElementById('sidebar');
         const modal = document.getElementById('myModal');
@@ -290,6 +322,6 @@
             });
         }
     });
-    </script>
-    </main>
-    @endsection
+</script>
+</main>
+@endsection
