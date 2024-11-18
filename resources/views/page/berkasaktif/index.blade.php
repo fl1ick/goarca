@@ -37,6 +37,13 @@
                             <td>{{ $aktif->jumlah_retensi }}</td>
                             <td>{{ $aktif->nasib }}</td>
                             <td>{{ $aktif->status }}</td>
+                            <td>
+                                <form action="{{ route('berkasaktif.destroy', $aktif->id) }}" method="POST" onsubmit="return confirm('Are you sure want to delete this record?');">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                </form>                                
+                            </td>
                         </tr>
                         @endforeach
                     </tbody>

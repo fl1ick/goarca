@@ -55,7 +55,6 @@ class UpdateRetentionStatus extends Command
                 'new_data' => json_encode(['status' => 'Inaktif']),
             ]);
 
-            // Siapkan data untuk dipindahkan ke berkas_inaktif
             $dataToMove = [
                 'isi_berkas' => $arsip->isi_berkas,
                 'tahun_berkas' => $arsip->tahun_berkas,
@@ -69,14 +68,11 @@ class UpdateRetentionStatus extends Command
                 'status' => 'Inaktif',
             ];
 
-            // Check if record already exists in berkas_inaktif
             if (!DB::table('berkasinaktif')->where('isi_berkas', $arsip->isi_berkas)->exists()) {
-                // Simpan data ke tabel berkas_inaktif
                 DB::table('berkasinaktif')->insert($dataToMove);
                 // Hapus data dari daftar_arsips
                 ## DB::table('daftar_arsips')->where('id', $arsip->id)->delete();
 
-                // Log the move action
                 Log::create([
                     'action' => 'moved',
                     'table_name' => 'daftar_arsips',
@@ -89,12 +85,10 @@ class UpdateRetentionStatus extends Command
         } elseif ($tahun_musnah > $today) {
             $oldData = ['status' => $arsip->status];
 
-            // Update status 'nasib' menjadi 'Aktif'
             DB::table('daftar_arsips')
                 ->where('id', $arsip->id)
                 ->update(['status' => 'Aktif']);
 
-            // Log the active status update
             Log::create([
                 'action' => 'updated',
                 'table_name' => 'daftar_arsips',
@@ -103,7 +97,6 @@ class UpdateRetentionStatus extends Command
                 'new_data' => json_encode(['status' => 'Aktif']),
             ]);
 
-            // Siapkan data untuk dipindahkan ke berkas_aktif jika statusnya aktif
             $dataToMoveActive = [
                 'isi_berkas' => $arsip->isi_berkas,
                 'tahun_berkas' => $arsip->tahun_berkas,

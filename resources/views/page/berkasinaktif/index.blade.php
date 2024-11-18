@@ -21,6 +21,7 @@
                             <th>Jumlah Retensi</th>
                             <th>Nasib</th>
                             <th>Status</th>
+                            <th>Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -37,6 +38,13 @@
                             <td>{{ $inaktif->jumlah_retensi }}</td>
                             <td>{{ $inaktif->nasib }}</td>
                             <td>{{ $inaktif->status }}</td>
+                            <td>
+                                <form action="{{ route('berkasinaktif.destroy', $inaktif->id) }}" method="POST" onsubmit="return confirm('Are you sure want to delete this record?');">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                </form>                                
+                            </td>
                         </tr>
                         @endforeach
                     </tbody>

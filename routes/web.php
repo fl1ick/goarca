@@ -11,8 +11,10 @@ Route::get('/aktif', function () {return view('aktif');});
 Route::get('/', [BerandaController::class, 'index'])->name("beranda.index");
 Route::get('/beranda', [BerandaController::class, 'index'])->name("beranda");
 Route::get('/kategory', [KategoryController::class, 'index'])->name("kategory");
-Route::get('berkasinaktif', [BerkasInaktifController::class, 'index'])->name("inaktif");
-Route::get('berkasaktif', [BerkasAktifController::class, 'index'])->name("aktif");
+Route::get('/berkasinaktif', [BerkasInaktifController::class, 'index'])->name("inaktif");
+Route::delete('/berkasinaktif/{berkasInaktif}', [BerkasInaktifController::class, 'destroy'])->name('berkasinaktif.destroy');
+Route::get('/berkasaktif', [BerkasAktifController::class, 'index'])->name("aktif");
+Route::delete('/berkasaktif/{berkasAktif}', [BerkasAktifController::class, 'destroy'])->name('berkasaktif.destroy');
 Route::get('/jra', [JraController::class, 'index'])->name("jra");
 
 Route::get('/arsip', [DaftarArsipController::class, 'index'])->name("arsip");
