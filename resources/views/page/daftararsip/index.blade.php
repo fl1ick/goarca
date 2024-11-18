@@ -242,6 +242,7 @@
                         @endforeach
                     </tbody>
                 </table>
+                {{ $daftararsip->links() }}
             </div>
         </div>
     </div>

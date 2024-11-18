@@ -41,16 +41,16 @@
         <div class="table-data">
             <div class="order">
                 <div class="head">
-                    <h3>Log Data</h3>
+                    <h3>Jejak Data</h3>
                 </div>
                 <table>
                         <thead>
                         <tr>
                             <th>Action</th>
-                            <th>Table_name</th>
-                            <th>record_id</th>
-                            <th>old_data</th>
-                            <th>new_data</th>
+                            <th>Nama Tabel</th>
+                            <th>id</th>
+                            <th>data lama</th>
+                            <th>data baru</th>
                         </tr>
                     </thead>
                     <tbody>

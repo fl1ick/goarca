@@ -16,7 +16,7 @@ class BerandaController extends Controller
     {
         $jras = Jra::get();
         $kategory = kategory::get();
-        $logs = Log::all();
+        $logs = Log::orderBy('created_at', 'desc')->paginate(10);
         #dd($logs);
         $Hasiljras = Jra::selectRaw('COUNT(*) as total_data_jras')->first();
         $Hasilkategory = Kategory::selectRaw('COUNT(*) as total_data_kategory')->first();
