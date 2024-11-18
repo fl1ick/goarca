@@ -62,6 +62,8 @@ class BerkasAktifController extends Controller
      */
     public function destroy(BerkasAktif $berkasAktif)
     {
-        //
+        $berkasAktif->delete();
+     
+        return redirect()->route('aktif')->with('success', 'Data berhasil dihapus.');
     }
 }
