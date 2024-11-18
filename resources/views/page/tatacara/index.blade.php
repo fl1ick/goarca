@@ -1,26 +1,20 @@
 @extends('layouts.main')
 
 @section('content')
-    <div class="container bg-white py-4 px-4 rounded shadow"> <!-- Latar putih pada bagian konten -->
-
-        <div class="row" style="height: 10vh; display: flex; justify-content: center; align-items: center;">
+    <div class="container bg-white py-4 px-4 rounded shadow">
+        <div class="row">
             <div class="col text-center">
-                <h1 class="font-weight-bold" style="margin-bottom: 1px;">TATACARA</h1> <!-- Atur margin bawah -->
-                <div class="line-dec mb-2" style="width: 50%; margin: 0 auto;"></div> <!-- Atur margin dan panjang garis -->
+                <h1 class="font-weight-bold">TATA CARA</h1>
+                <div class="line-dec mb-4"></div>
             </div>
         </div>
-
-        <!-- Gambar Beranda di Tengah -->
-        <div style="text-align: center; margin-bottom: 30px;">
-            <img src="{{ asset('img/beranda1.png') }}" style="max-width: 90%; border: 2px solid #2196f3; border-radius: 10px;" alt="Beranda Image">
-        </div>
-
-        <!-- Langkah 1: Pilih Data Jra -->
-        <div style="margin-top: 30px;">
-            <p class="font-weight-bold" style="font-size: 1.5rem; text-align: center;">1. Pilih Data Jra</p>
-            <div style="display: flex; justify-content: center; align-items: center;">
-                <div style="flex: 1; margin-right: 5px;">
-                    <img src="{{ asset('img/sidebarjra.jpg') }}" style="max-width: 30%; height: auto; border: 3px solid #2196f3; border-radius: 10px;" alt="Side Bar">
+        
+        <div class="row justify-content-center">
+            <div class="col-md-8 text-center">
+                <div class="image mb-3">
+                    <img src="{{ asset('img/Beranda.png') }}" class="img-fluid rounded border" 
+                        style="width: 120%; border: 5px solid #2196f3; border-radius: 10px;" 
+                        alt="Beranda Image"> 
                 </div>
                 <div class="description mt-3">
                     <p style="font-size: 18px; color: #555;">
@@ -30,21 +24,134 @@
                     </p>
                 </div>
             </div>
-
-
-            <p style="margin-top: 10px;">Untuk mengakses data Jra, pilih menu 'Data Jra' pada sidebar di sebelah kiri. Di halaman ini, kamu dapat melihat data Jadwal Retensi Arsip.</p>
         </div>
 
-        <!-- Langkah 2: Pilih Data Kategori -->
-        <div style="margin-top: 30px;">
-            <p class="font-weight-bold" style="font-size: 1.5rem; text-align: center;">2. Pilih Data Kategori</p>
-            <div style="display: flex; justify-content: space-between; align-items: center;">
-                <div style="flex: 1; margin-right: 20px;">
-                    <img src="{{ asset('img/sbkategori.jpg') }}" style="max-width: 40%; height: auto; border: 3px solid #2196f3; border-radius: 10px;" alt="Side Bar">
-                </div>
-                <div style="flex: 1;">
-                    <img src="{{ asset('img/datakategori.jpg') }}" style="max-width: 80%; height: auto; border: 3px solid #2196f3; border-radius: 10px;" alt="Data Kategori">
-                </div>
+
+
+        <div class="row mt-4">
+            <div class="col-md-12">
+                <p class="font-weight-bold" style="font-size: 1.5rem;">1. Pilih Data Jra</p>
+            </div>
+            <div class="col-md-4">
+                <img src="{{ asset('img/Edit/Sbjraedit.png') }}" width="180" height="620" class="img-fluid rounded border" style="border: 3px solid #2196f3; border-radius: 10px;" alt="Side Bar"> 
+            </div>
+            <div class="col-md-8">
+                <img src="{{ asset('img/datajra.jpg') }}" class="img-fluid rounded border" style="width: 100%; border: 3px solid #2196f3; border-radius: 10px;" alt="Data Jra"> 
+            </div>
+            
+            <div class="col-md-12 mt-2">
+                <p style="font-size: 20px;">Untuk mengakses Data Jra, pilih menu 'Data Jra' pada sidebar di sebelah kiri.
+                   Di halaman ini, kamu dapat melihat data Jadwal Retensi Arsip, yang mencakup informasi mengenai retensi arsip aktif dan inaktif.
+                   Pastikan kamu memahami setiap kategori sebelum mengarsipkan data.
+                </p>
+            </div>
+        </div>
+
+        <div class="row mt-4">
+            <div class="col-md-12">
+                <p class="font-weight-bold" style="font-size: 1.5rem;">2. Pilih Data Kategori</p>
+            </div>
+            <div class="col-md-4">
+                <img src="{{ asset('img/Edit/Sbkateedit.png') }}" width="180" height="620" class="img-fluid rounded border" style="border: 3px solid #2196f3; border-radius: 10px;" alt="Side Bar"> 
+            </div>
+            <div class="col-md-8">
+                <img src="{{ asset('img/datakategori.jpg') }}" class="img-fluid rounded border" style="width: 100%; border: 3px solid #2196f3; border-radius: 10px;" alt="Data Kategori"> 
+            </div>
+            
+            <div class="col-md-12 mt-2">
+                <p style="font-size: 20px;">Untuk mengakses Data Kategori, pilih menu 'Data Kategori' pada sidebar di sebelah kiri.
+                   Di halaman ini, kamu dapat melihat data kategori yang digunakan dalam pengarsipan.
+                </p>
+            </div>
+        </div>
+
+        <div class="row mt-4">
+            <div class="col-md-12">
+                <p class="font-weight-bold" style="font-size: 1.5rem;">3. Pilih Daftar Arsip</p>
+            </div>
+            <div class="col-md-4">
+                <img src="{{ asset('img/Edit/Sbdaftaredit.png') }}" width="180" height="620" class="img-fluid rounded border" style="border: 3px solid #2196f3; border-radius: 10px;" alt="Side Bar"> 
+            </div>
+            <div class="col-md-8">
+                <img src="{{ asset('img/Edit/Tmbltambah.png') }}" class="img-fluid rounded border" style="width: 100%; border: 3px solid #2196f3; border-radius: 10px;" alt="Berkas Aktif"> 
+            </div>
+            
+            <div class="col-md-12 mt-2">
+                <p style="font-size: 20px;">Untuk mengakses Daftar Arsip, pilih menu 'Daftar Arsip' pada sidebar di sebelah kiri.
+                   Di halaman ini, kamu dapat melihat penambahan arsip dan pemfilteran arsip.
+                </p>
+            </div>
+        </div>
+
+        <div class="row mt-4">
+            <div class="col-md-12">
+                <p class="font-weight-bold" style="font-size: 1.5rem;">3. Pilih Daftar Arsip untuk Menambah Data</p>
+            </div>
+            <div class="col-md-4">
+                <img src="{{ asset('img/Edit/Sbdaftaredit.png') }}" width="180" height="620" class="img-fluid rounded border" style="border: 3px solid #2196f3; border-radius: 10px;" alt="Side Bar"> 
+            </div>
+            <div class="col-md-8">
+                <img src="{{ asset('img/Edit/Tambaharsip.png') }}" class="img-fluid rounded border" style="width: 100%; border: 3px solid #2196f3; border-radius: 10px;" alt="Berkas Aktif"> 
+            </div>
+            
+            <div class="col-md-12 mt-2">
+                <p style="font-size: 20px;">Untuk mengakses Daftar Arsip, pilih menu 'Daftar Arsip' pada sidebar di sebelah kiri.
+                   Di halaman ini, kamu dapat melihat penambahan arsip dan pemfilteran arsip.
+                </p>
+            </div>
+        </div>
+
+        <div class="row mt-4">
+            <div class="col-md-12">
+                <p class="font-weight-bold" style="font-size: 1.5rem;">4. Pilih Daftar Arsip untuk Memfilter Data</p>
+            </div>
+            <div class="col-md-4">
+                <img src="{{ asset('img/Edit/Sbdaftaredit.png') }}" width="180" height="620" class="img-fluid rounded border" style="border: 3px solid #2196f3; border-radius: 10px;" alt="Side Bar"> 
+            </div>
+            <div class="col-md-8">
+                <img src="{{ asset('img/Edit/Filteredit.png') }}" class="img-fluid rounded border" style="width: 100%; border: 3px solid #2196f3; border-radius: 10px;" alt="Berkas Aktif"> 
+            </div>
+            
+            <div class="col-md-12 mt-2">
+                <p style="font-size: 20px;">Untuk mengakses Berkas Aktif, pilih menu 'Berkas Aktif' pada sidebar di sebelah kiri.
+                   Di halaman ini, kamu dapat melihat arsip yang bersifat aktif.
+                </p>
+            </div>
+        </div>
+
+        <div class="row mt-4">
+            <div class="col-md-12">
+                <p class="font-weight-bold" style="font-size: 1.5rem;">5. Pilih Berkas Aktif</p>
+            </div>
+            <div class="col-md-4">
+                <img src="{{ asset('img/Edit/Sbaktifedit.png') }}" width="180" height="620" class="img-fluid rounded border" style="border: 3px solid #2196f3; border-radius: 10px;" alt="Side Bar"> 
+            </div>
+            <div class="col-md-8">
+                <img src="{{ asset('img/Data/Dataaktif.png') }}" class="img-fluid rounded border" style="width: 100%; border: 3px solid #2196f3; border-radius: 10px;" alt="Berkas Aktif"> 
+            </div>
+            
+            <div class="col-md-12 mt-2">
+                <p style="font-size: 20px;">Untuk mengakses Berkas Aktif, pilih menu 'Berkas Aktif' pada sidebar di sebelah kiri.
+                   Di halaman ini, kamu dapat melihat arsip yang bersifat aktif.
+                </p>
+            </div>
+        </div>
+
+        <div class="row mt-4">
+            <div class="col-md-12">
+                <p class="font-weight-bold" style="font-size: 1.5rem;">6. Pilih Berkas Inaktif</p>
+            </div>
+            <div class="col-md-4">
+                <img src="{{ asset('img/Edit/Sbinaktifedit.png') }}" width="180" height="620" class="img-fluid rounded border" style="border: 3px solid #2196f3; border-radius: 10px;" alt="Side Bar"> 
+            </div>
+            <div class="col-md-8">
+                <img src="{{ asset('img/Data/Datainaktif.png') }}" class="img-fluid rounded border" style="width: 100%; border: 3px solid #2196f3; border-radius: 10px;" alt="Berkas Inaktif"> 
+            </div>
+            
+            <div class="col-md-12 mt-2">
+                <p style="font-size: 20px;">Untuk mengakses Berkas Aktif, pilih menu 'Berkas Aktif' pada sidebar di sebelah kiri.
+                   Di halaman ini, kamu dapat melihat arsip yang bersifat inaktif.
+                </p>
             </div>
         </div>
         
