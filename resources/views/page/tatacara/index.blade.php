@@ -77,15 +77,15 @@
             </div>
             
             <div class="col-md-12 mt-2">
-                <p style="font-size: 20px;">Untuk mengakses Daftar Arsip, pilih menu 'Daftar Arsip' pada sidebar di sebelah kiri.
-                   Di halaman ini, kamu dapat melihat penambahan arsip dan pemfilteran arsip.
+                <p style="font-size: 20px;">Tombol 'Tambah Arsip' digunakan untuk menambahkan data arsip baru ke dalam sistem.
+                    Pastikan data yang diinput sesuai dengan ketentuan yang telah dijelaskan pada Tata Cara nomor 4. 
                 </p>
             </div>
         </div>
 
         <div class="row mt-4">
             <div class="col-md-12">
-                <p class="font-weight-bold" style="font-size: 1.5rem;">3. Pilih Daftar Arsip untuk Menambah Data</p>
+                <p class="font-weight-bold" style="font-size: 1.5rem;">4. Menambah Data</p>
             </div>
             <div class="col-md-4">
                 <img src="{{ asset('img/Edit/Sbdaftaredit.png') }}" width="180" height="620" class="img-fluid rounded border" style="border: 3px solid #2196f3; border-radius: 10px;" alt="Side Bar"> 
@@ -95,15 +95,16 @@
             </div>
             
             <div class="col-md-12 mt-2">
-                <p style="font-size: 20px;">Untuk mengakses Daftar Arsip, pilih menu 'Daftar Arsip' pada sidebar di sebelah kiri.
-                   Di halaman ini, kamu dapat melihat penambahan arsip dan pemfilteran arsip.
+                <p style="font-size: 20px;">Saat ingin menambahkan data, pastikan Anda mengisi semua kolom yang wajib, 
+                    yaitu 'Isi Berkas', 'Tahun Berkas', 'Kategori', 'Klasifikasi', dan 'Status'. 
+                    Setelah semua data terisi dengan lengkap, klik tombol 'Submit' yang berada di bagian bawah untuk menyimpan data.
                 </p>
             </div>
         </div>
 
         <div class="row mt-4">
             <div class="col-md-12">
-                <p class="font-weight-bold" style="font-size: 1.5rem;">4. Pilih Daftar Arsip untuk Memfilter Data</p>
+                <p class="font-weight-bold" style="font-size: 1.5rem;">5. Memfilter Data</p>
             </div>
             <div class="col-md-4">
                 <img src="{{ asset('img/Edit/Sbdaftaredit.png') }}" width="180" height="620" class="img-fluid rounded border" style="border: 3px solid #2196f3; border-radius: 10px;" alt="Side Bar"> 
@@ -113,15 +114,16 @@
             </div>
             
             <div class="col-md-12 mt-2">
-                <p style="font-size: 20px;">Untuk mengakses Berkas Aktif, pilih menu 'Berkas Aktif' pada sidebar di sebelah kiri.
-                   Di halaman ini, kamu dapat melihat arsip yang bersifat aktif.
+                <p style="font-size: 20px;">Untuk mencari atau memfilter data, 
+                    silakan isi kolom 'Isi Berkas', 'Tahun Berkas', 'Kategori', 'Klasifikasi', dan 'Status' sesuai dengan data yang ingin dicari. 
+                    Setelah semua kolom terisi, klik tombol 'Filter' untuk menampilkan hasil pencarian.
                 </p>
             </div>
         </div>
 
         <div class="row mt-4">
             <div class="col-md-12">
-                <p class="font-weight-bold" style="font-size: 1.5rem;">5. Pilih Berkas Aktif</p>
+                <p class="font-weight-bold" style="font-size: 1.5rem;">6. Pilih Berkas Aktif</p>
             </div>
             <div class="col-md-4">
                 <img src="{{ asset('img/Edit/Sbaktifedit.png') }}" width="180" height="620" class="img-fluid rounded border" style="border: 3px solid #2196f3; border-radius: 10px;" alt="Side Bar"> 
@@ -139,7 +141,7 @@
 
         <div class="row mt-4">
             <div class="col-md-12">
-                <p class="font-weight-bold" style="font-size: 1.5rem;">6. Pilih Berkas Inaktif</p>
+                <p class="font-weight-bold" style="font-size: 1.5rem;">7. Pilih Berkas Inaktif</p>
             </div>
             <div class="col-md-4">
                 <img src="{{ asset('img/Edit/Sbinaktifedit.png') }}" width="180" height="620" class="img-fluid rounded border" style="border: 3px solid #2196f3; border-radius: 10px;" alt="Side Bar"> 

@@ -242,7 +242,9 @@
                         @endforeach
                     </tbody>
                 </table>
-                {{ $daftararsip->links() }}
+                <div class="d-flex justify-content-center">
+        {{ $daftararsip->links('pagination::bootstrap-5') }}
+    </div>
             </div>
         </div>
     </div>
