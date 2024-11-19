@@ -96,7 +96,8 @@
             
             <div class="col-md-12 mt-2">
                 <p style="font-size: 20px;">Untuk mengakses Berkas Aktif, pilih menu 'Berkas Aktif' pada sidebar di sebelah kiri.
-                   Di halaman ini, kamu dapat melihat arsip yang bersifat aktif.
+                   Di halaman ini, kamu dapat melihat arsip yang bersifat aktif. Berkas aktif adalah data yang berasal dari penambahan arsip dengan status 'Aktif'. 
+                   Status ini menunjukkan bahwa berkas tersebut masih digunakan atau relevan untuk keperluan saat ini.
                 </p>
             </div>
         </div>
@@ -114,7 +115,9 @@
             
             <div class="col-md-12 mt-2">
                 <p style="font-size: 20px;">Untuk mengakses Berkas Aktif, pilih menu 'Berkas Aktif' pada sidebar di sebelah kiri.
-                   Di halaman ini, kamu dapat melihat arsip yang bersifat inaktif.
+                   Di halaman ini, kamu dapat melihat arsip yang bersifat inaktif. 
+                   Berkas inaktif adalah data yang berasal dari penambahan arsip dengan status 'Inaktif'. 
+                   Status ini menunjukkan bahwa berkas tersebut sudah tidak digunakan secara rutin, namun tetap disimpan untuk keperluan referensi atau sesuai dengan jadwal retensi arsip.
                 </p>
             </div>
         </div>
