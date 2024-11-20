@@ -33,10 +33,10 @@
                 <p class="font-weight-bold" style="font-size: 1.5rem;">1. Pilih Data Jra</p>
             </div>
             <div class="col-md-4">
-                <img src="{{ asset('img/Edit/Sbjraedit.png') }}" width="180" height="620" class="img-fluid rounded border" style="border: 3px solid #2196f3; border-radius: 10px;" alt="Side Bar"> 
+                <img src="{{ asset('img/Edit/jra.png') }}" width="180" height="620" class="img-fluid rounded border" style="border: 3px solid #2196f3; border-radius: 10px;" alt="Side Bar"> 
             </div>
             <div class="col-md-8">
-                <img src="{{ asset('img/datajra.jpg') }}" class="img-fluid rounded border" style="width: 100%; border: 3px solid #2196f3; border-radius: 10px;" alt="Data Jra"> 
+                <img src="{{ asset('img/Data/Jra.png') }}" class="img-fluid rounded border" style="width: 100%; border: 3px solid #2196f3; border-radius: 10px;" alt="Data Jra"> 
             </div>
             
             <div class="col-md-12 mt-2">
@@ -52,10 +52,10 @@
                 <p class="font-weight-bold" style="font-size: 1.5rem;">2. Pilih Data Kategori</p>
             </div>
             <div class="col-md-4">
-                <img src="{{ asset('img/Edit/Sbkateedit.png') }}" width="180" height="620" class="img-fluid rounded border" style="border: 3px solid #2196f3; border-radius: 10px;" alt="Side Bar"> 
+                <img src="{{ asset('img/Edit/kate.png') }}" width="180" height="620" class="img-fluid rounded border" style="border: 3px solid #2196f3; border-radius: 10px;" alt="Side Bar"> 
             </div>
             <div class="col-md-8">
-                <img src="{{ asset('img/datakategori.jpg') }}" class="img-fluid rounded border" style="width: 100%; border: 3px solid #2196f3; border-radius: 10px;" alt="Data Kategori"> 
+                <img src="{{ asset('img/Data/Kategori.png') }}" class="img-fluid rounded border" style="width: 100%; border: 3px solid #2196f3; border-radius: 10px;" alt="Data Kategori"> 
             </div>
             
             <div class="col-md-12 mt-2">
@@ -70,7 +70,7 @@
                 <p class="font-weight-bold" style="font-size: 1.5rem;">3. Pilih Daftar Arsip</p>
             </div>
             <div class="col-md-4">
-                <img src="{{ asset('img/Edit/Sbdaftaredit.png') }}" width="180" height="620" class="img-fluid rounded border" style="border: 3px solid #2196f3; border-radius: 10px;" alt="Side Bar"> 
+                <img src="{{ asset('img/Edit/daftar.png') }}" width="180" height="620" class="img-fluid rounded border" style="border: 3px solid #2196f3; border-radius: 10px;" alt="Side Bar"> 
             </div>
             <div class="col-md-8">
                 <img src="{{ asset('img/Edit/Tmbltambah.png') }}" class="img-fluid rounded border" style="width: 100%; border: 3px solid #2196f3; border-radius: 10px;" alt="Berkas Aktif"> 
@@ -88,7 +88,7 @@
                 <p class="font-weight-bold" style="font-size: 1.5rem;">4. Menambah Data</p>
             </div>
             <div class="col-md-4">
-                <img src="{{ asset('img/Edit/Sbdaftaredit.png') }}" width="180" height="620" class="img-fluid rounded border" style="border: 3px solid #2196f3; border-radius: 10px;" alt="Side Bar"> 
+                <img src="{{ asset('img/Edit/daftar.png') }}" width="180" height="620" class="img-fluid rounded border" style="border: 3px solid #2196f3; border-radius: 10px;" alt="Side Bar"> 
             </div>
             <div class="col-md-8">
                 <img src="{{ asset('img/Edit/Tambaharsip.png') }}" class="img-fluid rounded border" style="width: 100%; border: 3px solid #2196f3; border-radius: 10px;" alt="Berkas Aktif"> 
@@ -107,7 +107,7 @@
                 <p class="font-weight-bold" style="font-size: 1.5rem;">5. Memfilter Data</p>
             </div>
             <div class="col-md-4">
-                <img src="{{ asset('img/Edit/Sbdaftaredit.png') }}" width="180" height="620" class="img-fluid rounded border" style="border: 3px solid #2196f3; border-radius: 10px;" alt="Side Bar"> 
+                <img src="{{ asset('img/Edit/daftar.png') }}" width="180" height="620" class="img-fluid rounded border" style="border: 3px solid #2196f3; border-radius: 10px;" alt="Side Bar"> 
             </div>
             <div class="col-md-8">
                 <img src="{{ asset('img/Edit/Filteredit.png') }}" class="img-fluid rounded border" style="width: 100%; border: 3px solid #2196f3; border-radius: 10px;" alt="Berkas Aktif"> 
@@ -126,15 +126,16 @@
                 <p class="font-weight-bold" style="font-size: 1.5rem;">6. Pilih Berkas Aktif</p>
             </div>
             <div class="col-md-4">
-                <img src="{{ asset('img/Edit/Sbaktifedit.png') }}" width="180" height="620" class="img-fluid rounded border" style="border: 3px solid #2196f3; border-radius: 10px;" alt="Side Bar"> 
+                <img src="{{ asset('img/Edit/aktif.png') }}" width="180" height="620" class="img-fluid rounded border" style="border: 3px solid #2196f3; border-radius: 10px;" alt="Side Bar"> 
             </div>
             <div class="col-md-8">
-                <img src="{{ asset('img/Data/Dataaktif.png') }}" class="img-fluid rounded border" style="width: 100%; border: 3px solid #2196f3; border-radius: 10px;" alt="Berkas Aktif"> 
+                <img src="{{ asset('img/Data/Aktif.png') }}" class="img-fluid rounded border" style="width: 100%; border: 3px solid #2196f3; border-radius: 10px;" alt="Berkas Aktif"> 
             </div>
             
             <div class="col-md-12 mt-2">
                 <p style="font-size: 20px;">Untuk mengakses Berkas Aktif, pilih menu 'Berkas Aktif' pada sidebar di sebelah kiri.
-                   Di halaman ini, kamu dapat melihat arsip yang bersifat aktif.
+                   Di halaman ini, kamu dapat melihat arsip yang bersifat aktif. 
+                   Jika ingin menghapus data berkas aktif, Anda dapat mengklik tombol 'Delete' yang tersedia.
                 </p>
             </div>
         </div>
@@ -144,15 +145,16 @@
                 <p class="font-weight-bold" style="font-size: 1.5rem;">7. Pilih Berkas Inaktif</p>
             </div>
             <div class="col-md-4">
-                <img src="{{ asset('img/Edit/Sbinaktifedit.png') }}" width="180" height="620" class="img-fluid rounded border" style="border: 3px solid #2196f3; border-radius: 10px;" alt="Side Bar"> 
+                <img src="{{ asset('img/Edit/inaktif.png') }}" width="180" height="620" class="img-fluid rounded border" style="border: 3px solid #2196f3; border-radius: 10px;" alt="Side Bar"> 
             </div>
             <div class="col-md-8">
-                <img src="{{ asset('img/Data/Datainaktif.png') }}" class="img-fluid rounded border" style="width: 100%; border: 3px solid #2196f3; border-radius: 10px;" alt="Berkas Inaktif"> 
+                <img src="{{ asset('img/Data/Inaktif.png') }}" class="img-fluid rounded border" style="width: 100%; border: 3px solid #2196f3; border-radius: 10px;" alt="Berkas Inaktif"> 
             </div>
             
             <div class="col-md-12 mt-2">
                 <p style="font-size: 20px;">Untuk mengakses Berkas Aktif, pilih menu 'Berkas Aktif' pada sidebar di sebelah kiri.
-                   Di halaman ini, kamu dapat melihat arsip yang bersifat inaktif.
+                   Di halaman ini, kamu dapat melihat arsip yang bersifat inaktif.  
+                   Jika ingin menghapus data berkas inaktif, Anda dapat mengklik tombol 'Delete' yang tersedia.
                 </p>
             </div>
         </div>
