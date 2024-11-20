@@ -30,23 +30,18 @@ class UpdateRetentionStatus extends Command
     public function handle()
 {
     $today = Carbon::now()->toDateString();
-
-    // Ambil semua data yang dibutuhkan dari tabel daftar_arsips
     $arsips = DB::table('daftar_arsips')->get(['id', 'tahun_berkas', 'jumlah_retensi', 'status', 'isi_berkas', 'kategori', 'kode_klasifikasi', 'klasifikasi', 'retensi_aktif', 'retensi_inaktif', 'nasib']);
 
     foreach ($arsips as $arsip) {
         $tahun_musnah = Carbon::createFromDate($arsip->tahun_berkas)->addYears($arsip->jumlah_retensi)->toDateString();
 
-        // Jika tahun_musnah lebih kecil dari hari ini, update status 'nasib' menjadi 'Inaktif'
         if ($tahun_musnah < $today) {
             $oldData = ['status' => $arsip->status];
 
-            // Update status 'nasib' menjadi 'Inaktif'
             DB::table('daftar_arsips')
                 ->where('id', $arsip->id)
                 ->update(['status' => 'Inaktif']);
 
-            // Simpan log perubahan
             Log::create([
                 'action' => 'updated',
                 'table_name' => 'daftar_arsips',
@@ -70,7 +65,6 @@ class UpdateRetentionStatus extends Command
 
             if (!DB::table('berkasinaktif')->where('isi_berkas', $arsip->isi_berkas)->exists()) {
                 DB::table('berkasinaktif')->insert($dataToMove);
-                // Hapus data dari daftar_arsips
                 ## DB::table('daftar_arsips')->where('id', $arsip->id)->delete();
 
                 Log::create([
@@ -110,12 +104,9 @@ class UpdateRetentionStatus extends Command
                 'status' => 'Aktif',
             ];
 
-            // Check if record already exists in berkas_aktif
             if (!DB::table('berkasaktif')->where('isi_berkas', $arsip->isi_berkas)->exists()) {
-                // Simpan data ke tabel berkas_aktif
                 DB::table('berkasaktif')->insert($dataToMoveActive);
 
-                // Log the move action for active status
                 Log::create([
                     'action' => 'moved',
                     'table_name' => 'daftar_arsips',
