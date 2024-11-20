@@ -8,3 +8,5 @@ use Illuminate\Console\Scheduling\Schedule;
 Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());
 })->purpose('Display an inspiring quote')->hourly();
+
+app(Schedule::class)->command('update:retention-status')->hourly();
