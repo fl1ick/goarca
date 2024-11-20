@@ -33,10 +33,10 @@
                 <p class="font-weight-bold" style="font-size: 1.5rem;">1. Pilih Data Jra</p>
             </div>
             <div class="col-md-4">
-                <img src="{{ asset('img/Sidebar/Sbjra.png') }}" width="180" height="620" class="img-fluid rounded border" style="border: 3px solid #2196f3; border-radius: 10px;" alt="Side Bar"> 
+                <img src="{{ asset('img/Sidebar/Sjra.png') }}" width="180" height="620" class="img-fluid rounded border" style="border: 3px solid #2196f3; border-radius: 10px;" alt="Side Bar"> 
             </div>
             <div class="col-md-8">
-                <img src="{{ asset('img/datajra.jpg') }}" class="img-fluid rounded border" style="width: 100%; border: 3px solid #2196f3; border-radius: 10px;" alt="Data Jra"> 
+                <img src="{{ asset('img/Data/Jra.png') }}" class="img-fluid rounded border" style="width: 100%; border: 3px solid #2196f3; border-radius: 10px;" alt="Data Jra"> 
             </div>
             
             <div class="col-md-12 mt-2">
@@ -52,10 +52,10 @@
                 <p class="font-weight-bold" style="font-size: 1.5rem;">2. Pilih Data Kategori</p>
             </div>
             <div class="col-md-4">
-                <img src="{{ asset('img/Sidebar/Sbkate.png') }}" width="180" height="620" class="img-fluid rounded border" style="border: 3px solid #2196f3; border-radius: 10px;" alt="Side Bar"> 
+                <img src="{{ asset('img/Sidebar/Skate.png') }}" width="180" height="620" class="img-fluid rounded border" style="border: 3px solid #2196f3; border-radius: 10px;" alt="Side Bar"> 
             </div>
             <div class="col-md-8">
-                <img src="{{ asset('img/datakategori.jpg') }}" class="img-fluid rounded border" style="width: 100%; border: 3px solid #2196f3; border-radius: 10px;" alt="Data Kategori"> 
+                <img src="{{ asset('img/Data/Kategori.png') }}" class="img-fluid rounded border" style="width: 100%; border: 3px solid #2196f3; border-radius: 10px;" alt="Data Kategori"> 
             </div>
             
             <div class="col-md-12 mt-2">
@@ -70,7 +70,7 @@
                 <p class="font-weight-bold" style="font-size: 1.5rem;">3. Pilih Daftar Arsip</p>
             </div>
             <div class="col-md-4">
-                <img src="{{ asset('img/Sidebar/Sbdaftar.png') }}" width="180" height="620" class="img-fluid rounded border" style="border: 3px solid #2196f3; border-radius: 10px;" alt="Side Bar"> 
+                <img src="{{ asset('img/Sidebar/Sdaftar.png') }}" width="180" height="620" class="img-fluid rounded border" style="border: 3px solid #2196f3; border-radius: 10px;" alt="Side Bar"> 
             </div>
             <div class="col-md-8">
                 <img src="{{ asset('img/Data/Tambaharsip.png') }}" class="img-fluid rounded border" style="width: 100%; border: 3px solid #2196f3; border-radius: 10px;" alt="Berkas Aktif"> 
@@ -88,10 +88,10 @@
                 <p class="font-weight-bold" style="font-size: 1.5rem;">4. Pilih Berkas Aktif</p>
             </div>
             <div class="col-md-4">
-                <img src="{{ asset('img/Sidebar/Sbaktif.png') }}" width="180" height="620" class="img-fluid rounded border" style="border: 3px solid #2196f3; border-radius: 10px;" alt="Side Bar"> 
+                <img src="{{ asset('img/Sidebar/Saktif.png') }}" width="180" height="620" class="img-fluid rounded border" style="border: 3px solid #2196f3; border-radius: 10px;" alt="Side Bar"> 
             </div>
             <div class="col-md-8">
-                <img src="{{ asset('img/Data/Dataaktif.png') }}" class="img-fluid rounded border" style="width: 100%; border: 3px solid #2196f3; border-radius: 10px;" alt="Berkas Aktif"> 
+                <img src="{{ asset('img/Data/Aktif.png') }}" class="img-fluid rounded border" style="width: 100%; border: 3px solid #2196f3; border-radius: 10px;" alt="Berkas Aktif"> 
             </div>
             
             <div class="col-md-12 mt-2">
@@ -107,10 +107,10 @@
                 <p class="font-weight-bold" style="font-size: 1.5rem;">5. Pilih Berkas Inaktif</p>
             </div>
             <div class="col-md-4">
-                <img src="{{ asset('img/Sidebar/Sbinaktif.png') }}" width="180" height="620" class="img-fluid rounded border" style="border: 3px solid #2196f3; border-radius: 10px;" alt="Side Bar"> 
+                <img src="{{ asset('img/Sidebar/Sinaktif.png') }}" width="180" height="620" class="img-fluid rounded border" style="border: 3px solid #2196f3; border-radius: 10px;" alt="Side Bar"> 
             </div>
             <div class="col-md-8">
-                <img src="{{ asset('img/Data/Datainaktif.png') }}" class="img-fluid rounded border" style="width: 100%; border: 3px solid #2196f3; border-radius: 10px;" alt="Berkas Inaktif"> 
+                <img src="{{ asset('img/Data/Inaktif.png') }}" class="img-fluid rounded border" style="width: 100%; border: 3px solid #2196f3; border-radius: 10px;" alt="Berkas Inaktif"> 
             </div>
             
             <div class="col-md-12 mt-2">
