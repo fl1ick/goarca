@@ -12,61 +12,48 @@
                 <div class="row">
                     <div class="col-md-6">
                         <label for="isi_berkas">Isi Berkas:</label>
-                        <input class="form-control w-40" type="text" name="isi_berkas" id="isi_berkas" rows="3"
-                            value="{{ request()->isi_berkas }}">
+                        <input class="form-control w-40" type="text" name="isi_berkas" id="isi_berkas" value="{{ request()->isi_berkas }}">
                     </div>
                     <div class="col-md-6">
                         <label for="tahun_berkas">Tahun Berkas:</label>
-                        <input class="form-control w-25" type="date" name="tahun_berkas" id="tahun_berkas"
-                            value="{{ request()->tahun_berkas }}">
+                        <input class="form-control w-25" type="date" name="tahun_berkas" id="tahun_berkas" value="{{ request()->tahun_berkas }}">
                     </div>
-
                     <div class="col-md-6">
-                        <label for="kategori">Kategori:</label>
-                        <div>
-                            <select name="kategori1" id="kategori1" class="form-control w-50">
-                                <option value="">--Pilih Kategori--</option>
-                                @foreach($kategories as $kategori)
-                                <option value="{{ $kategori->kode }}"
-                                    {{ request()->kategori == $kategori->kode ? 'selected' : '' }}>
-                                    {{ $kategori->kategori }}
+                        <label for="kategori1">Kategori:</label>
+                        <select name="kategori1" id="kategori1" class="form-control w-50">
+                            <option value="">--Pilih Kategori--</option>
+                            @foreach($kategories as $kategori)
+                            <option value="{{ $kategori->kode }}" {{ request()->kategori1 == $kategori->kode ? 'selected' : '' }}>
+                                {{ $kategori->kategori }}
+                            </option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="klasifikasi1">Klasifikasi:</label>
+                        <select name="klasifikasi1" id="klasifikasi1" class="form-control w-50">
+                            <option value="">--Pilih Klasifikasi--</option>
+                            @if(isset($klasifikasis))
+                                @foreach($klasifikasis as $klasifikasi)
+                                <option value="{{ $klasifikasi->kode_kodeklasifikasi }}" 
+                                    {{ request()->klasifikasi1 == $klasifikasi->kode_kodeklasifikasi ? 'selected' : '' }}>
+                                    {{ $klasifikasi->klasifikasi }}
                                 </option>
                                 @endforeach
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="col-md-6">
-                        <label for="klasifikasi">Klasifikasi:</label>
-                        <div>
-                            <select name="klasifikasi1" id="klasifikasi1" class="form-control w-50">
-                                <option value="">--Pilih Klasifikasi--</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="col-md-6">
-                        <label for="nasib">Status:</label>
-                        <div>
-                            <div>
-                                <select name="status1" id="status1" class="form-control w-50">
-                                    <option value="">--Pilih status--</option>
-                                    @foreach($daftararsip as $arsip)
-                                    <option value="{{ $arsip->status }}"
-                                        {{ request()->status == $kategori->status ? 'selected' : '' }}>
-                                        {{ $arsip->status }}
-                                    </option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
+                            @endif
+                        </select>
                     </div>
                     <div class="col-md-6">
-                        <div class="col-md-8 d-flex justify-content-center mb-4">
-                            <button type="submit" class="form-control w-25 btn btn-primary"><i class='bx bx-filter'></i>
-                                Filter
-                            </button>
-                        </div>
+                        <label for="status1">Status:</label>
+                        <select name="status1" id="status1" class="form-control w-50">
+                            <option value="">--Pilih Status--</option>
+                            <option value="Aktif" {{ request()->status1 == 'Aktif' ? 'selected' : '' }}>Aktif</option>
+                            <option value="Inaktif" {{ request()->status1 == 'Inaktif' ? 'selected' : '' }}>Inaktif</option>
+                            <option value="Proses" {{ request()->status1 == 'Proses' ? 'selected' : '' }}>Proses</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <button type="submit" class="form-control w-25 btn btn-primary"><i class='bx bx-filter'></i> Filter</button>
                     </div>
                 </div>
             </form>

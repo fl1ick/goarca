@@ -2,12 +2,8 @@
 
 namespace App\Providers;
 
-use App\Models\Kategory;
-use App\Models\Jra;
-use App\Models\DaftarArsip;
-use App\Observers\KategoryObserver;
-use App\Observers\JraObserver;
-use App\Observers\DaftarArsipObserver;
+use App\Models\{Kategory, Jra,DaftarArsip,BerkasAktif,BerkasInaktif};
+use App\Observers\{KategoryObserver, JraObserver, DaftarArsipObserver, BerkasAktifObserver, BerkasInaktifObserver};
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -28,5 +24,7 @@ class AppServiceProvider extends ServiceProvider
         Kategory::observe(KategoryObserver::class);
         Jra::observe(JraObserver::class);
         DaftarArsip::observe(DaftarArsipObserver::class);
+        BerkasAktif::observe(BerkasAktifObserver::class);
+        BerkasInaktif::observe(BerkasInaktifObserver::class);
     }
 }

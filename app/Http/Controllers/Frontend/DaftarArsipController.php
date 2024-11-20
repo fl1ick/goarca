@@ -16,25 +16,25 @@ class DaftarArsipController extends Controller
     {
         $query = DaftarArsip::query(); // Mulai query builder dari DaftarArsip
     
-        // Menambahkan filter berdasarkan request input
+        // Filter berdasarkan request input untuk pencarian
         if ($request->filled('isi_berkas')) {
             $query->where('isi_berkas', 'like', '%' . $request->isi_berkas . '%');
         }
     
         if ($request->filled('tahun_berkas')) {
-            $query->where('tahun_berkas', $request->tahun_berkas);
+            $query->whereYear('tahun_berkas', $request->tahun_berkas); // Pastikan format tahun cocok
         }
     
-        if ($request->filled('kategori')) {
-            $query->where('kategori', $request->kategori);
+        if ($request->filled('kategori1')) {
+            $query->where('kategori', $request->kategori1); // Filter berdasarkan kategori
         }
     
-        if ($request->filled('klasifikasi')) {
-            $query->where('klasifikasi', $request->klasifikasi);
+        if ($request->filled('klasifikasi1')) {
+            $query->where('kode_klasifikasi', $request->klasifikasi1); // Filter berdasarkan kode klasifikasi
         }
     
-        if ($request->filled('nasib')) {
-            $query->where('nasib', 'like', '%' . $request->nasib . '%');
+        if ($request->filled('status1')) {
+            $query->where('status', $request->status1); // Filter berdasarkan status
         }
     
         // Ambil data hasil query dengan pagination
@@ -45,11 +45,11 @@ class DaftarArsipController extends Controller
         $klasifikasis = [];
     
         // Jika kategori dipilih, ambil klasifikasi yang terkait
-        if ($request->filled('kategori')) {
-            $klasifikasis = DaftarArsip::where('kategori', $request->kategori)
-                                       ->select('klasifikasi')
-                                       ->distinct()
-                                       ->get();
+        if ($request->filled('kategori1')) {
+            $klasifikasis = Jra::where('kode_kategori', $request->kategori1)
+                               ->select('klasifikasi', 'kode_klasifikasi')
+                               ->distinct()
+                               ->get();
         }
     
         return view('page.daftararsip.index', compact('daftararsip', 'kategories', 'klasifikasis')); // Mengirimkan data ke view
