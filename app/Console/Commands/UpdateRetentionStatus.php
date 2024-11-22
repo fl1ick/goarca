@@ -118,6 +118,6 @@ class UpdateRetentionStatus extends Command
         }
     }
 
-    $this->info('Cek barang kedaluwarsa selesai.');
+    $this->info('Data Sudah Update');
 }
 }
