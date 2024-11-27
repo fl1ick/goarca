@@ -39,6 +39,7 @@ class DaftarArsipController extends Controller
     
         // Ambil data hasil query dengan pagination
         $daftararsip = $query->paginate(10); // Ganti dengan pagination sesuai kebutuhan
+        $daftararsip = DaftarArsip::all(); 
     
         // Ambil semua kategori dan klasifikasi yang terkait
         $kategories = Kategory::all(); // Semua kategori
@@ -55,7 +56,6 @@ class DaftarArsipController extends Controller
         return view('page.daftararsip.index', compact('daftararsip', 'kategories', 'klasifikasis')); // Mengirimkan data ke view
     }
     
-
     /**
      * Show the form for creating a new resource.
      */

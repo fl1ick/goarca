@@ -2,11 +2,10 @@
 
 @section('content')
 
-    <main>
-        <div class="table-data">
-            <div class="order">
-                <h2>Daftar Arsip</h2>
-
+<main>
+    <div class="table-data">
+        <div class="order">
+            <h2>Daftar Arsip</h2>
                 <!-- Filter Form -->
                 <form method="GET" action="{{ route('arsip') }}">
                     <div class="row">
@@ -69,7 +68,7 @@
                     </button>
                 </div>
 
-            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-keyboard="false">
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="false" data-bs-keyboard="false">
                 <div class="modal-dialog modal-75w">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -202,50 +201,19 @@
                 /* Menghapus garis bawah */
             }
             </style>
-            <!-- Daftar Arsip Table -->
-            <div class="my-3 p-3 bg-body rounded shadow-sm">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>No</th>
-                            <th>Isi Berkas</th>
-                            <th>Tahun Berkas</th>
-                            <th>Kategori</th>
-                            <th>Kode Klasifikasi</th>
-                            <th>Klasifikasi</th>
-                            <th>Retensi Aktif</th>
-                            <th>Retensi Inaktif</th>
-                            <th>Jumlah Retensi</th>
-                            <th>Nasib</th>
-                            <th>Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach($daftararsip as $arsip)
-                        <tr>
-                            <td>{{ $loop->iteration }}</td>
-                            <td>{{ $arsip->isi_berkas }}</td>
-                            <td>{{ $arsip->tahun_berkas }}</td>
-                            <td>{{ $arsip->kategori }}</td>
-                            <td>{{ $arsip->kode_klasifikasi }}</td>
-                            <td>{{ $arsip->klasifikasi }}</td>
-                            <td>{{ $arsip->retensi_aktif }}</td>
-                            <td>{{ $arsip->retensi_inaktif }}</td>
-                            <td>{{ $arsip->jumlah_retensi }}</td>
-                            <td>{{ $arsip->nasib }}</td>
-                            <td>{{ $arsip->status }}</td>
-                        </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-                <div class="d-flex justify-content-center">
-        {{ $daftararsip->links('pagination::bootstrap-5') }}
-    </div>
+             <div class="mt-3">
+                <!-- Tombol Export -->
+                <div class="mb-3">
+                    <button class="btn btn-primary" id="export-csv">Export CSV</button>
+                    <button class="btn btn-warning me-2" id="export-xlsx">Export XLSX</button>
+                    <button class="btn btn-danger" id="export-pdf">Export PDF</button>
+                </div>
+            
+                <!-- Tabel Daftar Arsip -->
+                <div id="arsip-table"></div>
             </div>
         </div>
     </div>
-
-
         <script>
             // Mengambil klasifikasi berdasarkan kategori yang dipilih
             document.getElementById('kategori').addEventListener('change', function() {
@@ -303,204 +271,139 @@
                     .catch(error => console.error('Error:', error));
             });
         </script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Data dari Laravel (diambil dari controller)
+        var arsips = @json($daftararsip);
 
+        // Inisialisasi Tabulator
+        var table = new Tabulator("#arsip-table", {
+            data: arsips, // Assign data from the controller
+            layout: "fitColumns",
+            pagination: "local",
+            paginationSize: 10,
+            columns: [
+                {title: "No", formatter: "rownum", width: 100, hozAlign: "center"},
+                {title: "Isi Berkas", field: "isi_berkas", sorter: "string", width: 300},
+                {title: "Tahun Berkas", field: "tahun_berkas", sorter: "string"},
+                {title: "Kategori", field: "kategori", sorter: "string"},
+                {title: "Klasifikasi", field: "klasifikasi", sorter: "string"},
+                {title: "Retensi Aktif", field: "retensi_aktif", sorter: "string"},
+                {title: "Retensi Inaktif", field: "retensi_inaktif", sorter: "string"},
+                {title: "Jumlah Retensi", field: "jumlah_retensi", sorter: "string"},
+                {title: "Nasib Akhir", field: "nasib", sorter: "string"},
+                {title: "Status Berkas", field: "status", sorter: "string"}
+            ]
+        });
 
-        <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                const sidebar = document.getElementById('sidebar');
-                const modal = document.getElementById('myModal');
+        // Fungsi Export CSV
+        document.getElementById("export-csv").addEventListener("click", function() {
+            table.download("csv", "daftar-arsip.csv");
+        });
 
-                if (modal) {
-                    // Saat modal terbuka, matikan sidebar
-                    modal.addEventListener('show.bs.modal', function() {
-                        if (sidebar) sidebar.classList.remove('active');
-                    });
+        // Fungsi Export XLSX
+        document.getElementById("export-xlsx").addEventListener("click", function() {
+            table.download("xlsx", "daftar-arsip.xlsx", {sheetName: "Daftar Arsip"});
+        });
 
-                    // Saat modal tertutup, aktifkan kembali sidebar
-                    modal.addEventListener('hide.bs.modal', function() {
-                        if (sidebar) sidebar.classList.add('active');
-                    });
-                }
-            });
-        </script>
-        <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                // Data dari Laravel (diambil dari controller)
-                var arsips = @json($daftararsip);
+        // Fungsi Export PDF
+        document.getElementById("export-pdf").addEventListener("click", function() {
+    // Ambil data gambar Base64 dari server
+    fetch('/get-base64-image')
+        .then(response => response.json())
+        .then(data => {
+            let tableData = table.getData();
 
-                // Inisialisasi Tabulator
-                var table = new Tabulator("#arsip-table", {
-                    data: arsips, // Assign data from the controller
-                    layout: "fitColumns",
-                    pagination: "local",
-                    paginationSize: 10,
-                    columns: [{
-                            title: "No",
-                            formatter: "rownum",
-                            width: 100,
-                            hozAlign: "center",
-                        },
-                        {
-                            title: "Isi Berkas",
-                            field: "isi_berkas",
-                            sorter: "string",
-                            width: 300
-                        },
-                        {
-                            title: "Tahun Berkas",
-                            field: "tahun_berkas",
-                            sorter: "string",
-                        },
-                        {
-                            title: "Kategori",
-                            field: "kategori",
-                            sorter: "string"
-                        },
-                        {
-                            title: "Klasifikasi",
-                            field: "klasifikasi",
-                            sorter: "string"
-                        },
-                        {
-                            title: "Retensi Aktif",
-                            field: "retensi_aktif",
-                            sorter: "string"
-                        },
-                        {
-                            title: "Retensi Inaktif",
-                            field: "retensi_inaktif",
-                            sorter: "string"
-                        },
-                        {
-                            title: "Jumlah Retensi",
-                            field: "jumlah_retensi",
-                            sorter: "string"
-                        },
-                        {
-                            title: "Nasib Akhir",
-                            field: "nasib",
-                            sorter: "string"
-                        },
-                        {
-                            title: "Status Berkas",
-                            field: "status",
-                            sorter: "string"
-                        },
-                    ],
-                });
-
-                // Fungsi Export CSV
-                document.getElementById("export-csv").addEventListener("click", function() {
-                    table.download("csv", "jras-data.csv");
-                });
-
-                // Fungsi Export XLSX
-                document.getElementById("export-xlsx").addEventListener("click", function() {
-                    table.download("xlsx", "jras-data.xlsx", {
-                        sheetName: "JRAS Data"
-                    });
-                });
-
-                // Fungsi Export PDF
-                document.getElementById("export-pdf").addEventListener("click", function() {
-                    // Data dari tabel untuk digunakan di PDF
-                    let tableData = table.getData();
-
-                    // Header kop surat
-                    let kopSurat = {
+            // Header kop surat dengan gambar di kiri dan teks di tengah
+            let kopSurat = {
+                columns: [
+                    {
+                        image: data.image, // Gambar Base64 yang diterima
+                        width: 50, // Ukuran lebar gambar
+                        height: 50, // Ukuran tinggi gambar
+                        alignment: "left", // Posisi gambar di kiri
+                        margin: [0, 0, 10, 0] // Margin kanan untuk memberi jarak dengan teks
+                    },
+                    {
                         text: "DINAS KEARSIPAN KOTA MAGELANG\nAlamat: Jl. Contoh No. 123, Kota Magelang\nTelepon: (0293) 123456",
                         style: "header",
-                        alignment: "center",
-                        margin: [0, 0, 0, 20] // Margin bawah 20px
-                    };
+                        alignment: "center", // Posisi teks ke tengah
+                        margin: [0, 0, 0, 20] // Margin bawah untuk memberi ruang di bawah teks
+                    }
+                ],
+                columnGap: 10 // Menambahkan jarak antar kolom
+            };
 
-                    // Kolom tabel
-                    let tableHeaders = [{
-                            text: "No",
-                            style: "tableHeader"
-                        },
-                        {
-                            text: "Kategori",
-                            style: "tableHeader"
-                        },
-                        {
-                            text: "Kode Klasifikasi",
-                            style: "tableHeader"
-                        },
-                        {
-                            text: "Klasifikasi",
-                            style: "tableHeader"
-                        },
-                        {
-                            text: "KKAD",
-                            style: "tableHeader"
-                        },
-                        {
-                            text: "Retensi Aktif",
-                            style: "tableHeader"
-                        },
-                        {
-                            text: "Retensi Inaktif",
-                            style: "tableHeader"
-                        },
-                        {
-                            text: "Jumlah Retensi",
-                            style: "tableHeader"
-                        },
-                        {
-                            text: "Nasib",
-                            style: "tableHeader"
-                        }
-                    ];
+            // Kolom tabel (header) untuk PDF
+            let tableHeaders = [
+                {text: "No", style: "tableHeader"},
+                {text: "Isi Berkas", style: "tableHeader"},
+                {text: "Tahun Berkas", style: "tableHeader"},
+                {text: "Kategori", style: "tableHeader"},
+                {text: "Klasifikasi", style: "tableHeader"},
+                {text: "Retensi Aktif", style: "tableHeader"},
+                {text: "Retensi Inaktif", style: "tableHeader"},
+                {text: "Jumlah Retensi", style: "tableHeader"},
+                {text: "Nasib Akhir", style: "tableHeader"},
+                {text: "Status Berkas", style: "tableHeader"}
+            ];
 
-                    // Isi tabel dari data
-                    let tableBody = tableData.map((row, index) => [
-                        index + 1,
-                        row.kode_kategori,
-                        row.kode_klasifikasi,
-                        row.klasifikasi,
-                        row.KKAD || "-",
-                        row.retensi_aktif,
-                        row.retensi_inaktif,
-                        row.jumlah_retensi,
-                        row.nasib
-                    ]);
+            // Isi tabel dari data
+            let tableBody = tableData.map((row, index) => [
+                index + 1,
+                row.isi_berkas || "-",
+                row.tahun_berkas || "-",
+                row.kategori || "-",
+                row.klasifikasi || "-",
+                row.retensi_aktif || "-",
+                row.retensi_inaktif || "-",
+                row.jumlah_retensi || "-",
+                row.nasib || "-",
+                row.status || "-"
+            ]);
 
-                    // Menyatukan header dan isi tabel
-                    let tableContent = {
-                        table: {
-                            headerRows: 1,
-                            widths: [30, "auto", "auto", "auto", "auto", "auto", "auto", "auto",
-                                "auto"
-                            ], // Sesuaikan agar semua kolom muat
-                            body: [tableHeaders, ...tableBody]
-                        },
-                        layout: "lightHorizontalLines" // Garis horizontal ringan
-                    };
+            // Menyatukan header dan body tabel
+            let tableContent = {
+                table: {
+                    headerRows: 1,
+                    widths: [30, "auto", "auto", "auto", "auto", "auto", "auto", "auto", "auto", "auto"], // Menyesuaikan ukuran kolom agar pas
+                    body: [tableHeaders, ...tableBody] // Menggabungkan header dan body
+                },
+                layout: "lightHorizontalLines" // Garis horizontal ringan
+            };
 
-                    // Definisi dokumen PDF
-                    let docDefinition = {
-                        content: [kopSurat, tableContent],
-                        styles: {
-                            header: {
-                                fontSize: 12,
-                                bold: true
-                            },
-                            tableHeader: {
-                                bold: true,
-                                fontSize: 10,
-                                color: "black"
-                            }
-                        },
-                        defaultStyle: {
-                            fontSize: 9
-                        }
-                    };
+            // Definisi dokumen PDF
+            let docDefinition = {
+                content: [kopSurat, tableContent],
+                styles: {
+                    header: {
+                        fontSize: 12,
+                        bold: true
+                    },
+                    tableHeader: {
+                        bold: true,
+                        fontSize: 10,
+                        color: "black"
+                    }
+                },
+                defaultStyle: {
+                    fontSize: 9
+                }
+            };
 
-                    // Generate dan download PDF
-                    pdfMake.createPdf(docDefinition).download("jras-data-with-kop-surat.pdf");
-                });
-            });
-        </script>
+            // Generate dan download PDF
+            pdfMake.createPdf(docDefinition).download("daftar-arsip-with-kop-surat.pdf");
+        })
+        .catch(err => console.error("Error fetching image: ", err)); // Menangani error
+});
+    });
+</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+    <!-- Periksa Versi Tabulator -->
+            <script>
+                console.log("Tabulator version:", Tabulator.prototype.version);
+            </script>
     </main>
 @endsection

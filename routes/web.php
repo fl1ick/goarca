@@ -25,3 +25,9 @@ Route::get('/getKlasifikasi/{kodeKategori}', [DaftarArsipController::class, 'get
 
 Route::get('/tatacara', [TatacaraController::class, 'index'])->name('tatacara');
 Route::get('/penjelasan', [PenjelasanController::class, 'index'])->name('penjelasan');
+Route::get('/get-base64-image', function() {
+    $path = public_path('img/dinas_arsip.png'); // Lokasi gambar di folder public
+    $imageData = base64_encode(file_get_contents($path)); // Mengonversi gambar menjadi string Base64
+    return response()->json(['image' => 'data:image/png;base64,' . $imageData]);
+});
+

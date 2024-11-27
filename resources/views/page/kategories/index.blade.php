@@ -4,7 +4,7 @@
     <main>
         <!-- Tombol Export -->
         <div class="mb-3">
-            <button id="export-csv" class="btn btn-primary">Export CSV</button>
+            <button class="btn btn-primary" id="export-csv">Export CSV</button>
             <button id="export-xlsx" class="btn btn-success">Export XLSX</button>
             <button id="export-pdf" class="btn btn-danger">Export PDF</button>
         </div>
