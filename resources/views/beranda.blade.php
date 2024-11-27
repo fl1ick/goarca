@@ -7,10 +7,6 @@
             <div class="left">
                 <h1>Beranda</h1>
             </div>
-            <a href="#" class="btn-download">
-                <i class='bx bxs-cloud-download'></i>
-                <span class="text">Download PDF</span>
-            </a>
         </div>
 
         <ul class="box-info">
@@ -64,23 +60,47 @@
                                         $oldData = json_decode($log->old_data, true);
                                     @endphp
                                     @if($oldData)
-                                        {{ json_encode($oldData) }}
+                                        <ul>
+                                            @foreach ($oldData as $key => $value)
+                                                <li>
+                                                    <strong>{{ $key }}</strong>: 
+                                                    @if (is_null($value) || $value === '000000Z' || $value === '')
+                                                        N/A
+                                                    @elseif (strtotime($value)) <!-- Jika tipe data tanggal -->
+                                                        {{ \Carbon\Carbon::parse($value)->format('d-m-Y') }}
+                                                    @else
+                                                        {{ $value }}
+                                                    @endif
+                                                </li>
+                                            @endforeach
+                                        </ul>
                                     @else
-                                        N/A
+                                        <span>N/A</span>
                                     @endif
                                 </td>
                                 <td>
-                                    @php
-                                        $newData = json_decode($log->new_data, true);
-                                    @endphp
-                                    @if($newData)
+                                @php
+                                    $newData = json_decode($log->new_data, true);
+                                @endphp
+                                @if($newData)
+                                    <ul>
                                         @foreach ($newData as $key => $value)
-                                            {{ $key }}: {{ $value }}<br>
+                                            <li>
+                                                <strong>{{ $key }}</strong>: 
+                                                @if (is_null($value) || $value === '000000Z' || $value === '')
+                                                    N/A
+                                                @elseif (strtotime($value)) <!-- Jika tipe data tanggal -->
+                                                    {{ \Carbon\Carbon::parse($value)->format('d-m-Y') }}
+                                                @else
+                                                    {{ $value }}
+                                                @endif
+                                            </li>
                                         @endforeach
-                                    @else
-                                        N/A
-                                    @endif
-                                </td>
+                                    </ul>
+                                @else
+                                    <span>N/A</span>
+                                @endif
+                            </td>
                             </tr>
                         @endforeach
                     </tbody>

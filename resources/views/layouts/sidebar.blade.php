@@ -1,7 +1,7 @@
 <section id="sidebar">
 		<a href="#" class="brand" style="text-decoration: none;">
 			<i class='bx bxs-copy-alt'></i>
-			<span class="text">Go Arca</span>
+			<span class="text">GoArca</span>
 		</a>
 		<ul class="side-menu top">
 			<li class="{{ request()->routeIs('beranda') ? 'active' : '' }}">
