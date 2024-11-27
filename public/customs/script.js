@@ -11,18 +11,18 @@ allSideMenu.forEach(item=> {
 	})
 });
 
-// Tambahkan event listener untuk modal
-const modal = document.getElementById('exampleModal'); // Ganti 'myModal' dengan ID modal Anda
+// // Tambahkan event listener untuk modal
+// const modal = document.getElementById('exampleModal'); // Ganti 'myModal' dengan ID modal Anda
 
-if (modal) {
-    modal.addEventListener('show.bs.modal', function () {
-        sidebar.classList.add('hide'); // Sembunyikan sidebar saat modal ditampilkan
-    });
+// if (modal) {
+//     modal.addEventListener('show.bs.modal', function () {
+//         sidebar.classList.add('hide'); // Sembunyikan sidebar saat modal ditampilkan
+//     });
 
-    modal.addEventListener('hide.bs.modal', function () {
-        sidebar.classList.remove('hide'); // Tampilkan kembali sidebar saat modal ditutup
-    });
-}
+//     modal.addEventListener('hide.bs.modal', function () {
+//         sidebar.classList.remove('hide'); // Tampilkan kembali sidebar saat modal ditutup
+//     });
+// }
 
 
 // TOGGLE SIDEBAR

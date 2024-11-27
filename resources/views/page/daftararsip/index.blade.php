@@ -64,7 +64,7 @@
                         </button>
                     </div>
 
-            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="false" data-bs-keyboard="false">
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-keyboard="false">
                 <div class="modal-dialog modal-75w">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -184,14 +184,6 @@
                 /* Menghapus garis bawah */
             }
             </style>
-
-
-
-
-
-
-
-
             <!-- Daftar Arsip Table -->
             <div class="my-3 p-3 bg-body rounded shadow-sm">
                 <table class="table">

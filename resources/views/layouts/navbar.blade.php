@@ -1,7 +1,6 @@
 		<!-- NAVBAR -->
 		<nav>
-			<i class='bx bx-menu' ></i>
-			<a href="#" class="nav-link">Arsip Kota Magelang</a>
+			<a href="{{route('beranda.index')}}" class="nav-link">Go Arca</a>
 		
 		</nav>
 		<!-- NAVBAR -->
