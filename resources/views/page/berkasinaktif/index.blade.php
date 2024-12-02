@@ -15,11 +15,11 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // Data dari Laravel (diambil dari controller)
-            var inaktifs = @json($berkasinaktif);
+            var musnah = @json($berkasinaktif);
 
             // Inisialisasi Tabulator
             var table = new Tabulator("#inaktif-table", {
-                data: inaktifs, // Assign data from the controller
+                data: musnah, // Assign data from the controller
                 layout: "fitColumns",
                 pagination: "local",
                 paginationSize: 10,

@@ -69,27 +69,37 @@ body {
 	display: none;
 }
 #sidebar.hide {
-	width: 60px;
+	width: 40px;
 }
 #sidebar .brand {
-	font-size: 24px;
-	font-weight: 700;
-	height: 56px;
-	display: flex;
-	align-items: center;
-	color: var(--blue);
-	position: sticky;
-	margin-top: 56px;
-	background: var(--light);
-	z-index: 500;
-	padding-bottom: 20px;
-	box-sizing: content-box;
+    font-size: 30px;
+    font-weight: 700;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Tambahkan ini untuk memusatkan horizontal */
+    color: var(--blue);
+    position: sticky;
+    margin-top: 56px;
+    background: var(--light);
+    z-index: 500;
+    padding: 10px 0; /* Ubah padding bawah agar lebih proporsional */
+    box-sizing: border-box; /* Ganti dari content-box untuk lebih konsisten */
+    text-align: center; /* Pastikan teks di tengah */
 }
 #sidebar .brand .bx {
 	min-width: 60px;
 	display: flex;
 	justify-content: center;
 }
+#sidebar .brand .logo {
+	margin-right: 8px;
+    width: 60px; /* Ukuran logo */
+    height: auto; /* Proporsi gambar tetap */
+    margin-bottom: 10px; /* Ruang antara logo dan teks */
+    border-radius: 0%; /* Membuat logo berbentuk lingkaran */
+}
+
 #sidebar .side-menu {
 	width: 100%;
 	margin-top: 48px;
@@ -100,6 +110,8 @@ body {
 	margin-left: 6px;
 	border-radius: 48px 0 0 48px;
 	padding: 4px;
+	margin-bottom: 5px;
+	
 }
 #sidebar .side-menu li.active {
 	background: var(--grey);
@@ -134,7 +146,7 @@ body {
 	display: flex;
 	align-items: center;
 	border-radius: 48px;
-	font-size: 16px;
+	font-size: 18px;
 	color: var(--dark);
 	white-space: nowrap;
 	overflow-x: hidden;
@@ -144,7 +156,7 @@ body {
 }
 #sidebar.hide .side-menu li a {
 	width: calc(48px - (4px * 2));
-	transition: width .3s ease;
+	transition: width .6s ease;
 }
 #sidebar .side-menu li a.logout {
 	color: var(--red);
@@ -159,6 +171,21 @@ body {
 }
 /* SIDEBAR */
 
+nav {
+    display: flex;
+    justify-content: center; /* Menyelaraskan konten secara horizontal ke tengah */
+    align-items: center; /* Menyelaraskan konten secara vertikal ke tengah */
+    height: 100px; /* Sesuaikan tinggi navbar sesuai kebutuhan */
+    background-color: #2c3e50; /* Warna latar navbar, sesuaikan dengan desain */
+}
+
+.nav-link {
+    font-size: 16px; /* Ukuran font */
+    font-weight: bold; /* Membuat teks tebal */
+    color: #ecf0f1; /* Warna teks, sesuaikan dengan desain */
+    text-decoration: none; /* Menghilangkan garis bawah */
+    text-transform: uppercase; /* Membuat teks menjadi kapital semua */
+}
 
 
 
@@ -399,6 +426,18 @@ body {
 	color: var(--yellow);
 }
 #content main .box-info li:nth-child(3) .bx {
+	background: var(--light-orange);
+	color: var(--orange);
+}
+#content main .box-info li:nth-child(4) .bx {
+	background: var(--light-orange);
+	color: var(--orange);
+}
+#content main .box-info li:nth-child(5) .bx {
+	background: var(--light-orange);
+	color: var(--orange);
+}
+#content main .box-info li:nth-child(6) .bx {
 	background: var(--light-orange);
 	color: var(--orange);
 }

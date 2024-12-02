@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Frontend\{BerandaController,KategoryController,JraController,BerkasAktifController,DaftarArsipController,BerkasInaktifController,TatacaraController,PenjelasanController};
+use App\Http\Controllers\Frontend\{BerandaController,KategoryController,JraController,BerkasAktifController,DaftarArsipController,BerkasInaktifController,TatacaraController,PenjelasanController, BerkasMusnahController,BerkasPermanenController};
 
 // Route::get('/', function () {return view('beranda');});
 // Route::get('/beranda', function () {return view('beranda');});
@@ -16,6 +16,9 @@ Route::delete('/berkasinaktif/{berkasInaktif}', [BerkasInaktifController::class,
 Route::get('/berkasaktif', [BerkasAktifController::class, 'index'])->name("aktif");
 Route::delete('/berkasaktif/{berkasAktif}', [BerkasAktifController::class, 'destroy'])->name('berkasaktif.destroy');
 Route::get('/jra', [JraController::class, 'index'])->name("jra");
+Route::get('/berkasmusnah', [BerkasMusnahController::class, 'index'])->name('berkasmusnah.index');
+Route::get('/berkaspermanen', [BerkasPermanenController::class, 'index'])->name('berkaspermanen.index');
+
 
 Route::get('/arsip', [DaftarArsipController::class, 'index'])->name("arsip");
 Route::delete('/arsip/{daftarArsip}', [DaftarArsipController::class, 'destroy'])->name('arsip.destroy');

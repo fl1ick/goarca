@@ -1,6 +1,6 @@
 <section id="sidebar">
 		<a href="#" class="brand" style="text-decoration: none;">
-			<i class='bx bxs-copy-alt'></i>
+			<img src="{{ asset('img/kotamagelang.png')}}" alt="Logo Kota Magelang" class="logo">
 			<span class="text">GoArca</span>
 		</a>
 		<ul class="side-menu top">
@@ -24,19 +24,25 @@
 			</li>
 			<li class="{{ request()->routeIs('arsip') ? 'active' : '' }}">
 				<a href="{{route('arsip')}}" style="text-decoration: none;">
-					<i class='bx bx-collection'></i>
+					<i class='bx bxs-data'></i>
 					<span class="text">Daftar Arsip</span>
 				</a>
 			</li>
-			<li class="{{ request()->routeIs('aktif') ? 'active' : '' }}">
-				<a href="{{route('aktif')}}" style="text-decoration: none;">
-					<i class='bx bx-collection'></i>
-					<span class="text">Berkas Aktif</span>
+			<li class="{{ request()->routeIs('berkasmusnah.index') ? 'active' : '' }}">
+				<a href="{{route('berkasmusnah.index')}}" style="text-decoration: none;">
+					<i class='bx bxs-bar-chart-alt-2'></i>
+					<span class="text">Berkas Musnah</span>
+				</a>
+			</li>
+			<li class="{{ request()->routeIs('berkaspermanen.index') ? 'active' : '' }}">
+				<a href="{{route('berkaspermanen.index')}}" style="text-decoration: none;">
+					<i class='bx bxs-bar-chart-alt-2'></i>
+					<span class="text">Berkas Permanen</span>
 				</a>
 			</li>
 			<li class="{{ request()->routeIs('inaktif') ? 'active' : '' }}">
 				<a href="{{route('inaktif')}}" style="text-decoration: none;">
-					<i class='bx bx-collection'></i>
+					<i class='bx bxs-cabinet'></i>
 					<span class="text">Berkas Inaktif</span>
 				</a>
 			</li>
@@ -48,16 +54,8 @@
 			</li>
 			<li class="{{ request()->routeIs('penjelasan') ? 'active' : '' }}">
 				<a href="{{route('penjelasan')}}" style="text-decoration: none;">
-				<i class='bx bxs-cabinet'></i>
+				<i class='bx bxs-collection'></i>
 					<span class="text">Penjelasan</span>
-				</a>
-			</li>
-		</ul>
-		<ul class="side-menu">
-			<li>
-				<a href="#" class="logout" style="text-decoration: none;">
-					<i class='bx bxs-log-out-circle' ></i>
-					<span class="text">Logout</span>
 				</a>
 			</li>
 		</ul>

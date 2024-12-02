@@ -3,6 +3,9 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\BerkasInaktif;
+use App\Models\BerkasMusnah;
+use App\Models\BerkasPermanen;
 use App\Models\DaftarAktif;
 use App\Models\DaftarArsip;
 use App\Models\Jra;
@@ -21,7 +24,10 @@ class BerandaController extends Controller
         $Hasiljras = Jra::selectRaw('COUNT(*) as total_data_jras')->first();
         $Hasilkategory = Kategory::selectRaw('COUNT(*) as total_data_kategory')->first();
         $Hasildataarsip = DaftarArsip::selectRaw('COUNT(*) as total_data_daftararsip')->first();
+        $Hasilberkaspermanen = BerkasPermanen::selectRaw('COUNT(*) as total_data_berkaspermanen')->first();
+        $Hasilberkasinaktif = BerkasInaktif::selectRaw('COUNT(*) as total_data_berkasinaktif')->first();
+        $Hasilberkasmusnah = BerkasMusnah::selectRaw('COUNT(*) as total_data_berkasmusnah')->first();
 
-        return view('beranda', compact('Hasiljras', 'Hasilkategory', 'jras', 'kategory','logs','Hasildataarsip'));
+        return view('beranda', compact('Hasiljras', 'Hasilkategory', 'jras', 'kategory','logs','Hasildataarsip', 'Hasilberkaspermanen', 'Hasilberkasinaktif', 'Hasilberkasmusnah'));
     }
 }

@@ -32,6 +32,29 @@
                 </span>
             </li>
         </ul>
+        <ul class="box-info">
+            <li>
+                <i class='bx bxs-file'></i>
+                <span class="text">
+                    <h3>{{ $Hasilberkaspermanen->total_data_berkaspermanen }}</h3>
+                    <p>Berkas Permanen</p>
+                </span>
+            </li>
+            <li>
+                <i class='bx bxs-archive'></i>
+                <span class="text">
+                    <h3>{{ $Hasilberkasinaktif->total_data_berkasinaktif }}</h3>
+                    <p>Berkas Inaktif</p>
+                </span>
+            </li>
+            <li>
+                <i class='bx bxs-trash'></i>
+                <span class="text">
+                    <h3>{{ $Hasilberkasmusnah->total_data_berkasmusnah }}</h3>
+                    <p>Berkas Musnah</p>
+                </span>
+            </li>
+        </ul>
 
 
         <div class="table-data">

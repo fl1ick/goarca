@@ -45,17 +45,6 @@
                             </select>
                         </div>
                         <div class="col-md-6">
-                            <label for="status1">Status:</label>
-                            <select name="status1" id="status1" class="form-control w-50">
-                                <option value="">--Pilih Status--</option>
-                                <option value="Aktif" {{ request()->status1 == 'Aktif' ? 'selected' : '' }}>Aktif</option>
-                                <option value="Inaktif" {{ request()->status1 == 'Inaktif' ? 'selected' : '' }}>Inaktif
-                                </option>
-                                <option value="Proses" {{ request()->status1 == 'Proses' ? 'selected' : '' }}>Proses
-                                </option>
-                            </select>
-                        </div>
-                        <div class="col-md-6">
                             <button type="submit" class="form-control w-25 btn btn-primary"><i class='bx bx-filter'></i>
                                 Filter</button>
                         </div>
@@ -68,7 +57,7 @@
                 </div>
 
                 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                    aria-hidden="true" data-bs-backdrop="false" data-bs-keyboard="false">
+                    aria-hidden="true" data-bs-backdrop="true" data-bs-keyboard="false">
                     <div class="modal-dialog modal-75w">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -329,13 +318,13 @@
                             sorter: "string"
                         },
                         {
-                            title: "Kategori",
+                            title: "Masalah",
                             field: "kategori",
                             sorter: "string"
                         },
                         {
                             title: "Klasifikasi",
-                            field: "klasifikasi",
+                            field: "kode_klasifikasi",
                             sorter: "string"
                         },
                         {
@@ -423,11 +412,11 @@
                                     style: "tableHeader"
                                 },
                                 {
-                                    text: "Kategori",
+                                    text: "Masalah",
                                     style: "tableHeader"
                                 },
                                 {
-                                    text: "Klasifikasi",
+                                    text: "kode_klasifikasi",
                                     style: "tableHeader"
                                 },
                                 {
@@ -458,7 +447,7 @@
                                 row.isi_berkas || "-",
                                 row.tahun_berkas || "-",
                                 row.kategori || "-",
-                                row.klasifikasi || "-",
+                                row.kode_klasifikasi || "-",
                                 row.retensi_aktif || "-",
                                 row.retensi_inaktif || "-",
                                 row.jumlah_retensi || "-",

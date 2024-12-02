@@ -3,7 +3,6 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
-use App\Models\DaftarArsip;
 use App\Models\Log;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
@@ -22,34 +21,35 @@ class UpdateRetentionStatus extends Command
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = 'Update status arsip Proses menjadi Inaktif dan pindahkan ke tabel berkasinaktif jika retensi telah habis';
 
     /**
      * Execute the console command.
      */
     public function handle()
-{
-    $today = Carbon::now()->toDateString();
-    $arsips = DB::table('daftar_arsips')->get(['id', 'tahun_berkas', 'jumlah_retensi', 'status', 'isi_berkas', 'kategori', 'kode_klasifikasi', 'klasifikasi', 'retensi_aktif', 'retensi_inaktif', 'nasib']);
+    {
+        $today = Carbon::now()->toDateString();
 
-    foreach ($arsips as $arsip) {
-        $tahun_musnah = Carbon::createFromDate($arsip->tahun_berkas)->addYears($arsip->jumlah_retensi)->toDateString();
+        // Ambil arsip yang statusnya "Proses" dan memenuhi syarat retensi habis
+        $arsips = DB::table('daftar_arsips')
+            ->where('status', 'Proses')
+            ->whereRaw("DATE_ADD(tahun_berkas, INTERVAL jumlah_retensi YEAR) < ?", [$today])
+            ->get();
 
-        if ($tahun_musnah < $today) {
-            $oldData = ['status' => $arsip->status];
+        foreach ($arsips as $arsip) {
+            // Data lama untuk log
+            $oldData = [
+                'status' => $arsip->status,
+            ];
 
+            // Update status arsip menjadi Inaktif
             DB::table('daftar_arsips')
                 ->where('id', $arsip->id)
                 ->update(['status' => 'Inaktif']);
+            
+            dd($arsips);
 
-            Log::create([
-                'action' => 'updated',
-                'table_name' => 'daftar_arsips',
-                'record_id' => $arsip->id,
-                'old_data' => json_encode($oldData),
-                'new_data' => json_encode(['status' => 'Inaktif']),
-            ]);
-
+            // Pindahkan arsip ke tabel berkasinaktif
             $dataToMove = [
                 'isi_berkas' => $arsip->isi_berkas,
                 'tahun_berkas' => $arsip->tahun_berkas,
@@ -65,8 +65,11 @@ class UpdateRetentionStatus extends Command
 
             if (!DB::table('berkasinaktif')->where('isi_berkas', $arsip->isi_berkas)->exists()) {
                 DB::table('berkasinaktif')->insert($dataToMove);
-                ## DB::table('daftar_arsips')->where('id', $arsip->id)->delete();
 
+                // Hapus data dari daftar arsip
+                DB::table('daftar_arsips')->where('id', $arsip->id)->delete();
+
+                // Log pemindahan data
                 Log::create([
                     'action' => 'moved',
                     'table_name' => 'daftar_arsips',
@@ -76,48 +79,16 @@ class UpdateRetentionStatus extends Command
                 ]);
             }
 
-        } elseif ($tahun_musnah > $today) {
-            $oldData = ['status' => $arsip->status];
-
-            DB::table('daftar_arsips')
-                ->where('id', $arsip->id)
-                ->update(['status' => 'Aktif']);
-
+            // Log perubahan status
             Log::create([
                 'action' => 'updated',
                 'table_name' => 'daftar_arsips',
                 'record_id' => $arsip->id,
                 'old_data' => json_encode($oldData),
-                'new_data' => json_encode(['status' => 'Aktif']),
+                'new_data' => json_encode(['status' => 'Inaktif']),
             ]);
-
-            $dataToMoveActive = [
-                'isi_berkas' => $arsip->isi_berkas,
-                'tahun_berkas' => $arsip->tahun_berkas,
-                'jumlah_retensi' => $arsip->jumlah_retensi,
-                'kategori' => $arsip->kategori,
-                'kode_klasifikasi' => $arsip->kode_klasifikasi,
-                'klasifikasi' => $arsip->klasifikasi,
-                'retensi_aktif' => $arsip->retensi_aktif,
-                'retensi_inaktif' => $arsip->retensi_inaktif,
-                'nasib' => $arsip->nasib,
-                'status' => 'Aktif',
-            ];
-
-            if (!DB::table('berkasaktif')->where('isi_berkas', $arsip->isi_berkas)->exists()) {
-                DB::table('berkasaktif')->insert($dataToMoveActive);
-
-                Log::create([
-                    'action' => 'moved',
-                    'table_name' => 'daftar_arsips',
-                    'record_id' => $arsip->id,
-                    'old_data' => json_encode($arsip),
-                    'new_data' => json_encode($dataToMoveActive),
-                ]);
-            }
         }
-    }
 
-    $this->info('Data Sudah Update');
-}
+        $this->info('Data arsip status Proses telah diperbarui menjadi Inaktif dan dipindahkan ke berkasinaktif.');
+    }
 }
