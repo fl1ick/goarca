@@ -28,6 +28,7 @@
                     {title: "Isi Berkas", field: "isi_berkas", sorter: "string", width: 300},
                     {title: "Tahun Berkas", field: "tahun_berkas", sorter: "string"},
                     {title: "Kategori", field: "kategori", sorter: "string"},
+                    {title: "Kode Klasifikasi", field: "kode_klasifikasi", sorter: "string"},
                     {title: "Klasifikasi", field: "klasifikasi", sorter: "string"},
                     {title: "Retensi Aktif", field: "retensi_aktif", sorter: "string"},
                     {title: "Retensi Inaktif", field: "retensi_inaktif", sorter: "string"},
@@ -66,7 +67,7 @@
                     {text: "Isi Berkas", style: "tableHeader"},
                     {text: "Tahun Berkas", style: "tableHeader"},
                     {text: "Kategori", style: "tableHeader"},
-                    {text: "Klasifikasi", style: "tableHeader"},
+                    {text: "Kode Klasifikasi", style: "tableHeader"},
                     {text: "Retensi Aktif", style: "tableHeader"},
                     {text: "Retensi Inaktif", style: "tableHeader"},
                     {text: "Jumlah Retensi", style: "tableHeader"},
@@ -80,7 +81,7 @@
                     row.isi_berkas || "-",
                     row.tahun_berkas || "-",
                     row.kategori || "-",
-                    row.klasifikasi || "-",
+                    row.kode_klasifikasi || "-",
                     row.retensi_aktif || "-",
                     row.retensi_inaktif || "-",
                     row.jumlah_retensi || "-",
@@ -118,7 +119,7 @@
                 };
 
                 // Generate dan download PDF
-                pdfMake.createPdf(docDefinition).download("berkas-inaktif-with-kop-surat.pdf");
+                pdfMake.createPdf(docDefinition).download("berkas_inaktif.pdf");
             });
         });
     </script>

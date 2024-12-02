@@ -34,6 +34,9 @@
         @yield('content')
         <!-- CONTENT -->
     </section>
+        <!-- FOOTER -->
+        @include('layouts.footer')
+        <!-- END FOOTER -->
 
     <script src="{{ asset('customs/script.js') }}"></script>
     <!-- Tabulator Table Script -->

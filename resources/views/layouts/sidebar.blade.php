@@ -1,7 +1,7 @@
 <section id="sidebar">
 		<a href="#" class="brand" style="text-decoration: none;">
 			<img src="{{ asset('img/kotamagelang.png')}}" alt="Logo Kota Magelang" class="logo">
-			<span class="text">GoArca</span>
+			<span class="text"  style="color: black">GoArca</span>
 		</a>
 		<ul class="side-menu top">
 			<li class="{{ request()->routeIs('beranda') ? 'active' : '' }}">

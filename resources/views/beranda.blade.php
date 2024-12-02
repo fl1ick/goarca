@@ -11,50 +11,64 @@
 
         <ul class="box-info" style="margin-bottom:20px">
             <li>
-                <i class='bx bxs-calendar-check'></i>
-                <span class="text">
-                    <h3>{{ $Hasildataarsip->total_data_daftararsip }}</h3>
-                    <p>Data arsip Masuk</p>
-                </span>
+                <a href="{{ route('arsip') }}" style="text-decoration: none; color: inherit;">
+                    <i class='bx bxs-calendar-check'></i>
+                    <span class="text">
+                        <h3>{{ $Hasildataarsip->total_data_daftararsip }}</h3>
+                        <p>Data Arsip Masuk</p>
+                    </span>
+                </a>
             </li>
             <li>
-                <i class='bx bxs-hot'></i>
-                <span class="text">
-                    <h3>{{ $Hasiljras->total_data_jras }}</h3>
-                    <p>Jumlah Data JRA</p>
-                </span>
+                <a href="{{ route('jra') }}" style="text-decoration: none; color: inherit;">
+                    <i class='bx bxs-hot'></i>
+                    <span class="text">
+                        <h3>{{ $Hasiljras->total_data_jras }}</h3>
+                        <p>Jumlah Data JRA</p>
+                    </span>
+                </a>
             </li>
             <li>
-                <i class='bx bx-category-alt'></i>
-                <span class="text">
-                    <h3>{{ $Hasilkategory->total_data_kategory }}</h3>
-                    <p>Jumlah Data Kategori</p>
-                </span>
+                <a href="{{ route('kategory') }}" style="text-decoration: none; color: inherit;">
+                    <i class='bx bx-category-alt'></i>
+                    <span class="text">
+                        <h3>{{ $Hasilkategory->total_data_kategory }}</h3>
+                        <p>Jumlah Data Kategori</p>
+                    </span>
+                </a>
             </li>
         </ul>
+        
         <ul class="custom-box-info">
             <li>
-                <i class='bx bxs-file'></i>
-                <span class="text">
-                    <h3>{{ $Hasilberkaspermanen->total_data_berkaspermanen }}</h3>
-                    <p>Berkas Permanen</p>
-                </span>
+                <a href="{{ route('berkaspermanen.index') }}" style="text-decoration: none; color: inherit;">
+                    <i class='bx bxs-file'></i>
+                    <span class="text">
+                        <h3>{{ $Hasilberkaspermanen->total_data_berkaspermanen }}</h3>
+                        <p>Berkas Permanen</p>
+                    </span>
+                </a>
             </li>
             <li>
-                <i class='bx bxs-archive'></i>
-                <span class="text">
-                    <h3>{{ $Hasilberkasinaktif->total_data_berkasinaktif }}</h3>
-                    <p>Berkas Inaktif</p>
-                </span>
+                <a href="{{ route('inaktif') }}" style="text-decoration: none; color: inherit;">
+                    <i class='bx bxs-archive'></i>
+                    <span class="text">
+                        <h3>{{ $Hasilberkasinaktif->total_data_berkasinaktif }}</h3>
+                        <p>Berkas Inaktif</p>
+                    </span>
+                </a>
             </li>
             <li>
-                <i class='bx bxs-trash'></i>
-                <span class="text">
-                    <h3>{{ $Hasilberkasmusnah->total_data_berkasmusnah }}</h3>
-                    <p>Berkas Musnah</p>
-                </span>
+                <a href="{{ route('berkasmusnah.index') }}" style="text-decoration: none; color: inherit;">
+                    <i class='bx bxs-trash'></i>
+                    <span class="text">
+                        <h3>{{ $Hasilberkasmusnah->total_data_berkasmusnah }}</h3>
+                        <p>Berkas Musnah</p>
+                    </span>
+                </a>
             </li>
         </ul>
+        
         
         <div class="table-data">
             <div class="order">

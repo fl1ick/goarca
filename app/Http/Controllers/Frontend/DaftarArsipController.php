@@ -97,8 +97,11 @@ class DaftarArsipController extends Controller
         $message = ''; // Pesan sukses untuk SweetAlert
     
         if ($request->nasib === 'Permanen') {
-            // Tambahkan ke tabel BerkasPermanen
-            BerkasPermanen::create([
+            // Tentukan status berdasarkan hasil penjumlahan
+            $status = $hasilPenjumlahan > $currentDate ? 'Proses' : 'Inaktif';
+    
+            // Simpan ke tabel BerkasPermanen
+            $berkasPermanen = BerkasPermanen::create([
                 'isi_berkas' => $request->isi_berkas,
                 'tahun_berkas' => $request->tahun_berkas,
                 'kategori' => $kategori->kategori,
@@ -108,10 +111,26 @@ class DaftarArsipController extends Controller
                 'retensi_inaktif' => $request->retensi_inaktif,
                 'jumlah_retensi' => $request->jumlah_retensi,
                 'nasib' => $request->nasib,
-                'status' => 'Aktif',
+                'status' => $status,
             ]);
     
-            $message = 'Data berhasil disimpan ke Berkas Permanen.';
+            // Jika status adalah "Inaktif", juga simpan ke tabel BerkasInaktif
+            if ($status === 'Inaktif') {
+                BerkasInaktif::create([
+                    'isi_berkas' => $berkasPermanen->isi_berkas,
+                    'tahun_berkas' => $berkasPermanen->tahun_berkas,
+                    'kategori' => $berkasPermanen->kategori,
+                    'kode_klasifikasi' => $berkasPermanen->kode_klasifikasi,
+                    'klasifikasi' => $berkasPermanen->klasifikasi,
+                    'retensi_aktif' => $berkasPermanen->retensi_aktif,
+                    'retensi_inaktif' => $berkasPermanen->retensi_inaktif,
+                    'jumlah_retensi' => $berkasPermanen->jumlah_retensi,
+                    'nasib' => $berkasPermanen->nasib,
+                    'status' => 'Inaktif',
+                ]);
+            }
+    
+            $message = 'Data berhasil disimpan ke Berkas Permanen dengan status "' . $status . '".';
         } elseif ($hasilPenjumlahan > $currentDate) {
             // Simpan ke tabel DaftarArsip dengan status "Proses"
             DaftarArsip::create([
@@ -166,10 +185,7 @@ class DaftarArsipController extends Controller
             ->route('arsip')
             ->with('success', $message);
     }
-    
-    
-    
-
+            
     /**
      * Display the specified resource.
      */

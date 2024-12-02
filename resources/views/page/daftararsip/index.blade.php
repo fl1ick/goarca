@@ -487,7 +487,7 @@
                             };
 
                             // Generate dan download PDF
-                            pdfMake.createPdf(docDefinition).download("daftar-arsip-with-kop-surat.pdf");
+                            pdfMake.createPdf(docDefinition).download("daftar_arsip.pdf");
                         })
                         .catch(err => console.error("Error fetching image: ", err)); // Menangani error
                 });

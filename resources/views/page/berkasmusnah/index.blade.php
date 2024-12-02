@@ -30,6 +30,7 @@
             {title: "Isi Berkas", field: "isi_berkas", sorter: "string", width: 300},
             {title: "Tahun Berkas", field: "tahun_berkas", sorter: "string"},
             {title: "Kategori", field: "kategori", sorter: "string"},
+            {title: "Kode Klasifikasi", field: "kode_klasifikasi", sorter: "string"},
             {title: "Klasifikasi", field: "klasifikasi", sorter: "string"},
             {title: "Retensi Aktif", field: "retensi_aktif", sorter: "string"},
             {title: "Retensi Inaktif", field: "retensi_inaktif", sorter: "string"},
@@ -65,29 +66,30 @@
 
         // Table column headers
         let tableHeaders = [
-            {text: "No", style: "tableHeader"},
-            {text: "Kategori", style: "tableHeader"},
-            {text: "Kode Klasifikasi", style: "tableHeader"},
-            {text: "Klasifikasi", style: "tableHeader"},
-            {text: "Retensi Aktif", style: "tableHeader"},
-            {text: "Retensi Inaktif", style: "tableHeader"},
-            {text: "Jumlah Retensi", style: "tableHeader"},
-            {text: "Nasib", style: "tableHeader"},
-            {text: "Status Berkas", style: "tableHeader"}  // Added "Status Berkas"
-        ];
+                    {text: "No", style: "tableHeader"},
+                    {text: "Isi Berkas", style: "tableHeader"},
+                    {text: "Tahun Berkas", style: "tableHeader"},
+                    {text: "Kategori", style: "tableHeader"},
+                    {text: "Kode Klasifikasi", style: "tableHeader"},
+                    {text: "Retensi Aktif", style: "tableHeader"},
+                    {text: "Retensi Inaktif", style: "tableHeader"},
+                    {text: "Jumlah Retensi", style: "tableHeader"},
+                    {text: "Nasib Akhir", style: "tableHeader"},
+                    {text: "Status Berkas", style: "tableHeader"}
+                ];
 
         // Table content from the data
         let tableBody = tableData.map((row, index) => [
             index + 1,
+            row.isi_berkas || "-",
+            row.tahun_berkas || "-",
             row.kategori || "-",
             row.kode_klasifikasi || "-",
-            row.klasifikasi || "-",
-            row.KKAD || "-",
             row.retensi_aktif || "-",
             row.retensi_inaktif || "-",
             row.jumlah_retensi || "-",
             row.nasib || "-",
-            row.status || "-"  // Added "Status Berkas" field
+            row.status || "-"
         ]);
 
         // Combine header and table body

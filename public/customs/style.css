@@ -719,5 +719,27 @@ h1 {
 }
 
 .custom-box-info li:last-child {
-    background-color: #29d0e6; /* Merah untuk Berkas Musnah */
+    background-color: #36def4; /* Merah untuk Berkas Musnah */
+}
+/* Custom footer styles */
+.footer {
+    background-color: #000000;
+    padding: 20px 0;  /* Menambah padding agar footer lebih tinggi */
+    text-align: center; /* Menjaga teks di tengah */
+    position: relative; /* Jika ingin footer berada di bawah konten */
+    bottom: 0;
+    width: 100%;
+}
+
+.footer-text {
+    font-size: 18px !important;  /* Ukuran font untuk teks copyright */
+    color: #ffffff !important;  /* Warna teks putih agar kontras dengan background hitam */
+}
+
+.footer .container-fluid {
+    max-width: 100%;  /* Menjaga container agar lebar penuh */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;  /* Menyusun elemen secara vertikal */
 }
