@@ -1,0 +1,29 @@
+/* Atur ukuran font pada pagination */
+.pagination {
+    font-size: 0.9rem; /* Ukuran font lebih kecil */
+}
+
+/* Atur ukuran panah sebelumnya dan selanjutnya */
+.pagination .page-link {
+    padding: 0.25rem 0.5rem; /* Mengurangi padding */
+    font-size: 0.85rem; /* Menyesuaikan ukuran font panah */
+    border-radius: 5px;
+}
+
+/* Menambahkan efek hover pada panah */
+.pagination .page-link:hover {
+    background-color: #f0f0f0;
+    color: #007bff;
+}
+
+/* Menyesuaikan ikon panah agar lebih kecil */
+.pagination .page-item:first-child .page-link::before,
+.pagination .page-item:last-child .page-link::before {
+    font-size: 1rem; /* Ukuran font untuk ikon panah */
+}
+
+/* Mengatur ukuran panah sebelumnya dan berikutnya */
+.pagination .page-item .page-link {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.9rem; /* Ukuran font panah lebih kecil */
+}
