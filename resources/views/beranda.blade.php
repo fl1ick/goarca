@@ -9,7 +9,7 @@
             </div>
         </div>
 
-        <ul class="box-info">
+        <ul class="box-info" style="margin-bottom:20px">
             <li>
                 <i class='bx bxs-calendar-check'></i>
                 <span class="text">
@@ -32,7 +32,7 @@
                 </span>
             </li>
         </ul>
-        <ul class="box-info">
+        <ul class="custom-box-info">
             <li>
                 <i class='bx bxs-file'></i>
                 <span class="text">
@@ -55,8 +55,7 @@
                 </span>
             </li>
         </ul>
-
-
+        
         <div class="table-data">
             <div class="order">
                 <div class="head">
