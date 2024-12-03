@@ -363,7 +363,7 @@
                             title: "Unit Olah",
                             field: "unit_olah",
                             sorter: "string"
-                        },
+                        }
                     ]
                 });
 
@@ -450,7 +450,7 @@
                                 {
                                     text: "Status Berkas",
                                     style: "tableHeader"
-                                }
+                                },
                                 {
                                     text: "Unit Olah",
                                     style: "tableHeader"

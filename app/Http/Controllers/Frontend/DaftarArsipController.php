@@ -97,100 +97,117 @@ class DaftarArsipController extends Controller
         $currentDate = time();
         $message = ''; // Pesan sukses untuk SweetAlert
     
+        // Logika untuk kategori 'Permanen'
         if ($request->nasib === 'Permanen') {
             // Tentukan status berdasarkan hasil penjumlahan
             $status = $hasilPenjumlahan > $currentDate ? 'Proses' : 'Inaktif';
     
-            // Simpan ke tabel BerkasPermanen
-            $berkasPermanen = BerkasPermanen::create([
-                'isi_berkas' => $request->isi_berkas,
-                'tahun_berkas' => $request->tahun_berkas,
-                'kategori' => $kategori->kategori,
-                'kode_klasifikasi' => $request->kode_klasifikasi,
-                'klasifikasi' => $request->klasifikasi_hidden,
-                'retensi_aktif' => $request->retensi_aktif,
-                'retensi_inaktif' => $request->retensi_inaktif,
-                'jumlah_retensi' => $request->jumlah_retensi,
-                'nasib' => $request->nasib,
-                'status' => $status,
-                'unit_olah' => $request->unit_olah,
-            ]);
+            // Periksa apakah data dengan status "Proses" sudah ada di DaftarArsip
+            $existingData = DaftarArsip::where('isi_berkas', $request->isi_berkas)
+                                       ->where('tahun_berkas', $request->tahun_berkas)
+                                       ->where('kategori', $kategori->kategori)
+                                       ->where('kode_klasifikasi', $request->kode_klasifikasi)
+                                       ->where('status', 'Proses')
+                                       ->first();
     
-            // Jika status adalah "Inaktif", juga simpan ke tabel BerkasInaktif
-            if ($status === 'Inaktif') {
-                BerkasInaktif::create([
-                    'isi_berkas' => $berkasPermanen->isi_berkas,
-                    'tahun_berkas' => $berkasPermanen->tahun_berkas,
-                    'kategori' => $berkasPermanen->kategori,
-                    'kode_klasifikasi' => $berkasPermanen->kode_klasifikasi,
-                    'klasifikasi' => $berkasPermanen->klasifikasi,
-                    'retensi_aktif' => $berkasPermanen->retensi_aktif,
-                    'retensi_inaktif' => $berkasPermanen->retensi_inaktif,
-                    'jumlah_retensi' => $berkasPermanen->jumlah_retensi,
-                    'nasib' => $berkasPermanen->nasib,
-                    'status' => 'Inaktif',
+            if ($status === 'Proses' && !$existingData) {
+                // Simpan data ke DaftarArsip jika belum ada yang dengan status "Proses"
+                DaftarArsip::create([
+                    'isi_berkas' => $request->isi_berkas,
+                    'tahun_berkas' => $request->tahun_berkas,
+                    'kategori' => $kategori->kategori,
+                    'kode_klasifikasi' => $request->kode_klasifikasi,
+                    'klasifikasi' => $request->klasifikasi_hidden,
+                    'retensi_aktif' => $request->retensi_aktif,
+                    'retensi_inaktif' => $request->retensi_inaktif,
+                    'jumlah_retensi' => $request->jumlah_retensi,
+                    'nasib' => $request->nasib,
+                    'status' => 'Proses',
                     'unit_olah' => $request->unit_olah,
                 ]);
+                $message = 'Data berhasil disimpan ke Daftar Arsip dengan status "Proses".';
             }
     
-            $message = 'Data berhasil disimpan ke Berkas Permanen dengan status "' . $status . '".';
-        } elseif ($hasilPenjumlahan > $currentDate) {
-            // Simpan ke tabel DaftarArsip dengan status "Proses"
-            DaftarArsip::create([
-                'isi_berkas' => $request->isi_berkas,
-                'tahun_berkas' => $request->tahun_berkas,
-                'kategori' => $kategori->kategori,
-                'kode_klasifikasi' => $request->kode_klasifikasi,
-                'klasifikasi' => $request->klasifikasi_hidden,
-                'retensi_aktif' => $request->retensi_aktif,
-                'retensi_inaktif' => $request->retensi_inaktif,
-                'jumlah_retensi' => $request->jumlah_retensi,
-                'nasib' => $request->nasib,
-                'status' => 'Proses',
-                'unit_olah' => $request->unit_olah,
-            ]);
-            $message = 'Data berhasil disimpan ke Daftar Arsip dengan status "Proses".';
-        } else {
-            // Simpan ke tabel BerkasInaktif dengan status "Inaktif"
-            $berkasInaktif = BerkasInaktif::create([
-                'isi_berkas' => $request->isi_berkas,
-                'tahun_berkas' => $request->tahun_berkas,
-                'kategori' => $kategori->kategori,
-                'kode_klasifikasi' => $request->kode_klasifikasi,
-                'klasifikasi' => $request->klasifikasi_hidden,
-                'retensi_aktif' => $request->retensi_aktif,
-                'retensi_inaktif' => $request->retensi_inaktif,
-                'jumlah_retensi' => $request->jumlah_retensi,
-                'nasib' => $request->nasib,
-                'status' => 'Inaktif',
-                'unit_olah' => $request->unit_olah,
-            ]);
+            // Pastikan data juga disalin ke BerkasPermanen setelah status "Proses"
+            if ($status === 'Proses') {
+                BerkasPermanen::create([
+                    'isi_berkas' => $request->isi_berkas,
+                    'tahun_berkas' => $request->tahun_berkas,
+                    'kategori' => $kategori->kategori,
+                    'kode_klasifikasi' => $request->kode_klasifikasi,
+                    'klasifikasi' => $request->klasifikasi_hidden,
+                    'retensi_aktif' => $request->retensi_aktif,
+                    'retensi_inaktif' => $request->retensi_inaktif,
+                    'jumlah_retensi' => $request->jumlah_retensi,
+                    'nasib' => $request->nasib,
+                    'status' => $status,
+                    'unit_olah' => $request->unit_olah,
+                ]);
+                $message = 'Data berhasil disalin ke Berkas Permanen dengan status "' . $status . '".';
+            }
     
-            if ($request->nasib === 'Musnah') {
-                // Juga simpan ke tabel BerkasMusnah
-                BerkasMusnah::create([
-                    'isi_berkas' => $berkasInaktif->isi_berkas,
-                    'tahun_berkas' => $berkasInaktif->tahun_berkas,
-                    'kategori' => $berkasInaktif->kategori,
-                    'kode_klasifikasi' => $berkasInaktif->kode_klasifikasi,
-                    'klasifikasi' => $berkasInaktif->klasifikasi,
-                    'retensi_aktif' => $berkasInaktif->retensi_aktif,
-                    'retensi_inaktif' => $berkasInaktif->retensi_inaktif,
-                    'jumlah_retensi' => $berkasInaktif->jumlah_retensi,
-                    'nasib' => $berkasInaktif->nasib,
+        }
+        // Logika untuk kategori lainnya seperti 'Inaktif' dan 'Musnah'
+        else {
+            // Jika statusnya lebih dari hari ini, simpan di DaftarArsip
+            if ($hasilPenjumlahan > $currentDate) {
+                DaftarArsip::create([
+                    'isi_berkas' => $request->isi_berkas,
+                    'tahun_berkas' => $request->tahun_berkas,
+                    'kategori' => $kategori->kategori,
+                    'kode_klasifikasi' => $request->kode_klasifikasi,
+                    'klasifikasi' => $request->klasifikasi_hidden,
+                    'retensi_aktif' => $request->retensi_aktif,
+                    'retensi_inaktif' => $request->retensi_inaktif,
+                    'jumlah_retensi' => $request->jumlah_retensi,
+                    'nasib' => $request->nasib,
+                    'status' => 'Proses',
+                    'unit_olah' => $request->unit_olah,
+                ]);
+                $message = 'Data berhasil disimpan ke Daftar Arsip dengan status "Proses".';
+            }
+            // Jika statusnya sudah lebih dari tanggal yang dihitung, simpan di BerkasInaktif dan jika Musnah, simpan di BerkasMusnah
+            else {
+                $berkasInaktif = BerkasInaktif::create([
+                    'isi_berkas' => $request->isi_berkas,
+                    'tahun_berkas' => $request->tahun_berkas,
+                    'kategori' => $kategori->kategori,
+                    'kode_klasifikasi' => $request->kode_klasifikasi,
+                    'klasifikasi' => $request->klasifikasi_hidden,
+                    'retensi_aktif' => $request->retensi_aktif,
+                    'retensi_inaktif' => $request->retensi_inaktif,
+                    'jumlah_retensi' => $request->jumlah_retensi,
+                    'nasib' => $request->nasib,
                     'status' => 'Inaktif',
                     'unit_olah' => $request->unit_olah,
                 ]);
-                $message = 'Data berhasil disimpan ke Berkas Inaktif dan Berkas Musnah.';
-            } else {
-                $message = 'Data berhasil disimpan ke Berkas Inaktif dengan status "Inaktif".';
+    
+                if ($request->nasib === 'Musnah') {
+                    BerkasMusnah::create([
+                        'isi_berkas' => $berkasInaktif->isi_berkas,
+                        'tahun_berkas' => $berkasInaktif->tahun_berkas,
+                        'kategori' => $berkasInaktif->kategori,
+                        'kode_klasifikasi' => $berkasInaktif->kode_klasifikasi,
+                        'klasifikasi' => $berkasInaktif->klasifikasi,
+                        'retensi_aktif' => $berkasInaktif->retensi_aktif,
+                        'retensi_inaktif' => $berkasInaktif->retensi_inaktif,
+                        'jumlah_retensi' => $berkasInaktif->jumlah_retensi,
+                        'nasib' => $berkasInaktif->nasib,
+                        'status' => 'Inaktif',
+                        'unit_olah' => $request->unit_olah,
+                    ]);
+                    $message = 'Data berhasil disimpan ke Berkas Inaktif dan Berkas Musnah.';
+                } else {
+                    $message = 'Data berhasil disimpan ke Berkas Inaktif.';
+                }
             }
         }
     
-        return redirect()
-            ->route('arsip')
-            ->with('success', $message);
+        return redirect()->route('arsip')->with('success', $message);
     }
+    
+    
+    
             
     /**
      * Display the specified resource.

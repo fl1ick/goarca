@@ -36,7 +36,7 @@
             {title: "Retensi Inaktif", field: "retensi_inaktif", sorter: "string"},
             {title: "Jumlah Retensi", field: "jumlah_retensi", sorter: "string"},
             {title: "Nasib Akhir", field: "nasib", sorter: "string"},
-            {title: "Status Berkas", field: "status", sorter: "string"}
+            {title: "Status Berkas", field: "status", sorter: "string"},
             {title: "Unit Olah", field: "unit_olah", sorter: "string"}
         ]
     });
