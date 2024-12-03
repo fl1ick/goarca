@@ -35,6 +35,7 @@
                     {title: "Jumlah Retensi", field: "jumlah_retensi", sorter: "string"},
                     {title: "Nasib Akhir", field: "nasib", sorter: "string"},
                     {title: "Status Berkas", field: "status", sorter: "string"}
+                    {title: "Unit Olah", field: "unit_olah", sorter: "string"}
                 ]
             });
 
@@ -73,6 +74,7 @@
                     {text: "Jumlah Retensi", style: "tableHeader"},
                     {text: "Nasib Akhir", style: "tableHeader"},
                     {text: "Status Berkas", style: "tableHeader"}
+                    {text: "Unit Olah", style: "tableHeader"}
                 ];
 
                 // Isi tabel dari data
@@ -86,14 +88,15 @@
                     row.retensi_inaktif || "-",
                     row.jumlah_retensi || "-",
                     row.nasib || "-",
-                    row.status || "-"
+                    row.status || "-",
+                    row.unit_olah || "-"
                 ]);
 
                 // Menyatukan header dan isi tabel
                 let tableContent = {
                     table: {
                         headerRows: 1,
-                        widths: [30, "auto", "auto", "auto", "auto", "auto", "auto", "auto", "auto", "auto"], // Sesuaikan agar semua kolom muat
+                        widths: [30, "auto", "auto", "auto", "auto", "auto", "auto", "auto", "auto", "auto","auto"], // Sesuaikan agar semua kolom muat
                         body: [tableHeaders, ...tableBody]
                     },
                     layout: "lightHorizontalLines" // Garis horizontal ringan

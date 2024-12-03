@@ -451,6 +451,10 @@
                                     text: "Status Berkas",
                                     style: "tableHeader"
                                 }
+                                {
+                                    text: "Unit Olah",
+                                    style: "tableHeader"
+                                }
                             ];
 
                             // Isi tabel dari data
@@ -464,7 +468,8 @@
                                 row.retensi_inaktif || "-",
                                 row.jumlah_retensi || "-",
                                 row.nasib || "-",
-                                row.status || "-"
+                                row.status || "-",
+                                row.unit_olah || "-"
                             ]);
 
                             // Menyatukan header dan body tabel
@@ -472,7 +477,7 @@
                                 table: {
                                     headerRows: 1,
                                     widths: [30, "auto", "auto", "auto", "auto", "auto", "auto", "auto",
-                                        "auto", "auto"
+                                        "auto", "auto","auto"
                                     ], // Menyesuaikan ukuran kolom agar pas
                                     body: [tableHeaders, ...tableBody] // Menggabungkan header dan body
                                 },

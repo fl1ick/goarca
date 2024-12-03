@@ -37,6 +37,7 @@
             {title: "Jumlah Retensi", field: "jumlah_retensi", sorter: "string"},
             {title: "Nasib Akhir", field: "nasib", sorter: "string"},
             {title: "Status Berkas", field: "status", sorter: "string"}
+            {title: "Unit Olah", field: "unit_olah", sorter: "string"}
         ]
     });
 
@@ -75,7 +76,9 @@
                     {text: "Retensi Inaktif", style: "tableHeader"},
                     {text: "Jumlah Retensi", style: "tableHeader"},
                     {text: "Nasib Akhir", style: "tableHeader"},
-                    {text: "Status Berkas", style: "tableHeader"}
+                    {text: "Status Berkas", style: "tableHeader"},
+                    {text: "Unit Olah", style: "tableHeader"}
+                
                 ];
 
 
@@ -90,14 +93,15 @@
             row.retensi_inaktif || "-",
             row.jumlah_retensi || "-",
             row.nasib || "-",
-            row.status || "-"
+            row.status || "-",
+            row.unit_olah || "-"
         ]);
 
         // Combine header and table body
         let tableContent = {
             table: {
                 headerRows: 1,
-                widths: [30, "auto", "auto", "auto", "auto", "auto", "auto", "auto", "auto", "auto"], // Adjust widths for all columns
+                widths: [30, "auto", "auto", "auto", "auto", "auto", "auto", "auto", "auto", "auto","auto"], // Adjust widths for all columns
                 body: [tableHeaders, ...tableBody]
             },
             layout: "lightHorizontalLines" // Light horizontal lines for the table layout

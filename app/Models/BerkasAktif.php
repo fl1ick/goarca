@@ -10,7 +10,7 @@ class BerkasAktif extends Model
     use HasFactory;
     protected $fillable = [
         'isi_berkas', 'tahun_berkas', 'kategori', 'kode_klasifikasi', 
-        'klasifikasi', 'retensi_aktif', 'retensi_inaktif', 'jumlah_retensi', 'nasib','status'
+        'klasifikasi', 'retensi_aktif', 'retensi_inaktif', 'jumlah_retensi', 'nasib','status','unit_olah'
     ];
     protected $table = 'berkasaktif';
 

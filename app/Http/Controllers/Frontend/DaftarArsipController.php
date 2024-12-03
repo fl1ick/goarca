@@ -42,7 +42,7 @@ class DaftarArsipController extends Controller
         $daftararsip = DaftarArsip::all();
 
         // Ambil semua kategori dan klasifikasi yang terkait
-        $kategories = Kategory::all(); // Semua kategori
+        $kategories = Kategory::all(); 
         $klasifikasis = [];
 
         // Jika kategori dipilih, ambil klasifikasi yang terkait
