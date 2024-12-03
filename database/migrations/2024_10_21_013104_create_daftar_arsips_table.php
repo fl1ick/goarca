@@ -23,6 +23,7 @@ return new class extends Migration
             $table->integer('jumlah_retensi');
             $table->string('nasib');
             $table->string('status');
+            $table->string('unit_olah');
             $table->timestamps();
         });
     }

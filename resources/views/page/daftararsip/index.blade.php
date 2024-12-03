@@ -166,6 +166,13 @@
                                             </div>
                                         </div>
 
+                                        <div class="mb-3 row">
+                                            <label for="unit_olah" class="col-sm-2 col-form-label">Unit Olah:</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" class="form-control w-50" name="unit_olah" id="unit_olah" placeholder="Masukkan unit olah" required>
+                                            </div>
+                                        </div>
+
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary"
                                                 data-bs-dismiss="modal">Close</button>
@@ -351,7 +358,12 @@
                             title: "Status Berkas",
                             field: "status",
                             sorter: "string"
-                        }
+                        },
+                        {
+                            title: "Unit Olah",
+                            field: "unit_olah",
+                            sorter: "string"
+                        },
                     ]
                 });
 

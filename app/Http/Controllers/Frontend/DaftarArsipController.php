@@ -80,6 +80,7 @@ class DaftarArsipController extends Controller
             'retensi_inaktif' => 'required|integer',
             'jumlah_retensi' => 'required|integer',
             'nasib' => 'required|string|max:255',
+            'unit_olah' => 'required|string|max:255',
         ]);
     
         // Ambil nama kategori berdasarkan kode yang dipilih
@@ -112,6 +113,7 @@ class DaftarArsipController extends Controller
                 'jumlah_retensi' => $request->jumlah_retensi,
                 'nasib' => $request->nasib,
                 'status' => $status,
+                'unit_olah' => $request->unit_olah,
             ]);
     
             // Jika status adalah "Inaktif", juga simpan ke tabel BerkasInaktif
@@ -127,6 +129,7 @@ class DaftarArsipController extends Controller
                     'jumlah_retensi' => $berkasPermanen->jumlah_retensi,
                     'nasib' => $berkasPermanen->nasib,
                     'status' => 'Inaktif',
+                    'unit_olah' => $request->unit_olah,
                 ]);
             }
     
@@ -144,6 +147,7 @@ class DaftarArsipController extends Controller
                 'jumlah_retensi' => $request->jumlah_retensi,
                 'nasib' => $request->nasib,
                 'status' => 'Proses',
+                'unit_olah' => $request->unit_olah,
             ]);
             $message = 'Data berhasil disimpan ke Daftar Arsip dengan status "Proses".';
         } else {
@@ -159,6 +163,7 @@ class DaftarArsipController extends Controller
                 'jumlah_retensi' => $request->jumlah_retensi,
                 'nasib' => $request->nasib,
                 'status' => 'Inaktif',
+                'unit_olah' => $request->unit_olah,
             ]);
     
             if ($request->nasib === 'Musnah') {
@@ -174,6 +179,7 @@ class DaftarArsipController extends Controller
                     'jumlah_retensi' => $berkasInaktif->jumlah_retensi,
                     'nasib' => $berkasInaktif->nasib,
                     'status' => 'Inaktif',
+                    'unit_olah' => $request->unit_olah,
                 ]);
                 $message = 'Data berhasil disimpan ke Berkas Inaktif dan Berkas Musnah.';
             } else {
