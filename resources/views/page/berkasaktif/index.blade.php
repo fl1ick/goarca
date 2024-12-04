@@ -103,6 +103,7 @@
 
         // PDF document definition
         let docDefinition = {
+            pageOrientation: "landscape", // Orientasi kertas horizontal
             content: [kopSurat, tableContent],
             styles: {
                 header: {
