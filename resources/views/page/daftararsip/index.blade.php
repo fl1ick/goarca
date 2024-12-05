@@ -1,57 +1,70 @@
 @extends('layouts.main')
 
 @section('content')
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <style>
+        .modal-75w {
+            max-width: 75%;
+            /* Set the modal width to 75% of the screen */
+        }
+
+        .sidebar a {
+            text-decoration: none;
+            /* Menghapus garis bawah */
+        }
+    </style>
+
     <main>
         <div class="table-data">
             <div class="order">
                 <h2>Daftar Arsip</h2>
                 <!-- Filter Form -->
-                <form method="GET" action="{{ route('arsip') }}">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <label for="isi_berkas">Isi Berkas:</label>
-                            <input class="form-control w-40" type="text" name="isi_berkas" id="isi_berkas"
-                                value="{{ request()->isi_berkas }}">
-                        </div>
-                        <div class="col-md-6">
-                            <label for="tahun_berkas">Tahun Berkas:</label>
-                            <input class="form-control w-25" type="date" name="tahun_berkas" id="tahun_berkas"
-                                value="{{ request()->tahun_berkas }}">
-                        </div>
-                        <div class="col-md-6">
-                            <label for="kategori1">Kategori:</label>
-                            <select name="kategori1" id="kategori1" class="form-control w-50">
-                                <option value="">--Pilih Kategori--</option>
-                                @foreach ($kategories as $kategori)
-                                    <option value="{{ $kategori->kode }}"
-                                        {{ request()->kategori1 == $kategori->kode ? 'selected' : '' }}>
-                                        {{ $kategori->kategori }}
-                                    </option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="col-md-6">
-                            <label for="klasifikasi1">Klasifikasi:</label>
-                            <select name="klasifikasi1" id="klasifikasi1" class="form-control w-50">
-                                <option value="">--Pilih Klasifikasi--</option>
-                                @if (isset($klasifikasis))
-                                    @foreach ($klasifikasis as $klasifikasi)
-                                        <option value="{{ $klasifikasi->kode_kodeklasifikasi }}"
-                                            {{ request()->klasifikasi1 == $klasifikasi->kode_kodeklasifikasi ? 'selected' : '' }}>
-                                            {{ $klasifikasi->klasifikasi }}
-                                        </option>
-                                    @endforeach
-                                @endif
-                            </select>
-                        </div>
-                        <div class="col-md-6">
-                            <button type="submit" class="form-control w-25 btn btn-primary"><i class='bx bx-filter'></i>
-                                Filter</button>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <div class="col g-3 align-items-center">
+                            <div class="col-auto">
+                                <label for="search-isi-berkas" class="col-form-label">Cari isi Berkas</label>
+                            </div>
+                            <div class="col-auto">
+                                <input type="text" id="search-isi-berkas" class="form-control">
+                            </div>
                         </div>
                     </div>
-                </form>
+                    <div class="col-sm-3">
+                        <div class="col g-3 align-items-center">
+                            <div class="col-auto">
+                                <label for="search-tahun-berkas" class="col-form-label">Cari Tahun Berkas</label>
+                            </div>
+                            <div class="col-auto">
+                                <input type="date" id="search-tahun-berkas" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="col g-3 align-items-center">
+                            <div class="col-auto">
+                                <label for="search-kategori" class="col-form-label">Cari Kategori Berkas</label>
+                            </div>
+                            <div class="col-auto">
+                                <input type="text" id="search-kategori" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="col g-3 align-items-center">
+                            <div class="col-auto">
+                                <label for="search-klasifikasi" class="col-form-label">Cari Klasifikasi Berkas</label>
+                            </div>
+                            <div class="col-auto">
+                                <input type="text" id="search-klasifikasi" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="col-md-6">
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#exampleModal">
                         + Tambah Arsip
                     </button>
                 </div>
@@ -87,7 +100,8 @@
                                         <div class="mb-3 row">
                                             <label for="kategori" class="col-sm-2 col-form-label">Kategori:</label>
                                             <div class="col-sm-10">
-                                                <select name="kategori" id="kategori" class="form-control w-25" required>
+                                                <select name="kategori" id="kategori" class="form-control w-25"
+                                                    required>
                                                     <option value="">--Pilih Kategori--</option>
                                                     @foreach ($kategories as $kategori)
                                                         <option value="{{ $kategori->kode }}">{{ $kategori->kategori }}
@@ -169,7 +183,8 @@
                                         <div class="mb-3 row">
                                             <label for="unit_olah" class="col-sm-2 col-form-label">Unit Olah:</label>
                                             <div class="col-sm-10">
-                                                <input type="text" class="form-control w-50" name="unit_olah" id="unit_olah" placeholder="Masukkan unit olah" required>
+                                                <input type="text" class="form-control w-50" name="unit_olah"
+                                                    id="unit_olah" placeholder="Masukkan unit olah" required>
                                             </div>
                                         </div>
 
@@ -185,22 +200,11 @@
                     </div>
                 </div>
 
-                <style>
-                    .modal-75w {
-                        max-width: 75%;
-                        /* Set the modal width to 75% of the screen */
-                    }
-
-                    .sidebar a {
-                        text-decoration: none;
-                        /* Menghapus garis bawah */
-                    }
-                </style>
                 <div class="mt-3">
                     <!-- Tombol Export -->
                     <div class="mb-3">
                         <button class="btn btn-primary" id="export-csv">Export CSV</button>
-                        <button class="btn btn-warning me-2" id="export-xlsx">Export XLSX</button>
+                        <button class="btn btn-warning" id="export-xlsx">Export XLSX</button>
                         <button class="btn btn-danger" id="export-pdf">Export PDF</button>
                     </div>
 
@@ -209,6 +213,7 @@
                 </div>
             </div>
         </div>
+
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script>
             @if (session('success'))
@@ -301,6 +306,8 @@
                 // Data dari Laravel (diambil dari controller)
                 var arsips = @json($daftararsip);
 
+                console.log('Data : ', arsips);
+
                 // Inisialisasi Tabulator
                 var table = new Tabulator("#arsip-table", {
                     data: arsips, // Assign data from the controller
@@ -331,7 +338,7 @@
                         },
                         {
                             title: "Klasifikasi",
-                            field: "kode_klasifikasi",
+                            field: "klasifikasi",
                             sorter: "string"
                         },
                         {
@@ -365,6 +372,30 @@
                             sorter: "string"
                         }
                     ]
+                });
+
+                // Pencarian Isi Berkas
+                document.getElementById("search-isi-berkas").addEventListener("input", function(e) {
+                    let value = e.target.value;
+                    table.setFilter("isi_berkas", "like", value);
+                });
+
+                // Pencarian Tahun Berkas
+                document.getElementById("search-tahun-berkas").addEventListener("input", function(e) {
+                    let value = e.target.value;
+                    table.setFilter("tahun_berkas", "like", value);
+                });
+
+                // Pencarian Kategori
+                document.getElementById("search-kategori").addEventListener("input", function(e) {
+                    let value = e.target.value;
+                    table.setFilter("kategori", "like", value);
+                });
+
+                // Pencarian Klasifikasi
+                document.getElementById("search-klasifikasi").addEventListener("input", function(e) {
+                    let value = e.target.value;
+                    table.setFilter("klasifikasi", "like", value);
                 });
 
                 // Fungsi Export CSV
@@ -477,7 +508,7 @@
                                 table: {
                                     headerRows: 1,
                                     widths: [30, "auto", "auto", "auto", "auto", "auto", "auto", "auto",
-                                        "auto", "auto","auto"
+                                        "auto", "auto", "auto"
                                     ], // Menyesuaikan ukuran kolom agar pas
                                     body: [tableHeaders, ...tableBody] // Menggabungkan header dan body
                                 },
@@ -486,6 +517,7 @@
 
                             // Definisi dokumen PDF
                             let docDefinition = {
+                                pageOrientation: "landscape", // Orientasi kertas horizontal
                                 content: [kopSurat, tableContent],
                                 styles: {
                                     header: {
@@ -513,9 +545,5 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
-        <!-- Periksa Versi Tabulator -->
-        <script>
-            console.log("Tabulator version:", Tabulator.prototype.version);
-        </script>
     </main>
 @endsection
