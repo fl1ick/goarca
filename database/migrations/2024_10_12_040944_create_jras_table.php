@@ -22,11 +22,6 @@ return new class extends Migration
             $table->integer('jumlah_retensi');
             $table->string('nasib');
             $table->timestamps();
-            $table->foreign('kode_kategori')
-            ->references('kode')
-            ->on('kategories')
-            ->onUpdate('cascade') // Untuk update otomatis jika parent berubah
-            ->onDelete('restrict');
         });
     }
 
