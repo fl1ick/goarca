@@ -411,136 +411,121 @@
                 });
 
                 // Fungsi Export PDF
-                document.getElementById("export-pdf").addEventListener("click", function() {
-                    // Ambil data gambar Base64 dari server
-                    fetch('/get-base64-image')
-                        .then(response => response.json())
-                        .then(data => {
-                            let tableData = table.getData();
+                document.getElementById("export-pdf").addEventListener("click", function () {
+    fetch('/get-base64-image')
+        .then(response => response.json())
+        .then(data => {
+            let tableData = table.getData();
 
-                            // Header kop surat dengan gambar di kiri dan teks di tengah
-                            let kopSurat = {
-                                columns: [{
-                                        image: data.image, // Gambar Base64 yang diterima
-                                        width: 50, // Ukuran lebar gambar
-                                        height: 50, // Ukuran tinggi gambar
-                                        alignment: "left", // Posisi gambar di kiri
-                                        margin: [0, 0, 10,
-                                            0
-                                        ] // Margin kanan untuk memberi jarak dengan teks
-                                    },
-                                    {
-                                        text: "DINAS KEARSIPAN KOTA MAGELANG\nAlamat: Jl. Contoh No. 123, Kota Magelang\nTelepon: (0293) 123456",
-                                        style: "header",
-                                        alignment: "center", // Posisi teks ke tengah
-                                        margin: [0, 0, 0,
-                                            20
-                                        ] // Margin bawah untuk memberi ruang di bawah teks
-                                    }
-                                ],
-                                columnGap: 10 // Menambahkan jarak antar kolom
-                            };
+            // Header kop surat dengan logo di kiri dan teks di tengah
+            let kopSurat = {
+                columns: [
+                    {
+                        image: data.image, // Menggunakan Base64 dari Laravel
+                        width: 80, // Ukuran gambar lebih proporsional
+                        height: 80,
+                        alignment: "center"
+                    },
+                    {
+                        stack: [
+                            { text: "PEMERINTAH KOTA MAGELANG", style: "kopJudul" },
+                            { text: "DINAS KEARSIPAN", style: "kopSubjudul" },
+                            { text: "Jl. Contoh No. 123, Kota Magelang", style: "kopAlamat" },
+                            { text: "Telepon: (0293) 123456 | Fax: (0293) 361775", style: "kopAlamat" },
+                            { text: "MAGELANG 56117", style: "kopAlamat" }
+                        ],
+                        alignment: "center",
+                        margin: [0, 10, 0, 0]
+                    }
+                ],
+                columnGap: 10,
+                margin: [0, 0, 0, 8]
+            };
 
-                            // Kolom tabel (header) untuk PDF
-                            let tableHeaders = [{
-                                    text: "No",
-                                    style: "tableHeader"
-                                },
-                                {
-                                    text: "Isi Berkas",
-                                    style: "tableHeader"
-                                },
-                                {
-                                    text: "Tahun Berkas",
-                                    style: "tableHeader"
-                                },
-                                {
-                                    text: "Masalah",
-                                    style: "tableHeader"
-                                },
-                                {
-                                    text: "kode_klasifikasi",
-                                    style: "tableHeader"
-                                },
-                                {
-                                    text: "Retensi Aktif",
-                                    style: "tableHeader"
-                                },
-                                {
-                                    text: "Retensi Inaktif",
-                                    style: "tableHeader"
-                                },
-                                {
-                                    text: "Jumlah Retensi",
-                                    style: "tableHeader"
-                                },
-                                {
-                                    text: "Nasib Akhir",
-                                    style: "tableHeader"
-                                },
-                                {
-                                    text: "Status Berkas",
-                                    style: "tableHeader"
-                                },
-                                {
-                                    text: "Unit Olah",
-                                    style: "tableHeader"
-                                }
-                            ];
+            // Garis bawah
+            let garisBawah = {
+                canvas: [
+                    { type: "line", x1: 0, y1: 0, x2: 800, y2: 0, lineWidth: 2 }
+                ],
+                margin: [0, 0, 0, 10]
+            };
 
-                            // Isi tabel dari data
-                            let tableBody = tableData.map((row, index) => [
-                                index + 1,
-                                row.isi_berkas || "-",
-                                row.tahun_berkas || "-",
-                                row.kategori || "-",
-                                row.kode_klasifikasi || "-",
-                                row.retensi_aktif || "-",
-                                row.retensi_inaktif || "-",
-                                row.jumlah_retensi || "-",
-                                row.nasib || "-",
-                                row.status || "-",
-                                row.unit_olah || "-"
-                            ]);
+            // Header tabel
+            let tableHeaders = [
+                { text: "No", style: "tableHeader" },
+                { text: "Isi Berkas", style: "tableHeader" },
+                { text: "Tahun Berkas", style: "tableHeader" },
+                { text: "Masalah", style: "tableHeader" },
+                { text: "Kode Klasifikasi", style: "tableHeader" },
+                { text: "Retensi Aktif", style: "tableHeader" },
+                { text: "Retensi Inaktif", style: "tableHeader" },
+                { text: "Jumlah Retensi", style: "tableHeader" },
+                { text: "Nasib Akhir", style: "tableHeader" },
+                { text: "Status Berkas", style: "tableHeader" },
+                { text: "Unit Olah", style: "tableHeader" }
+            ];
 
-                            // Menyatukan header dan body tabel
-                            let tableContent = {
-                                table: {
-                                    headerRows: 1,
-                                    widths: [30, "auto", "auto", "auto", "auto", "auto", "auto", "auto",
-                                        "auto", "auto", "auto"
-                                    ], // Menyesuaikan ukuran kolom agar pas
-                                    body: [tableHeaders, ...tableBody] // Menggabungkan header dan body
-                                },
-                                layout: "lightHorizontalLines" // Garis horizontal ringan
-                            };
+            // Isi tabel dari data
+            let tableBody = tableData.map((row, index) => [
+                index + 1,
+                row.isi_berkas || "-",
+                row.tahun_berkas || "-",
+                row.kategori || "-",
+                row.kode_klasifikasi || "-",
+                row.retensi_aktif || "-",
+                row.retensi_inaktif || "-",
+                row.jumlah_retensi || "-",
+                row.nasib || "-",
+                row.status || "-",
+                row.unit_olah || "-"
+            ]);
 
-                            // Definisi dokumen PDF
-                            let docDefinition = {
-                                pageOrientation: "landscape", // Orientasi kertas horizontal
-                                content: [kopSurat, tableContent],
-                                styles: {
-                                    header: {
-                                        fontSize: 12,
-                                        bold: true
-                                    },
-                                    tableHeader: {
-                                        bold: true,
-                                        fontSize: 10,
-                                        color: "black"
-                                    }
-                                },
-                                defaultStyle: {
-                                    fontSize: 9
-                                }
-                            };
+            // Menyatukan header dan body tabel
+            let tableContent = {
+                table: {
+                    headerRows: 1,
+                    widths: [30, "auto", "auto", "auto", "auto", "auto", "auto", "auto", "auto", "auto", "auto"],
+                    body: [tableHeaders, ...tableBody]
+                },
+                layout: "lightHorizontalLines"
+            };
 
-                            // Generate dan download PDF
-                            pdfMake.createPdf(docDefinition).download("daftar_arsip.pdf");
-                        })
-                        .catch(err => console.error("Error fetching image: ", err)); // Menangani error
-                });
-            });
+            // Definisi dokumen PDF
+            let docDefinition = {
+                pageOrientation: "landscape",
+                content: [kopSurat, garisBawah, tableContent],
+                styles: {
+                    kopJudul: {
+                        fontSize: 14,
+                        bold: true,
+                        alignment: "center"
+                    },
+                    kopSubjudul: {
+                        fontSize: 12,
+                        bold: true,
+                        alignment: "center"
+                    },
+                    kopAlamat: {
+                        fontSize: 10,
+                        alignment: "center"
+                    },
+                    tableHeader: {
+                        bold: true,
+                        fontSize: 10,
+                        color: "black"
+                    }
+                },
+                defaultStyle: {
+                    fontSize: 9
+                }
+            };
+
+            // Generate dan download PDF
+            pdfMake.createPdf(docDefinition).download("daftar_arsip.pdf");
+        })
+        .catch(err => console.error("Error fetching image: ", err));
+});
+});
         </script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
