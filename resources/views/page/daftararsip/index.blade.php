@@ -3,6 +3,7 @@
 @section('content')
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <style>
         .modal-75w {
             max-width: 75%;
@@ -69,9 +70,9 @@
                     </button>
                 </div>
 
-                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                    aria-hidden="true" data-bs-backdrop="true" data-bs-keyboard="false">
-                    <div class="modal-dialog modal-75w">
+                <div class="modal fade" id="exampleModal" aria-labelledby="exampleModalLabel" aria-hidden="true"
+                    data-bs-backdrop="true" data-bs-keyboard="false" style="overflow:hidden">
+                    <div class="modal-dialog modal-lg"> <!-- Gunakan modal-lg untuk ukuran lebih besar -->
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h5 class="modal-title" id="exampleModalLabel">Tambah Arsip</h5>
@@ -81,118 +82,91 @@
                             <div class="modal-body">
                                 <form action="{{ route('arsip.store') }}" method="POST">
                                     @csrf
-                                    <div class="my-3 p-3 bg-body rounded shadow-sm">
-                                        <div class="mb-3 row">
-                                            <label for="isi_berkas" class="col-sm-2 col-form-label">Isi Berkas:</label>
-                                            <div class="col-sm-10">
-                                                <textarea class="form-control w-100" name="isi_berkas" id="isi_berkas" rows="3" required></textarea>
+                                    <div class="p-2 bg-body rounded shadow-sm">
+                                        <div class="row"> <!-- ROW UTAMA -->
+                                            <div class="mb-3">
+                                                <label for="isi_berkas" class="form-label">Isi Berkas:</label>
+                                                <textarea class="form-control" name="isi_berkas" id="isi_berkas" rows="3" required></textarea>
                                             </div>
-                                        </div>
-
-                                        <div class="mb-3 row">
-                                            <label for="tahun_berkas" class="col-sm-2 col-form-label">Tahun Berkas:</label>
-                                            <div class="col-sm-10">
-                                                <input class="form-control w-25" type="date" name="tahun_berkas"
-                                                    id="tahun_berkas" required>
+                                            <!-- KOLOM Atas -->
+                                            <div class="col-md-6">
+                                                <div class="mb-3">
+                                                    <label for="tahun_berkas" class="form-label">Tahun Berkas:</label>
+                                                    <input class="form-control" type="date" name="tahun_berkas"
+                                                        id="tahun_berkas" required>
+                                                </div>
                                             </div>
-                                        </div>
-
-                                        <div class="mb-3 row">
-                                            <label for="kategori" class="col-sm-2 col-form-label">Kategori:</label>
-                                            <div class="col-sm-10">
-                                                <select name="kategori" id="kategori" class="form-control w-25"
-                                                    required>
-                                                    <option value="">--Pilih Kategori--</option>
-                                                    @foreach ($kategories as $kategori)
-                                                        <option value="{{ $kategori->kode }}">{{ $kategori->kategori }}
-                                                        </option>
-                                                    @endforeach
-                                                </select>
+                                            <div class="col-md-6">
+                                                <div class="mb-3">
+                                                    <label for="kategori" class="form-label">Kategori:</label>
+                                                    <select name="kategori" id="kategori" class="form-control" required>
+                                                        <option value="">--Pilih Kategori--</option>
+                                                        @foreach ($kategories as $kategori)
+                                                            <option value="{{ $kategori->kode }}">{{ $kategori->kategori }}
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
                                             </div>
-                                        </div>
 
-                                        <div class="mb-3 row">
-                                            <label for="klasifikasi" class="col-sm-2 col-form-label">Klasifikasi:</label>
-                                            <div class="col-sm-10">
-                                                <select name="klasifikasi" id="klasifikasi" class="form-control w-75"
-                                                    required>
+                                            <!-- Kolom Spesial Order -->
+                                            <div class="mb-3">
+                                                <label for="klasifikasi" class="form-label">Klasifikasi:</label>
+                                                <select name="klasifikasi" id="klasifikasi" class="form-control select2"
+                                                    style="width:100%!important;" required>
                                                     <option value="">--Pilih Klasifikasi--</option>
                                                 </select>
                                             </div>
-                                        </div>
 
-                                        <!-- Tambahkan input hidden untuk klasifikasi -->
-                                        <input type="hidden" name="klasifikasi_hidden" id="klasifikasi_hidden">
-
-                                        {{-- <div class="mb-3 row">
-                                            <label for="status" class="col-sm-2 col-form-label">Status:</label>
-                                            <div class="col-sm-10">
-                                                <select name="status" id="status" class="form-control w-25" required>
-                                                    <option value="">--Pilih Status--</option>
-                                                    <option value="Aktif">Aktif</option>
-                                                    <option value="Inaktif">Inaktif</option>
-                                                    <option value="Proses">Proses</option>
-                                                </select>
+                                            <!-- KOLOM Bawah -->
+                                            <div class="col-md-6">
+                                                <!-- Input Hidden -->
+                                                <input type="hidden" name="klasifikasi_hidden" id="klasifikasi_hidden">
+                                                <div class="mb-3">
+                                                    <label for="kode_klasifikasi" class="form-label">Kode
+                                                        Klasifikasi:</label>
+                                                    <input class="form-control" type="text" name="kode_klasifikasi"
+                                                        id="kode_klasifikasi" readonly>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="retensi_aktif" class="form-label">Retensi Aktif:</label>
+                                                    <input class="form-control" type="number" name="retensi_aktif"
+                                                        id="retensi_aktif" readonly>
+                                                </div>
                                             </div>
-                                        </div> --}}
-
-                                        <div class="mb-3 row">
-                                            <label for="kode_klasifikasi" class="col-sm-2 col-form-label">Kode
-                                                Klasifikasi:</label>
-                                            <div class="col-sm-10">
-                                                <input class="form-control w-25" type="text" name="kode_klasifikasi"
-                                                    id="kode_klasifikasi" readonly>
+                                            <div class="col-md-6">
+                                                <div class="mb-3">
+                                                    <label for="nasib" class="form-label">Nasib:</label>
+                                                    <input class="form-control" type="text" name="nasib"
+                                                        id="nasib" readonly>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="retensi_inaktif" class="form-label">Retensi
+                                                        Inaktif:</label>
+                                                    <input class="form-control" type="number" name="retensi_inaktif"
+                                                        id="retensi_inaktif" readonly>
+                                                </div>
                                             </div>
-                                        </div>
-
-                                        <div class="mb-3 row">
-                                            <label for="retensi_aktif" class="col-sm-2 col-form-label">Retensi
-                                                Aktif:</label>
-                                            <div class="col-sm-10">
-                                                <input class="form-control w-25" type="number" name="retensi_aktif"
-                                                    id="retensi_aktif" readonly>
-                                            </div>
-                                        </div>
-
-                                        <div class="mb-3 row">
-                                            <label for="retensi_inaktif" class="col-sm-2 col-form-label">Retensi
-                                                Inaktif:</label>
-                                            <div class="col-sm-10">
-                                                <input class="form-control w-25" type="number" name="retensi_inaktif"
-                                                    id="retensi_inaktif" readonly>
-                                            </div>
-                                        </div>
-
-                                        <div class="mb-3 row">
-                                            <label for="jumlah_retensi" class="col-sm-2 col-form-label">Jumlah
-                                                Retensi:</label>
-                                            <div class="col-sm-10">
-                                                <input class="form-control w-25" type="number" name="jumlah_retensi"
+                                            <!-- Kolom Footer -->
+                                            <div class="mb-3">
+                                                <label for="jumlah_retensi" class="form-label">Jumlah Retensi:</label>
+                                                <input class="form-control" type="number" name="jumlah_retensi"
                                                     id="jumlah_retensi" readonly>
                                             </div>
-                                        </div>
 
-                                        <div class="mb-3 row">
-                                            <label for="nasib" class="col-sm-2 col-form-label">Nasib:</label>
-                                            <div class="col-sm-10">
-                                                <input class="form-control w-25" type="text" name="nasib"
-                                                    id="nasib" readonly>
-                                            </div>
-                                        </div>
-
-                                        <div class="mb-3 row">
-                                            <label for="unit_olah" class="col-sm-2 col-form-label">Unit Olah:</label>
-                                            <div class="col-sm-10">
-                                                <input type="text" class="form-control w-50" name="unit_olah"
+                                            <div class="mb-3">
+                                                <label for="unit_olah" class="form-label">Unit Olah:</label>
+                                                <input type="text" class="form-control" name="unit_olah"
                                                     id="unit_olah" placeholder="Masukkan unit olah" required>
                                             </div>
-                                        </div>
+                                        </div> <!-- END ROW -->
 
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary"
                                                 data-bs-dismiss="modal">Close</button>
                                             <button type="submit" class="btn btn-primary">Submit</button>
                                         </div>
+
                                     </div>
                                 </form>
                             </div>
@@ -215,6 +189,10 @@
         </div>
 
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+            integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
         <script>
             @if (session('success'))
                 Swal.fire({
@@ -259,32 +237,40 @@
                         klasifikasiSelect.innerHTML = '<option value="">--Pilih Klasifikasi--</option>';
                         data.forEach(function(klasifikasi) {
                             klasifikasiSelect.innerHTML += `<option value="${klasifikasi.kode_klasifikasi}" 
-                        data-klasifikasi="${klasifikasi.klasifikasi}" 
-                        data-retensi-aktif="${klasifikasi.retensi_aktif}" 
-                        data-retensi-inaktif="${klasifikasi.retensi_inaktif}" 
-                        data-jumlah-retensi="${klasifikasi.jumlah_retensi}" 
-                        data-nasib="${klasifikasi.nasib}">
-                        ${klasifikasi.klasifikasi}</option>`;
+                                data-klasifikasi="${klasifikasi.klasifikasi}" 
+                                data-retensi-aktif="${klasifikasi.retensi_aktif}" 
+                                data-retensi-inaktif="${klasifikasi.retensi_inaktif}" 
+                                data-jumlah-retensi="${klasifikasi.jumlah_retensi}" 
+                                data-nasib="${klasifikasi.nasib}">
+                                ${klasifikasi.klasifikasi}</option>`;
                         });
                     })
                     .catch(error => console.error('Error:', error)); // Menangani error;
             });
 
+            // Inisialisasi Select2
+
+            $('#klasifikasi').select2({
+                dropdownParent: $('#exampleModal')
+            });
 
             // Mengisi otomatis berdasarkan klasifikasi yang dipilih
-            document.getElementById('klasifikasi').addEventListener('change', function() {
+            $('#klasifikasi').on('change', function() {
                 var selectedOption = this.options[this.selectedIndex];
                 document.getElementById('kode_klasifikasi').value = selectedOption
                     .value; // Tetap mengambil kode klasifikasi
                 document.getElementById('klasifikasi_hidden').value = selectedOption.getAttribute(
                     'data-klasifikasi'); // Simpan nama klasifikasi ke hidden input
-                document.getElementById('retensi_aktif').value = selectedOption.getAttribute('data-retensi-aktif');
-                document.getElementById('retensi_inaktif').value = selectedOption.getAttribute('data-retensi-inaktif');
-                document.getElementById('jumlah_retensi').value = selectedOption.getAttribute('data-jumlah-retensi');
+                document.getElementById('retensi_aktif').value = selectedOption.getAttribute(
+                    'data-retensi-aktif');
+                document.getElementById('retensi_inaktif').value = selectedOption.getAttribute(
+                    'data-retensi-inaktif');
+                document.getElementById('jumlah_retensi').value = selectedOption.getAttribute(
+                    'data-jumlah-retensi');
                 document.getElementById('nasib').value = selectedOption.getAttribute('data-nasib');
             });
         </script>
-        <script>
+        {{-- <script>
             // Mengisi otomatis klasifikasi berdasarkan kategori yang dipilih di form filter
             document.getElementById('kategori1').addEventListener('change', function() {
                 var kodeKategori = this.value;
@@ -300,7 +286,7 @@
                     })
                     .catch(error => console.error('Error:', error));
             });
-        </script>
+        </script> --}}
         <script>
             document.addEventListener('DOMContentLoaded', function() {
                 // Data dari Laravel (diambil dari controller)
@@ -411,121 +397,173 @@
                 });
 
                 // Fungsi Export PDF
-                document.getElementById("export-pdf").addEventListener("click", function () {
-    fetch('/get-base64-image')
-        .then(response => response.json())
-        .then(data => {
-            let tableData = table.getData();
+                document.getElementById("export-pdf").addEventListener("click", function() {
+                    fetch('/get-base64-image')
+                        .then(response => response.json())
+                        .then(data => {
+                            let tableData = table.getData();
 
-            // Header kop surat dengan logo di kiri dan teks di tengah
-            let kopSurat = {
-                columns: [
-                    {
-                        image: data.image, // Menggunakan Base64 dari Laravel
-                        width: 80, // Ukuran gambar lebih proporsional
-                        height: 80,
-                        alignment: "center"
-                    },
-                    {
-                        stack: [
-                            { text: "PEMERINTAH KOTA MAGELANG", style: "kopJudul" },
-                            { text: "DINAS KEARSIPAN", style: "kopSubjudul" },
-                            { text: "Jl. Contoh No. 123, Kota Magelang", style: "kopAlamat" },
-                            { text: "Telepon: (0293) 123456 | Fax: (0293) 361775", style: "kopAlamat" },
-                            { text: "MAGELANG 56117", style: "kopAlamat" }
-                        ],
-                        alignment: "center",
-                        margin: [0, 10, 0, 0]
-                    }
-                ],
-                columnGap: 10,
-                margin: [0, 0, 0, 8]
-            };
+                            // Header kop surat dengan logo di kiri dan teks di tengah
+                            let kopSurat = {
+                                columns: [{
+                                        image: data.image, // Menggunakan Base64 dari Laravel
+                                        width: 80, // Ukuran gambar lebih proporsional
+                                        height: 80,
+                                        alignment: "center"
+                                    },
+                                    {
+                                        stack: [{
+                                                text: "PEMERINTAH KOTA MAGELANG",
+                                                style: "kopJudul"
+                                            },
+                                            {
+                                                text: "DINAS KEARSIPAN",
+                                                style: "kopSubjudul"
+                                            },
+                                            {
+                                                text: "Jl. Contoh No. 123, Kota Magelang",
+                                                style: "kopAlamat"
+                                            },
+                                            {
+                                                text: "Telepon: (0293) 123456 | Fax: (0293) 361775",
+                                                style: "kopAlamat"
+                                            },
+                                            {
+                                                text: "MAGELANG 56117",
+                                                style: "kopAlamat"
+                                            }
+                                        ],
+                                        alignment: "center",
+                                        margin: [0, 10, 0, 0]
+                                    }
+                                ],
+                                columnGap: 10,
+                                margin: [0, 0, 0, 8]
+                            };
 
-            // Garis bawah
-            let garisBawah = {
-                canvas: [
-                    { type: "line", x1: 0, y1: 0, x2: 800, y2: 0, lineWidth: 2 }
-                ],
-                margin: [0, 0, 0, 10]
-            };
+                            // Garis bawah
+                            let garisBawah = {
+                                canvas: [{
+                                    type: "line",
+                                    x1: 0,
+                                    y1: 0,
+                                    x2: 800,
+                                    y2: 0,
+                                    lineWidth: 2
+                                }],
+                                margin: [0, 0, 0, 10]
+                            };
 
-            // Header tabel
-            let tableHeaders = [
-                { text: "No", style: "tableHeader" },
-                { text: "Isi Berkas", style: "tableHeader" },
-                { text: "Tahun Berkas", style: "tableHeader" },
-                { text: "Masalah", style: "tableHeader" },
-                { text: "Kode Klasifikasi", style: "tableHeader" },
-                { text: "Retensi Aktif", style: "tableHeader" },
-                { text: "Retensi Inaktif", style: "tableHeader" },
-                { text: "Jumlah Retensi", style: "tableHeader" },
-                { text: "Nasib Akhir", style: "tableHeader" },
-                { text: "Status Berkas", style: "tableHeader" },
-                { text: "Unit Olah", style: "tableHeader" }
-            ];
+                            // Header tabel
+                            let tableHeaders = [{
+                                    text: "No",
+                                    style: "tableHeader"
+                                },
+                                {
+                                    text: "Isi Berkas",
+                                    style: "tableHeader"
+                                },
+                                {
+                                    text: "Tahun Berkas",
+                                    style: "tableHeader"
+                                },
+                                {
+                                    text: "Masalah",
+                                    style: "tableHeader"
+                                },
+                                {
+                                    text: "Kode Klasifikasi",
+                                    style: "tableHeader"
+                                },
+                                {
+                                    text: "Retensi Aktif",
+                                    style: "tableHeader"
+                                },
+                                {
+                                    text: "Retensi Inaktif",
+                                    style: "tableHeader"
+                                },
+                                {
+                                    text: "Jumlah Retensi",
+                                    style: "tableHeader"
+                                },
+                                {
+                                    text: "Nasib Akhir",
+                                    style: "tableHeader"
+                                },
+                                {
+                                    text: "Status Berkas",
+                                    style: "tableHeader"
+                                },
+                                {
+                                    text: "Unit Olah",
+                                    style: "tableHeader"
+                                }
+                            ];
 
-            // Isi tabel dari data
-            let tableBody = tableData.map((row, index) => [
-                index + 1,
-                row.isi_berkas || "-",
-                row.tahun_berkas || "-",
-                row.kategori || "-",
-                row.kode_klasifikasi || "-",
-                row.retensi_aktif || "-",
-                row.retensi_inaktif || "-",
-                row.jumlah_retensi || "-",
-                row.nasib || "-",
-                row.status || "-",
-                row.unit_olah || "-"
-            ]);
+                            // Isi tabel dari data
+                            let tableBody = tableData.map((row, index) => [
+                                index + 1,
+                                row.isi_berkas || "-",
+                                row.tahun_berkas || "-",
+                                row.kategori || "-",
+                                row.kode_klasifikasi || "-",
+                                row.retensi_aktif || "-",
+                                row.retensi_inaktif || "-",
+                                row.jumlah_retensi || "-",
+                                row.nasib || "-",
+                                row.status || "-",
+                                row.unit_olah || "-"
+                            ]);
 
-            // Menyatukan header dan body tabel
-            let tableContent = {
-                table: {
-                    headerRows: 1,
-                    widths: [30, "auto", "auto", "auto", "auto", "auto", "auto", "auto", "auto", "auto", "auto"],
-                    body: [tableHeaders, ...tableBody]
-                },
-                layout: "lightHorizontalLines"
-            };
+                            // Menyatukan header dan body tabel
+                            let tableContent = {
+                                table: {
+                                    headerRows: 1,
+                                    widths: [30, "auto", "auto", "auto", "auto", "auto", "auto", "auto",
+                                        "auto", "auto", "auto"
+                                    ],
+                                    body: [tableHeaders, ...tableBody]
+                                },
+                                layout: "lightHorizontalLines"
+                            };
 
-            // Definisi dokumen PDF
-            let docDefinition = {
-                pageOrientation: "landscape",
-                content: [kopSurat, garisBawah, tableContent],
-                styles: {
-                    kopJudul: {
-                        fontSize: 14,
-                        bold: true,
-                        alignment: "center"
-                    },
-                    kopSubjudul: {
-                        fontSize: 12,
-                        bold: true,
-                        alignment: "center"
-                    },
-                    kopAlamat: {
-                        fontSize: 10,
-                        alignment: "center"
-                    },
-                    tableHeader: {
-                        bold: true,
-                        fontSize: 10,
-                        color: "black"
-                    }
-                },
-                defaultStyle: {
-                    fontSize: 9
-                }
-            };
+                            // Definisi dokumen PDF
+                            let docDefinition = {
+                                pageOrientation: "landscape",
+                                content: [kopSurat, garisBawah, tableContent],
+                                styles: {
+                                    kopJudul: {
+                                        fontSize: 14,
+                                        bold: true,
+                                        alignment: "center"
+                                    },
+                                    kopSubjudul: {
+                                        fontSize: 12,
+                                        bold: true,
+                                        alignment: "center"
+                                    },
+                                    kopAlamat: {
+                                        fontSize: 10,
+                                        alignment: "center"
+                                    },
+                                    tableHeader: {
+                                        bold: true,
+                                        fontSize: 10,
+                                        color: "black"
+                                    }
+                                },
+                                defaultStyle: {
+                                    fontSize: 9
+                                }
+                            };
 
-            // Generate dan download PDF
-            pdfMake.createPdf(docDefinition).download("daftar_arsip.pdf");
-        })
-        .catch(err => console.error("Error fetching image: ", err));
-});
-});
+                            // Generate dan download PDF
+                            pdfMake.createPdf(docDefinition).download("daftar_arsip.pdf");
+                        })
+                        .catch(err => console.error("Error fetching image: ", err));
+                });
+            });
         </script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
