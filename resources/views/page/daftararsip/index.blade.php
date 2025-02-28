@@ -114,7 +114,7 @@
                                                 <label for="klasifikasi" class="form-label">Klasifikasi:</label>
                                                 <select name="klasifikasi" id="klasifikasi" class="form-control select2"
                                                     style="width:100%!important;" required>
-                                                    <option value="">--Pilih Klasifikasi--</option>
+
                                                 </select>
                                             </div>
 
@@ -251,7 +251,10 @@
             // Inisialisasi Select2
 
             $('#klasifikasi').select2({
-                dropdownParent: $('#exampleModal')
+                dropdownParent: $('#exampleModal'),
+                placeholder: "--Pilih Klasifikasi--",
+                allowClear: true,
+                minimumInputLength: 1
             });
 
             // Mengisi otomatis berdasarkan klasifikasi yang dipilih

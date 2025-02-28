@@ -50,82 +50,128 @@
             });
 
             // Fungsi Export PDF
-            document.getElementById("export-pdf").addEventListener("click", function() {
-                // Data dari tabel untuk digunakan di PDF
-                let tableData = table.getData();
+            document.getElementById("export-pdf").addEventListener("click", function () {
+            fetch('/get-base64-image')
+                .then(response => response.json())
+                .then(data => {
+                    let tableData = table.getData();
 
-                // Header kop surat
-                let kopSurat = {
-                    text: "DINAS KEARSIPAN KOTA MAGELANG\nAlamat: Jl. Contoh No. 123, Kota Magelang\nTelepon: (0293) 123456",
-                    style: "header",
-                    alignment: "center",
-                    margin: [0, 0, 0, 20] // Margin bawah 20px
-                };
+            // Header kop surat dengan logo di kiri dan teks di tengah
+            let kopSurat = {
+                table: {
+                    widths: ["auto", "*", "auto"], // Logo kiri, teks tetap di tengah
+                    body: [
+                        [
+                            {
+                                image: data.image,
+                                fit: [80, 80],
+                                alignment: "left"
+                            },
+                            {
+                                stack: [
+                                    { text: "PEMERINTAH KOTA MAGELANG", style: "kopJudul" },
+                                    { text: "DINAS PERPUSTAKAAN DAN KEARSIPAN", style: "kopJudul" },
+                                    { text: "Jl. Kartini No.4, Kec. Magelang Tengah", style: "kopAlamat" },
+                                    { text: "Telepon: (0293) 123456 | Fax: (0293) 361775", style: "kopAlamat" },
+                                    { text: "MAGELANG JAWA TENGAH 56121", style: "kopAlamat" }
+                                ],
+                                margin: [-70, 0, 0, 0]
+                            },
+                            {
+                                text: "", // Kolom kosong agar teks tidak terdorong
+                                alignment: "right"
+                            }
+                        ]
+                    ]
+                },
+                layout: "noBorders",
+                margin: [0, 0, 0, 8]
+            };
 
-                // Kolom tabel
-                let tableHeaders = [
-                    {text: "No", style: "tableHeader"},
-                    {text: "Isi Berkas", style: "tableHeader"},
-                    {text: "Tahun Berkas", style: "tableHeader"},
-                    {text: "Kategori", style: "tableHeader"},
-                    {text: "Kode Klasifikasi", style: "tableHeader"},
-                    {text: "Retensi Aktif", style: "tableHeader"},
-                    {text: "Retensi Inaktif", style: "tableHeader"},
-                    {text: "Jumlah Retensi", style: "tableHeader"},
-                    {text: "Nasib Akhir", style: "tableHeader"},
-                    {text: "Status Berkas", style: "tableHeader"},
-                    {text: "Unit Olah", style: "tableHeader"}
-                ];
+            // Garis bawah
+            let garisBawah = {
+                canvas: [
+                    { type: "line", x1: 0, y1: 0, x2: 762, y2: 0, lineWidth: 2 }
+                ],
+                margin: [0, 0, 0, 10]
+            };
 
-                // Isi tabel dari data
-                let tableBody = tableData.map((row, index) => [
-                    index + 1,
-                    row.isi_berkas || "-",
-                    row.tahun_berkas || "-",
-                    row.kategori || "-",
-                    row.kode_klasifikasi || "-",
-                    row.retensi_aktif || "-",
-                    row.retensi_inaktif || "-",
-                    row.jumlah_retensi || "-",
-                    row.nasib || "-",
-                    row.status || "-",
-                    row.unit_olah || "-"
-                ]);
+            // Header tabel
+            let tableHeaders = [
+                { text: "No", style: "tableHeader" },
+                { text: "Kode Klasifikasi", style: "tableHeader" },
+                { text: "Isi Berkas", style: "tableHeader" },
+                { text: "Tahun Berkas", style: "tableHeader" },
+                { text: "Masalah", style: "tableHeader" },
+                { text: "Retensi Aktif", style: "tableHeader" },
+                { text: "Retensi Inaktif", style: "tableHeader" },
+                { text: "Jumlah Retensi", style: "tableHeader" },
+                { text: "Nasib Akhir", style: "tableHeader" },
+                { text: "Status Berkas", style: "tableHeader" },
+                { text: "Unit Olah", style: "tableHeader" }
+            ];
 
-                // Menyatukan header dan isi tabel
-                let tableContent = {
-                    table: {
-                        headerRows: 1,
-                        widths: [30, "auto", "auto", "auto", "auto", "auto", "auto", "auto", "auto", "auto","auto"], // Sesuaikan agar semua kolom muat
-                        body: [tableHeaders, ...tableBody]
+            // Isi tabel dari data
+            let tableBody = tableData.map((row, index) => [
+                index + 1,
+                row.kode_klasifikasi || "-",
+                row.isi_berkas || "-",
+                row.tahun_berkas || "-",
+                row.kategori || "-",
+                row.retensi_aktif || "-",
+                row.retensi_inaktif || "-",
+                row.jumlah_retensi || "-",
+                row.nasib || "-",
+                row.status || "-",
+                row.unit_olah || "-"
+            ]);
+
+            // Menyatukan header dan body tabel
+            let tableContent = {
+                table: {
+                    headerRows: 1,
+                    widths: [30, "auto", "auto", "auto", "auto", "auto", "auto", "auto", "auto", "auto", "auto"],
+                    body: [tableHeaders, ...tableBody]
+                },
+                layout: "lightHorizontalLines"
+            };
+
+            // Definisi dokumen PDF
+            let docDefinition = {
+                pageOrientation: "landscape",
+                content: [kopSurat, garisBawah, tableContent],
+                styles: {
+                    kopJudul: {
+                        fontSize: 14,
+                        bold: true,
+                        alignment: "center"
                     },
-                    layout: "lightHorizontalLines" // Garis horizontal ringan
-                };
-
-                // Definisi dokumen PDF
-                let docDefinition = {
-                    pageOrientation: "landscape", // Orientasi kertas horizontal
-                    content: [kopSurat, tableContent],
-                    styles: {
-                        header: {
-                            fontSize: 12,
-                            bold: true
-                        },
-                        tableHeader: {
-                            bold: true,
-                            fontSize: 10,
-                            color: "black"
-                        }
+                    kopSubjudul: {
+                        fontSize: 12,
+                        bold: true,
+                        alignment: "center"
                     },
-                    defaultStyle: {
-                        fontSize: 9
+                    kopAlamat: {
+                        fontSize: 10,
+                        alignment: "center"
+                    },
+                    tableHeader: {
+                        bold: true,
+                        fontSize: 10,
+                        color: "black"
                     }
-                };
+                },
+                defaultStyle: {
+                    fontSize: 9
+                }
+            };
 
-                // Generate dan download PDF
-                pdfMake.createPdf(docDefinition).download("berkas_inaktif.pdf");
+            // Generate dan download PDF
+            pdfMake.createPdf(docDefinition).download("berkasinaktif.pdf");
+        })
+        .catch(err => console.error("Error fetching image: ", err));
+});
             });
-        });
     </script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
