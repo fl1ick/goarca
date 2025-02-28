@@ -417,7 +417,7 @@
                             {
                                 stack: [
                                     { text: "PEMERINTAH KOTA MAGELANG", style: "kopJudul" },
-                                    { text: "DISPERPUSIP", style: "kopSubjudul" },
+                                    { text: "DINAS PERPUSTAKAAN DAN KEARSIPAN", style: "kopJudul" },
                                     { text: "Jl. Kartini No.4, Kec. Magelang Tengah", style: "kopAlamat" },
                                     { text: "Telepon: (0293) 123456 | Fax: (0293) 361775", style: "kopAlamat" },
                                     { text: "MAGELANG JAWA TENGAH 56121", style: "kopAlamat" }
