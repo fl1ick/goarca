@@ -740,17 +740,33 @@ h1 {
     background-color: #36def4; /* Merah untuk Berkas Musnah */
 }
 /* Custom footer styles */
-.footer {
-    padding: 20px 0;  /* Menambah padding agar footer lebih tinggi */
-    text-align: center; /* Menjaga teks di tengah */
-    position: relative; /* Jika ingin footer berada di bawah konten */
+#footer {
+    background: #333; /* Warna latar belakang */
+    color: white; /* Warna teks */
+    padding: 15px 0;
+    position: fixed;
+    bottom: 0;
+    left: 0;
     width: 100%;
-	justify-content: center;
-	display: flex;
-
+    text-align: center;
+    font-size: 16px;
+    transition: left 0.3s ease-in-out, background 0.3s ease-in-out; /* Efek transisi */
 }
 
-.footer-text {
-    font-size: 18px !important;  /* Ukuran font untuk teks copyright */
-    color: #ffffff !important;  /* Warna teks putih agar kontras dengan background hitam */
+.footer-container {
+    display: flex;
+    justify-content: center; /* Memastikan teks ada di tengah */
+    align-items: center;
+}
+
+.footer-center p {
+    margin: 0;
+    font-weight: 500;
+    transition: color 0.3s ease-in-out; /* Transisi warna teks */
+}
+
+/* Responsif untuk Sidebar Hide */
+#sidebar.hide ~ #footer {
+    left: 60px; /* Sesuai dengan sidebar yang lebih kecil */
+    background: #222; /* Sedikit gelap saat sidebar hide */
 }
