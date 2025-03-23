@@ -59,7 +59,7 @@ body {
 	width: 280px;
 	height: 100%;
 	background: var(--light);
-	z-index: 1;
+	z-index: 1100;
 	font-family: var(--lato);
 	transition: .3s ease;
 	overflow-x: hidden;
@@ -93,8 +93,8 @@ body {
 	justify-content: center;
 }
 #sidebar .brand .logo {
-	margin-right: 8px;
-    width: 200px; /* Ukuran logo */
+	margin-right: 2px;
+    width: 90%; /* Ukuran logo */
     height: auto; /* Proporsi gambar tetap */
     margin-bottom: 10px; /* Ruang antara logo dan teks */
     border-radius: 0%; /* Membuat logo berbentuk lingkaran */
@@ -740,18 +740,6 @@ h1 {
     background-color: #36def4; /* Merah untuk Berkas Musnah */
 }
 /* Custom footer styles */
-#footer {
-    background: #333; /* Warna latar belakang */
-    color: white; /* Warna teks */
-    padding: 15px 0;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    text-align: center;
-    font-size: 16px;
-    transition: left 0.7s ease-in-out, background 0.3s ease-in-out; /* Efek transisi */
-}
 
 .footer-container {
     display: flex;
@@ -769,4 +757,15 @@ h1 {
 #sidebar.hide ~ #footer {
     left: 60px; /* Sesuai dengan sidebar yang lebih kecil */
     background: #222; /* Sedikit gelap saat sidebar hide */
+}
+.footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: #333 !important; /* Pastikan warna latar terlihat */
+    color: white !important;
+    text-align: center;
+    padding: 10px 0;
+    z-index: 1000; /* Pastikan tidak tertutup elemen lain */
 }
