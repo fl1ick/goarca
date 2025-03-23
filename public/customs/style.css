@@ -94,7 +94,7 @@ body {
 }
 #sidebar .brand .logo {
 	margin-right: 8px;
-    width: 60px; /* Ukuran logo */
+    width: 200px; /* Ukuran logo */
     height: auto; /* Proporsi gambar tetap */
     margin-bottom: 10px; /* Ruang antara logo dan teks */
     border-radius: 0%; /* Membuat logo berbentuk lingkaran */
