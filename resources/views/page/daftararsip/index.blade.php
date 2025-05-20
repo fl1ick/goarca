@@ -71,7 +71,7 @@
 
                 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
                     aria-hidden="true" data-bs-backdrop="true" data-bs-keyboard="false">
-                    <div class="modal-dialog modal-75w">
+                    <div class="modal-dialog modal-75w modal-dialog-scrollable">
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h5 class="modal-title" id="exampleModalLabel">Tambah Arsip</h5>
@@ -100,27 +100,25 @@
                                         <div class="mb-3 row">
                                             <label for="kategori" class="col-sm-2 col-form-label">Kategori:</label>
                                             <div class="col-sm-10">
-                                                <select name="kategori" id="kategori" class="form-control w-25"
-                                                    required>
-                                                    <option value="">--Pilih Kategori--</option>
-                                                    @foreach ($kategories as $kategori)
-                                                        <option value="{{ $kategori->kode }}">{{ $kategori->kategori }}
-                                                        </option>
+                                                <input list="kategori-list" name="kategori" id="kategori" class="form-control w-25" required>
+                                                <datalist id="kategori-list">
+                                                    @foreach ($kategories->sortBy('kategori') as $kategori)
+                                                        <option value="{{ $kategori->kategori }}">
                                                     @endforeach
-                                                </select>
+                                                </datalist>
                                             </div>
                                         </div>
-
+                                        
                                         <div class="mb-3 row">
                                             <label for="klasifikasi" class="col-sm-2 col-form-label">Klasifikasi:</label>
                                             <div class="col-sm-10">
-                                                <select name="klasifikasi" id="klasifikasi" class="form-control w-75"
-                                                    required>
-                                                    <option value="">--Pilih Klasifikasi--</option>
-                                                </select>
+                                                <input list="klasifikasi-list" name="klasifikasi" id="klasifikasi" class="form-control w-75" required>
+                                                <datalist id="klasifikasi-list">
+                                                    <!-- Data klasifikasi akan diisi secara dinamis dengan JavaScript -->
+                                                </datalist>
                                             </div>
                                         </div>
-
+                                        
                                         <!-- Tambahkan input hidden untuk klasifikasi -->
                                         <input type="hidden" name="klasifikasi_hidden" id="klasifikasi_hidden">
 
@@ -541,6 +539,21 @@
                         .catch(err => console.error("Error fetching image: ", err)); // Menangani error
                 });
             });
+                                            document.getElementById('kategori').addEventListener('input', function() {
+                                                let kategori = this.value;
+                                                let datalist = document.getElementById('klasifikasi-list');
+                                                datalist.innerHTML = ''; // Kosongkan datalist sebelumnya
+                                        
+                                                @foreach ($kategories as $kategori)
+                                                    if (kategori === "{{ $kategori->kategori }}") {
+                                                        @foreach ($kategori->jras->sortBy('klasifikasi') as $klasifikasi)
+                                                            let option = document.createElement('option');
+                                                            option.value = "{{ $klasifikasi->klasifikasi }}";
+                                                            datalist.appendChild(option);
+                                                        @endforeach
+                                                    }
+                                                @endforeach
+                                            });
         </script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
