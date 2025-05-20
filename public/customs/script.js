@@ -33,3 +33,14 @@ menuBar.addEventListener('click', function () {
 	sidebar.classList.toggle('hide');
 })
 
+const modal = document.getElementById('exampleModal');
+
+if (modal && sidebar) {
+	modal.addEventListener('show.bs.modal', function () {
+		sidebar.classList.add('hide');
+	});
+
+	modal.addEventListener('hide.bs.modal', function () {
+		sidebar.classList.remove('hide');
+	});
+}

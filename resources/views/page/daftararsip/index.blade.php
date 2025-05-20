@@ -539,21 +539,6 @@
                         .catch(err => console.error("Error fetching image: ", err)); // Menangani error
                 });
             });
-                                            document.getElementById('kategori').addEventListener('input', function() {
-                                                let kategori = this.value;
-                                                let datalist = document.getElementById('klasifikasi-list');
-                                                datalist.innerHTML = ''; // Kosongkan datalist sebelumnya
-                                        
-                                                @foreach ($kategories as $kategori)
-                                                    if (kategori === "{{ $kategori->kategori }}") {
-                                                        @foreach ($kategori->jras->sortBy('klasifikasi') as $klasifikasi)
-                                                            let option = document.createElement('option');
-                                                            option.value = "{{ $klasifikasi->klasifikasi }}";
-                                                            datalist.appendChild(option);
-                                                        @endforeach
-                                                    }
-                                                @endforeach
-                                            });
         </script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
