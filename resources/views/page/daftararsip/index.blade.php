@@ -3,6 +3,7 @@
 @section('content')
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <style>
         .modal-75w {
             max-width: 75%;
@@ -81,11 +82,11 @@
                             <div class="modal-body">
                                 <form action="{{ route('arsip.store') }}" method="POST">
                                     @csrf
-                                    <div class="my-3 p-3 bg-body rounded shadow-sm">
-                                        <div class="mb-3 row">
-                                            <label for="isi_berkas" class="col-sm-2 col-form-label">Isi Berkas:</label>
-                                            <div class="col-sm-10">
-                                                <textarea class="form-control w-100" name="isi_berkas" id="isi_berkas" rows="3" required></textarea>
+                                    <div class="p-2 bg-body rounded shadow-sm">
+                                        <div class="row"> <!-- ROW UTAMA -->
+                                            <div class="mb-3">
+                                                <label for="isi_berkas" class="form-label">Isi Berkas:</label>
+                                                <textarea class="form-control" name="isi_berkas" id="isi_berkas" rows="3" required></textarea>
                                             </div>
                                         </div>
 
@@ -150,47 +151,39 @@
                                                 <input class="form-control w-25" type="number" name="retensi_aktif"
                                                     id="retensi_aktif" readonly>
                                             </div>
-                                        </div>
-
-                                        <div class="mb-3 row">
-                                            <label for="retensi_inaktif" class="col-sm-2 col-form-label">Retensi
-                                                Inaktif:</label>
-                                            <div class="col-sm-10">
-                                                <input class="form-control w-25" type="number" name="retensi_inaktif"
-                                                    id="retensi_inaktif" readonly>
+                                            <div class="col-md-6">
+                                                <div class="mb-3">
+                                                    <label for="nasib" class="form-label">Nasib:</label>
+                                                    <input class="form-control" type="text" name="nasib"
+                                                        id="nasib" readonly>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="retensi_inaktif" class="form-label">Retensi
+                                                        Inaktif:</label>
+                                                    <input class="form-control" type="number" name="retensi_inaktif"
+                                                        id="retensi_inaktif" readonly>
+                                                </div>
                                             </div>
-                                        </div>
-
-                                        <div class="mb-3 row">
-                                            <label for="jumlah_retensi" class="col-sm-2 col-form-label">Jumlah
-                                                Retensi:</label>
-                                            <div class="col-sm-10">
-                                                <input class="form-control w-25" type="number" name="jumlah_retensi"
+                                            <!-- Kolom Footer -->
+                                            <div class="mb-3">
+                                                <label for="jumlah_retensi" class="form-label">Jumlah Retensi:</label>
+                                                <input class="form-control" type="number" name="jumlah_retensi"
                                                     id="jumlah_retensi" readonly>
                                             </div>
-                                        </div>
 
-                                        <div class="mb-3 row">
-                                            <label for="nasib" class="col-sm-2 col-form-label">Nasib:</label>
-                                            <div class="col-sm-10">
-                                                <input class="form-control w-25" type="text" name="nasib"
-                                                    id="nasib" readonly>
-                                            </div>
-                                        </div>
-
-                                        <div class="mb-3 row">
-                                            <label for="unit_olah" class="col-sm-2 col-form-label">Unit Olah:</label>
-                                            <div class="col-sm-10">
-                                                <input type="text" class="form-control w-50" name="unit_olah"
+                                            <div class="mb-3">
+                                                <label for="unit_olah" class="form-label">Unit Olah:</label>
+                                                <input type="text" class="form-control" name="unit_olah"
                                                     id="unit_olah" placeholder="Masukkan unit olah" required>
                                             </div>
-                                        </div>
+                                        </div> <!-- END ROW -->
 
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary"
                                                 data-bs-dismiss="modal">Close</button>
                                             <button type="submit" class="btn btn-primary">Submit</button>
                                         </div>
+
                                     </div>
                                 </form>
                             </div>
@@ -213,6 +206,10 @@
         </div>
 
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+            integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
         <script>
             @if (session('success'))
                 Swal.fire({
@@ -257,32 +254,43 @@
                         klasifikasiSelect.innerHTML = '<option value="">--Pilih Klasifikasi--</option>';
                         data.forEach(function(klasifikasi) {
                             klasifikasiSelect.innerHTML += `<option value="${klasifikasi.kode_klasifikasi}" 
-                        data-klasifikasi="${klasifikasi.klasifikasi}" 
-                        data-retensi-aktif="${klasifikasi.retensi_aktif}" 
-                        data-retensi-inaktif="${klasifikasi.retensi_inaktif}" 
-                        data-jumlah-retensi="${klasifikasi.jumlah_retensi}" 
-                        data-nasib="${klasifikasi.nasib}">
-                        ${klasifikasi.klasifikasi}</option>`;
+                                data-klasifikasi="${klasifikasi.klasifikasi}" 
+                                data-retensi-aktif="${klasifikasi.retensi_aktif}" 
+                                data-retensi-inaktif="${klasifikasi.retensi_inaktif}" 
+                                data-jumlah-retensi="${klasifikasi.jumlah_retensi}" 
+                                data-nasib="${klasifikasi.nasib}">
+                                ${klasifikasi.klasifikasi}</option>`;
                         });
                     })
                     .catch(error => console.error('Error:', error)); // Menangani error;
             });
 
+            // Inisialisasi Select2
+
+            $('#klasifikasi').select2({
+                dropdownParent: $('#exampleModal'),
+                placeholder: "--Pilih Klasifikasi--",
+                allowClear: true,
+                minimumInputLength: 1
+            });
 
             // Mengisi otomatis berdasarkan klasifikasi yang dipilih
-            document.getElementById('klasifikasi').addEventListener('change', function() {
+            $('#klasifikasi').on('change', function() {
                 var selectedOption = this.options[this.selectedIndex];
                 document.getElementById('kode_klasifikasi').value = selectedOption
                     .value; // Tetap mengambil kode klasifikasi
                 document.getElementById('klasifikasi_hidden').value = selectedOption.getAttribute(
                     'data-klasifikasi'); // Simpan nama klasifikasi ke hidden input
-                document.getElementById('retensi_aktif').value = selectedOption.getAttribute('data-retensi-aktif');
-                document.getElementById('retensi_inaktif').value = selectedOption.getAttribute('data-retensi-inaktif');
-                document.getElementById('jumlah_retensi').value = selectedOption.getAttribute('data-jumlah-retensi');
+                document.getElementById('retensi_aktif').value = selectedOption.getAttribute(
+                    'data-retensi-aktif');
+                document.getElementById('retensi_inaktif').value = selectedOption.getAttribute(
+                    'data-retensi-inaktif');
+                document.getElementById('jumlah_retensi').value = selectedOption.getAttribute(
+                    'data-jumlah-retensi');
                 document.getElementById('nasib').value = selectedOption.getAttribute('data-nasib');
             });
         </script>
-        <script>
+        {{-- <script>
             // Mengisi otomatis klasifikasi berdasarkan kategori yang dipilih di form filter
             document.getElementById('kategori1').addEventListener('change', function() {
                 var kodeKategori = this.value;
@@ -298,7 +306,7 @@
                     })
                     .catch(error => console.error('Error:', error));
             });
-        </script>
+        </script> --}}
         <script>
             document.addEventListener('DOMContentLoaded', function() {
                 // Data dari Laravel (diambil dari controller)
@@ -409,129 +417,121 @@
                 });
 
                 // Fungsi Export PDF
-                document.getElementById("export-pdf").addEventListener("click", function() {
-                    // Ambil data gambar Base64 dari server
-                    fetch('/get-base64-image')
-                        .then(response => response.json())
-                        .then(data => {
-                            let tableData = table.getData();
+                document.getElementById("export-pdf").addEventListener("click", function () {
+            fetch('/get-base64-image')
+                .then(response => response.json())
+                .then(data => {
+                    let tableData = table.getData();
 
-                            // Header kop surat dengan gambar di kiri dan teks di tengah
-                            let kopSurat = {
-                                columns: [{
-                                        image: data.image, // Gambar Base64 yang diterima
-                                        width: 50, // Ukuran lebar gambar
-                                        height: 50, // Ukuran tinggi gambar
-                                        alignment: "left", // Posisi gambar di kiri
-                                        margin: [0, 0, 10,
-                                            0
-                                        ] // Margin kanan untuk memberi jarak dengan teks
-                                    },
-                                    {
-                                        text: "DINAS KEARSIPAN KOTA MAGELANG\nAlamat: Jl. Contoh No. 123, Kota Magelang\nTelepon: (0293) 123456",
-                                        style: "header",
-                                        alignment: "center", // Posisi teks ke tengah
-                                        margin: [0, 0, 0,
-                                            20
-                                        ] // Margin bawah untuk memberi ruang di bawah teks
-                                    }
+            // Header kop surat dengan logo di kiri dan teks di tengah
+            let kopSurat = {
+                table: {
+                    widths: ["auto", "*", "auto"], // Logo kiri, teks tetap di tengah
+                    body: [
+                        [
+                            {
+                                image: data.image,
+                                fit: [80, 80],
+                                alignment: "left"
+                            },
+                            {
+                                stack: [
+                                    { text: "PEMERINTAH KOTA MAGELANG", style: "kopJudul" },
+                                    { text: "DINAS PERPUSTAKAAN DAN KEARSIPAN", style: "kopJudul" },
+                                    { text: "Jl. Kartini No.4, Kec. Magelang Tengah", style: "kopAlamat" },
+                                    { text: "Telepon: (0293) 123456 | Fax: (0293) 361775", style: "kopAlamat" },
+                                    { text: "MAGELANG JAWA TENGAH 56121", style: "kopAlamat" }
                                 ],
-                                columnGap: 10 // Menambahkan jarak antar kolom
-                            };
+                                margin: [-70, 0, 0, 0]
+                            },
+                            {
+                                text: "", // Kolom kosong agar teks tidak terdorong
+                                alignment: "right"
+                            }
+                        ]
+                    ]
+                },
+                layout: "noBorders",
+                margin: [0, 0, 0, 8]
+            };
 
-                            // Kolom tabel (header) untuk PDF
-                            let tableHeaders = [{
-                                    text: "No",
-                                    style: "tableHeader"
-                                },
-                                {
-                                    text: "Isi Berkas",
-                                    style: "tableHeader"
-                                },
-                                {
-                                    text: "Tahun Berkas",
-                                    style: "tableHeader"
-                                },
-                                {
-                                    text: "Masalah",
-                                    style: "tableHeader"
-                                },
-                                {
-                                    text: "kode_klasifikasi",
-                                    style: "tableHeader"
-                                },
-                                {
-                                    text: "Retensi Aktif",
-                                    style: "tableHeader"
-                                },
-                                {
-                                    text: "Retensi Inaktif",
-                                    style: "tableHeader"
-                                },
-                                {
-                                    text: "Jumlah Retensi",
-                                    style: "tableHeader"
-                                },
-                                {
-                                    text: "Nasib Akhir",
-                                    style: "tableHeader"
-                                },
-                                {
-                                    text: "Status Berkas",
-                                    style: "tableHeader"
-                                },
-                                {
-                                    text: "Unit Olah",
-                                    style: "tableHeader"
-                                }
-                            ];
+            // Garis bawah
+            let garisBawah = {
+                canvas: [
+                    { type: "line", x1: 0, y1: 0, x2: 762, y2: 0, lineWidth: 2 }
+                ],
+                margin: [0, 0, 0, 10]
+            };
 
-                            // Isi tabel dari data
-                            let tableBody = tableData.map((row, index) => [
-                                index + 1,
-                                row.isi_berkas || "-",
-                                row.tahun_berkas || "-",
-                                row.kategori || "-",
-                                row.kode_klasifikasi || "-",
-                                row.retensi_aktif || "-",
-                                row.retensi_inaktif || "-",
-                                row.jumlah_retensi || "-",
-                                row.nasib || "-",
-                                row.status || "-",
-                                row.unit_olah || "-"
-                            ]);
+            // Header tabel
+            let tableHeaders = [
+                { text: "No", style: "tableHeader" },
+                { text: "Kode Klasifikasi", style: "tableHeader" },
+                { text: "Isi Berkas", style: "tableHeader" },
+                { text: "Tahun Berkas", style: "tableHeader" },
+                { text: "Masalah", style: "tableHeader" },
+                { text: "Retensi Aktif", style: "tableHeader" },
+                { text: "Retensi Inaktif", style: "tableHeader" },
+                { text: "Jumlah Retensi", style: "tableHeader" },
+                { text: "Nasib Akhir", style: "tableHeader" },
+                { text: "Status Berkas", style: "tableHeader" },
+                { text: "Unit Olah", style: "tableHeader" }
+            ];
 
-                            // Menyatukan header dan body tabel
-                            let tableContent = {
-                                table: {
-                                    headerRows: 1,
-                                    widths: [30, "auto", "auto", "auto", "auto", "auto", "auto", "auto",
-                                        "auto", "auto", "auto"
-                                    ], // Menyesuaikan ukuran kolom agar pas
-                                    body: [tableHeaders, ...tableBody] // Menggabungkan header dan body
-                                },
-                                layout: "lightHorizontalLines" // Garis horizontal ringan
-                            };
+            // Isi tabel dari data
+            let tableBody = tableData.map((row, index) => [
+                index + 1,
+                row.kode_klasifikasi || "-",
+                row.isi_berkas || "-",
+                row.tahun_berkas || "-",
+                row.kategori || "-",
+                row.retensi_aktif || "-",
+                row.retensi_inaktif || "-",
+                row.jumlah_retensi || "-",
+                row.nasib || "-",
+                row.status || "-",
+                row.unit_olah || "-"
+            ]);
 
-                            // Definisi dokumen PDF
-                            let docDefinition = {
-                                pageOrientation: "landscape", // Orientasi kertas horizontal
-                                content: [kopSurat, tableContent],
-                                styles: {
-                                    header: {
-                                        fontSize: 12,
-                                        bold: true
-                                    },
-                                    tableHeader: {
-                                        bold: true,
-                                        fontSize: 10,
-                                        color: "black"
-                                    }
-                                },
-                                defaultStyle: {
-                                    fontSize: 9
-                                }
-                            };
+            // Menyatukan header dan body tabel
+            let tableContent = {
+                table: {
+                    headerRows: 1,
+                    widths: [30, "auto", "auto", "auto", "auto", "auto", "auto", "auto", "auto", "auto", "auto"],
+                    body: [tableHeaders, ...tableBody]
+                },
+                layout: "lightHorizontalLines"
+            };
+
+            // Definisi dokumen PDF
+            let docDefinition = {
+                pageOrientation: "landscape",
+                content: [kopSurat, garisBawah, tableContent],
+                styles: {
+                    kopJudul: {
+                        fontSize: 14,
+                        bold: true,
+                        alignment: "center"
+                    },
+                    kopSubjudul: {
+                        fontSize: 12,
+                        bold: true,
+                        alignment: "center"
+                    },
+                    kopAlamat: {
+                        fontSize: 10,
+                        alignment: "center"
+                    },
+                    tableHeader: {
+                        bold: true,
+                        fontSize: 10,
+                        color: "black"
+                    }
+                },
+                defaultStyle: {
+                    fontSize: 9
+                }
+            };
 
                             // Generate dan download PDF
                             pdfMake.createPdf(docDefinition).download("daftar_arsip.pdf");

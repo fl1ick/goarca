@@ -1,3 +1,4 @@
 <nav>
-	<a href="{{route('beranda.index')}}" class="nav-link">MENGOLAH ARSIP TIDAK TERTATA</a>
+	<i class="bx bx-menu" id="menu-toggle"></i>
+	<h4>TERTIB ARSIP BEBAS KONFLIK</h4>
 </nav>
