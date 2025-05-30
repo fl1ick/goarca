@@ -70,9 +70,9 @@
                     </button>
                 </div>
 
-                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                    aria-hidden="true" data-bs-backdrop="true" data-bs-keyboard="false">
-                    <div class="modal-dialog modal-75w modal-dialog-scrollable">
+                <div class="modal fade" id="exampleModal" aria-labelledby="exampleModalLabel" aria-hidden="true"
+                    data-bs-backdrop="true" data-bs-keyboard="false" style="overflow:hidden">
+                    <div class="modal-dialog modal-lg modal-scrollable"> <!-- Gunakan modal-lg untuk ukuran lebih besar -->
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h5 class="modal-title" id="exampleModalLabel">Tambah Arsip</h5>
@@ -88,68 +88,51 @@
                                                 <label for="isi_berkas" class="form-label">Isi Berkas:</label>
                                                 <textarea class="form-control" name="isi_berkas" id="isi_berkas" rows="3" required></textarea>
                                             </div>
-                                        </div>
-
-                                        <div class="mb-3 row">
-                                            <label for="tahun_berkas" class="col-sm-2 col-form-label">Tahun Berkas:</label>
-                                            <div class="col-sm-10">
-                                                <input class="form-control w-25" type="date" name="tahun_berkas"
-                                                    id="tahun_berkas" required>
+                                            <!-- KOLOM Atas -->
+                                            <div class="col-md-6">
+                                                <div class="mb-3">
+                                                    <label for="tahun_berkas" class="form-label">Tahun Berkas:</label>
+                                                    <input class="form-control" type="date" name="tahun_berkas"
+                                                        id="tahun_berkas" required>
+                                                </div>
                                             </div>
-                                        </div>
-
-                                        <div class="mb-3 row">
-                                            <label for="kategori" class="col-sm-2 col-form-label">Kategori:</label>
-                                            <div class="col-sm-10">
-                                                <input list="kategori-list" name="kategori" id="kategori" class="form-control w-25" required>
-                                                <datalist id="kategori-list">
-                                                    @foreach ($kategories->sortBy('kategori') as $kategori)
-                                                        <option value="{{ $kategori->kategori }}">
-                                                    @endforeach
-                                                </datalist>
+                                            <div class="col-md-6">
+                                                <div class="mb-3">
+                                                    <label for="kategori" class="form-label">Kategori:</label>
+                                                    <select name="kategori" id="kategori" class="form-control" required>
+                                                        <option value="">--Pilih Kategori--</option>
+                                                        @foreach ($kategories as $kategori)
+                                                            <option value="{{ $kategori->kode }}">{{ $kategori->kategori }}
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
                                             </div>
-                                        </div>
-                                        
-                                        <div class="mb-3 row">
-                                            <label for="klasifikasi" class="col-sm-2 col-form-label">Klasifikasi:</label>
-                                            <div class="col-sm-10">
-                                                <input list="klasifikasi-list" name="klasifikasi" id="klasifikasi" class="form-control w-75" required>
-                                                <datalist id="klasifikasi-list">
-                                                    <!-- Data klasifikasi akan diisi secara dinamis dengan JavaScript -->
-                                                </datalist>
-                                            </div>
-                                        </div>
-                                        
-                                        <!-- Tambahkan input hidden untuk klasifikasi -->
-                                        <input type="hidden" name="klasifikasi_hidden" id="klasifikasi_hidden">
 
-                                        {{-- <div class="mb-3 row">
-                                            <label for="status" class="col-sm-2 col-form-label">Status:</label>
-                                            <div class="col-sm-10">
-                                                <select name="status" id="status" class="form-control w-25" required>
-                                                    <option value="">--Pilih Status--</option>
-                                                    <option value="Aktif">Aktif</option>
-                                                    <option value="Inaktif">Inaktif</option>
-                                                    <option value="Proses">Proses</option>
+                                            <!-- Kolom Spesial Order -->
+                                            <div class="mb-3">
+                                                <label for="klasifikasi" class="form-label">Klasifikasi:</label>
+                                                <select name="klasifikasi" id="klasifikasi" class="form-control select2"
+                                                    style="width:100%!important;" required>
+
                                                 </select>
                                             </div>
-                                        </div> --}}
 
-                                        <div class="mb-3 row">
-                                            <label for="kode_klasifikasi" class="col-sm-2 col-form-label">Kode
-                                                Klasifikasi:</label>
-                                            <div class="col-sm-10">
-                                                <input class="form-control w-25" type="text" name="kode_klasifikasi"
-                                                    id="kode_klasifikasi" readonly>
-                                            </div>
-                                        </div>
-
-                                        <div class="mb-3 row">
-                                            <label for="retensi_aktif" class="col-sm-2 col-form-label">Retensi
-                                                Aktif:</label>
-                                            <div class="col-sm-10">
-                                                <input class="form-control w-25" type="number" name="retensi_aktif"
-                                                    id="retensi_aktif" readonly>
+                                            <!-- KOLOM Bawah -->
+                                            <div class="col-md-6">
+                                                <!-- Input Hidden -->
+                                                <input type="hidden" name="klasifikasi_hidden" id="klasifikasi_hidden">
+                                                <div class="mb-3">
+                                                    <label for="kode_klasifikasi" class="form-label">Kode
+                                                        Klasifikasi:</label>
+                                                    <input class="form-control" type="text" name="kode_klasifikasi"
+                                                        id="kode_klasifikasi" readonly>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="retensi_aktif" class="form-label">Retensi Aktif:</label>
+                                                    <input class="form-control" type="number" name="retensi_aktif"
+                                                        id="retensi_aktif" readonly>
+                                                </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="mb-3">
@@ -533,11 +516,11 @@
                 }
             };
 
-                            // Generate dan download PDF
-                            pdfMake.createPdf(docDefinition).download("daftar_arsip.pdf");
-                        })
-                        .catch(err => console.error("Error fetching image: ", err)); // Menangani error
-                });
+            // Generate dan download PDF
+            pdfMake.createPdf(docDefinition).download("daftar_arsip.pdf");
+        })
+        .catch(err => console.error("Error fetching image: ", err));
+});
             });
         </script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>

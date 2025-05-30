@@ -1,12 +1,14 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Frontend\{BerandaController,KategoryController,JraController,BerkasAktifController,DaftarArsipController,BerkasInaktifController,TatacaraController,PenjelasanController, BerkasMusnahController,BerkasPermanenController};
+use App\Http\Controllers\Frontend\{BerandaController, KategoryController, JraController, BerkasAktifController, DaftarArsipController, BerkasInaktifController, TatacaraController, PenjelasanController, BerkasMusnahController, BerkasPermanenController, AuthController};
 
 // Route::get('/', function () {return view('beranda');});
 // Route::get('/beranda', function () {return view('beranda');});
 
-Route::get('/aktif', function () {return view('aktif');});
+Route::get('/aktif', function () {
+    return view('aktif');
+});
 
 Route::get('/', [BerandaController::class, 'index'])->name("beranda.index");
 Route::get('/beranda', [BerandaController::class, 'index'])->name("beranda");
@@ -28,9 +30,13 @@ Route::get('/getKlasifikasi/{kodeKategori}', [DaftarArsipController::class, 'get
 
 Route::get('/tatacara', [TatacaraController::class, 'index'])->name('tatacara');
 Route::get('/penjelasan', [PenjelasanController::class, 'index'])->name('penjelasan');
-Route::get('/get-base64-image', function() {
+Route::get('/get-base64-image', function () {
     $path = public_path('img/dinas_arsip.png'); // Lokasi gambar di folder public
     $imageData = base64_encode(file_get_contents($path)); // Mengonversi gambar menjadi string Base64
     return response()->json(['image' => 'data:image/png;base64,' . $imageData]);
 });
 
+// AUTH
+Route::get('/login', [AuthController::class, 'index'])->name('auth.login');
+Route::post('/login', [AuthController::class, 'login'])->name('login.action');
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');

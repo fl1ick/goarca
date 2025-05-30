@@ -34,7 +34,11 @@
         @yield('content')
         <!-- CONTENT -->
     </section>
-  
+
+    <!-- FOOTER -->
+    @include('layouts.footer')
+    <!-- END FOOTER -->
+
 
     <script src="{{ asset('customs/script.js') }}"></script>
     <!-- Tabulator Table Script -->
@@ -46,9 +50,30 @@
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
     </script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        @if (session('success'))
+            Swal.fire({
+                toast: true,
+                position: "top-end",
+                icon: "success",
+                title: "{{ session('success') }}",
+                showConfirmButton: false,
+                timer: 1500
+            });
+        @endif
+
+        @if (session('error'))
+            Swal.fire({
+                toast: true,
+                position: "top-end",
+                icon: "error",
+                title: "{{ session('error') }}",
+                showConfirmButton: false,
+                timer: 1500
+            });
+        @endif
+    </script>
 </body>
-      <!-- FOOTER -->
-      @include('layouts.footer')
-        <!-- END FOOTER -->
 
 </html>

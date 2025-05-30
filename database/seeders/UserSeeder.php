@@ -17,9 +17,10 @@ class UserSeeder extends Seeder
     {
         DB::table('users')->insert([
             [
-                'name' => 'Test User',
-                'email' => 'unique_test@example.com', // Pastikan ini unik
-                'password' => bcrypt('password'),
+                'name' => 'ArsipKotaMagelang',
+                'email' => 'arsipkotamagelang@example.com', // Pastikan ini unik
+                'password' => bcrypt('Arsip#1345'),
+                'role' => 'admin',
                 'email_verified_at' => now(),
                 'remember_token' => Str::random(10),
             ],
