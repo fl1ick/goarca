@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Jra;
 use App\Models\Kategory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class JraController extends Controller
 {
@@ -14,25 +15,31 @@ class JraController extends Controller
      */
     public function index(request $request)
     {
-        $jrasData = Jra::all();
-        return view('page.jras.index', compact('jrasData'));
-    }
+        try {
+            $role = Session::get('role');
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        $kategories = kategory::get();
-        return view('page.jras.create', compact('kategories'));
-    }
+            if ($role === 'admin') {
+                $jrasData = Jra::all();
 
+                return view('page.jras.index', compact('jrasData'));
+            } elseif ($role === 'user') {
+                $jrasData = Jra::all();
+
+                return view('page.jras.index', compact('jrasData'));
+            }
+
+            // Jika belum login (tidak ada session role), tampilkan halaman login
+            return view('auth.login');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
+        }
+    }
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
     {
-        Jra::create($request->validated() );
+        Jra::create($request->validated());
 
         return redirect()->route('page.jras.index')->with([
             'message' => 'successfully created !',
@@ -54,7 +61,7 @@ class JraController extends Controller
     public function edit(jra $jra)
     {
         $kategories = Kategory::get();
-        return view('page.jras.edit', compact('jra','kategories'));
+        return view('page.jras.edit', compact('jra', 'kategories'));
     }
 
     /**

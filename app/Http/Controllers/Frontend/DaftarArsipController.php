@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
-use App\Models\{DaftarArsip, Jra, Kategory, BerkasAktif, BerkasInaktif, BerkasMusnah,BerkasPermanen};
+use App\Models\{DaftarArsip, Jra, Kategory, BerkasAktif, BerkasInaktif, BerkasMusnah, BerkasPermanen};
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Session;
 
 class DaftarArsipController extends Controller
 {
@@ -14,57 +14,83 @@ class DaftarArsipController extends Controller
      */
     public function index(Request $request)
     {
-        $query = DaftarArsip::query(); // Mulai query builder dari DaftarArsip
+        try {
+            $role = Session::get('role');
 
-        // Filter berdasarkan request input untuk pencarian
-        if ($request->filled('isi_berkas')) {
-            $query->where('isi_berkas', 'like', '%' . $request->isi_berkas . '%');
+            if ($role === 'admin') {
+                $query = DaftarArsip::query(); // Mulai query builder dari DaftarArsip
+                // Filter berdasarkan request input untuk pencarian
+                if ($request->filled('isi_berkas')) {
+                    $query->where('isi_berkas', 'like', '%' . $request->isi_berkas . '%');
+                }
+                if ($request->filled('tahun_berkas')) {
+                    $query->whereYear('tahun_berkas', $request->tahun_berkas); // Pastikan format tahun cocok
+                }
+                if ($request->filled('kategori1')) {
+                    $query->where('kategori', $request->kategori1); // Filter berdasarkan kategori
+                }
+                if ($request->filled('klasifikasi1')) {
+                    $query->where('kode_klasifikasi', $request->klasifikasi1); // Filter berdasarkan kode klasifikasi
+                }
+                if ($request->filled('status1')) {
+                    $query->where('status', $request->status1); // Filter berdasarkan status
+                }
+                // Ambil data hasil query dengan pagination
+                $daftararsip = $query->paginate(10); // Ganti dengan pagination sesuai kebutuhan
+                $daftararsip = DaftarArsip::all();
+                // Ambil semua kategori dan klasifikasi yang terkait
+                $kategories = Kategory::all();
+                $klasifikasis = [];
+                // Jika kategori dipilih, ambil klasifikasi yang terkait
+                if ($request->filled('kategori1')) {
+                    $klasifikasis = Jra::where('kode_kategori', $request->kategori1)
+                        ->select('klasifikasi', 'kode_klasifikasi')
+                        ->distinct()
+                        ->get();
+                }
+
+                return view('page.daftararsip.index', compact('daftararsip', 'kategories', 'klasifikasis'));
+            } elseif ($role === 'user') {
+                $query = DaftarArsip::query(); // Mulai query builder dari DaftarArsip
+                // Filter berdasarkan request input untuk pencarian
+                if ($request->filled('isi_berkas')) {
+                    $query->where('isi_berkas', 'like', '%' . $request->isi_berkas . '%');
+                }
+                if ($request->filled('tahun_berkas')) {
+                    $query->whereYear('tahun_berkas', $request->tahun_berkas); // Pastikan format tahun cocok
+                }
+                if ($request->filled('kategori1')) {
+                    $query->where('kategori', $request->kategori1); // Filter berdasarkan kategori
+                }
+                if ($request->filled('klasifikasi1')) {
+                    $query->where('kode_klasifikasi', $request->klasifikasi1); // Filter berdasarkan kode klasifikasi
+                }
+                if ($request->filled('status1')) {
+                    $query->where('status', $request->status1); // Filter berdasarkan status
+                }
+                // Ambil data hasil query dengan pagination
+                $daftararsip = $query->paginate(10); // Ganti dengan pagination sesuai kebutuhan
+                $daftararsip = DaftarArsip::all();
+                // Ambil semua kategori dan klasifikasi yang terkait
+                $kategories = Kategory::all();
+                $klasifikasis = [];
+                // Jika kategori dipilih, ambil klasifikasi yang terkait
+                if ($request->filled('kategori1')) {
+                    $klasifikasis = Jra::where('kode_kategori', $request->kategori1)
+                        ->select('klasifikasi', 'kode_klasifikasi')
+                        ->distinct()
+                        ->get();
+                }
+
+                return view('page.daftararsip.index', compact('daftararsip', 'kategories', 'klasifikasis'));
+            }
+
+            // Jika belum login (tidak ada session role), tampilkan halaman login
+            return view('auth.login');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
         }
-
-        if ($request->filled('tahun_berkas')) {
-            $query->whereYear('tahun_berkas', $request->tahun_berkas); // Pastikan format tahun cocok
-        }
-
-        if ($request->filled('kategori1')) {
-            $query->where('kategori', $request->kategori1); // Filter berdasarkan kategori
-        }
-
-        if ($request->filled('klasifikasi1')) {
-            $query->where('kode_klasifikasi', $request->klasifikasi1); // Filter berdasarkan kode klasifikasi
-        }
-
-        if ($request->filled('status1')) {
-            $query->where('status', $request->status1); // Filter berdasarkan status
-        }
-
-        // Ambil data hasil query dengan pagination
-        $daftararsip = $query->paginate(10); // Ganti dengan pagination sesuai kebutuhan
-        $daftararsip = DaftarArsip::all();
-
-        // Ambil semua kategori dan klasifikasi yang terkait
-        $kategories = Kategory::all(); 
-        $klasifikasis = [];
-
-        // Jika kategori dipilih, ambil klasifikasi yang terkait
-        if ($request->filled('kategori1')) {
-            $klasifikasis = Jra::where('kode_kategori', $request->kategori1)
-                ->select('klasifikasi', 'kode_klasifikasi')
-                ->distinct()
-                ->get();
-        }
-
-        return view('page.daftararsip.index', compact('daftararsip', 'kategories', 'klasifikasis')); // Mengirimkan data ke view
     }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        $kategories = Kategory::all(); // Ambil semua kategori
-        return view('page.daftararsip.create', compact('kategories')); // Kirim variabel kategories ke view
-    }
-
     /**
      * Store a newly created resource in storage.
      */
@@ -82,19 +108,19 @@ class DaftarArsipController extends Controller
             'nasib' => 'required|string|max:255',
             'unit_olah' => 'required|string|max:255',
         ]);
-    
+
         // Ambil nama kategori berdasarkan kode
         $kategori = Kategory::where('kode', $request->kategori)->first();
         if (!$kategori) {
             return back()->withErrors(['error' => 'Kategori tidak ditemukan.']);
         }
-    
+
         // Hitung retensi dan tentukan status
         $tahunBerkas = strtotime($request->tahun_berkas);
         $hasilPenjumlahan = strtotime("+{$request->jumlah_retensi} years", $tahunBerkas);
         $currentDate = time();
         $status = $hasilPenjumlahan > $currentDate ? 'Proses' : 'Inaktif';
-    
+
         // Siapkan data arsip
         $arsipData = [
             'isi_berkas' => $request->isi_berkas,
@@ -109,7 +135,7 @@ class DaftarArsipController extends Controller
             'status' => $status,
             'unit_olah' => $request->unit_olah,
         ];
-    
+
         // Logika berdasarkan nasib
         if ($request->nasib === 'Permanen') {
             // Simpan ke DaftarArsip (jika Proses)
@@ -121,10 +147,10 @@ class DaftarArsipController extends Controller
                     'kode_klasifikasi' => $arsipData['kode_klasifikasi'],
                 ], $arsipData);
             }
-    
+
             // Simpan ke BerkasPermanen
             BerkasPermanen::create($arsipData);
-    
+
             if ($status === 'Inaktif') {
                 BerkasInaktif::create($arsipData);
             }
@@ -132,7 +158,7 @@ class DaftarArsipController extends Controller
         } else if ($request->nasib === 'Musnah') {
             // Simpan ke DaftarArsip dan BerkasMusnah
             DaftarArsip::create($arsipData);
-    
+
             if ($status === 'Inaktif') {
                 BerkasInaktif::create($arsipData);
             }
@@ -147,14 +173,9 @@ class DaftarArsipController extends Controller
             }
             $message = 'Data berhasil disimpan dengan nasib lainnya.';
         }
-    
+
         return redirect()->route('arsip')->with('success', $message);
     }
-    
-    
-    
-    
-            
     /**
      * Display the specified resource.
      */

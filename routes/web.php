@@ -24,7 +24,6 @@ Route::get('/berkaspermanen', [BerkasPermanenController::class, 'index'])->name(
 
 Route::get('/arsip', [DaftarArsipController::class, 'index'])->name("arsip");
 Route::delete('/arsip/{daftarArsip}', [DaftarArsipController::class, 'destroy'])->name('arsip.destroy');
-Route::get('/arsipcreate', [DaftarArsipController::class, 'create'])->name("arsip.create");
 Route::post('/arsip', [DaftarArsipController::class, 'store'])->name('arsip.store');
 Route::get('/getKlasifikasi/{kodeKategori}', [DaftarArsipController::class, 'getKlasifikasi']);
 

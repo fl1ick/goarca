@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\Controller;
 use App\Models\BerkasPermanen;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class BerkasPermanenController extends Controller
 {
@@ -13,11 +14,24 @@ class BerkasPermanenController extends Controller
      */
     public function index()
     {
-         // Ambil semua data dari tabel BerkasMusnah
-         $berkasPermanen = BerkasPermanen::all();
+        try {
+            $role = Session::get('role');
 
-         // Kirim data ke view untuk ditampilkan
-         return view('page.berkaspermanen.index', compact('berkasPermanen'));
+            if ($role === 'admin') {
+                $berkasPermanen = BerkasPermanen::all();
+
+                return view('page.berkaspermanen.index', compact('berkasPermanen'));
+            } elseif ($role === 'user') {
+                $berkasPermanen = BerkasPermanen::all();
+
+                return view('page.berkaspermanen.index', compact('berkasPermanen'));
+            }
+
+            // Jika belum login (tidak ada session role), tampilkan halaman login
+            return view('auth.login');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
+        }
     }
 
     /**

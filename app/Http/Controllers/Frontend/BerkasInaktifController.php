@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\Controller;
 use App\Models\BerkasInaktif;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class BerkasInaktifController extends Controller
 {
@@ -14,8 +15,24 @@ class BerkasInaktifController extends Controller
     public function index()
     {
         // Fetch all BerkasInaktif records
-        $berkasinaktif = Berkasinaktif::all(); 
-        return view('page.berkasinaktif.index', compact('berkasinaktif'));
+        try {
+            $role = Session::get('role');
+
+            if ($role === 'admin') {
+                $berkasinaktif = Berkasinaktif::all();
+
+                return view('page.berkasinaktif.index', compact('berkasinaktif'));
+            } elseif ($role === 'user') {
+                $berkasinaktif = Berkasinaktif::all();
+
+                return view('page.berkasinaktif.index', compact('berkasinaktif'));
+            }
+
+            // Jika belum login (tidak ada session role), tampilkan halaman login
+            return view('auth.login');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
+        }
     }
     /**
      * Show the form for creating a new resource.
@@ -36,9 +53,7 @@ class BerkasInaktifController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(BerkasInaktif $berkasInaktif)
-    {
-    }
+    public function show(BerkasInaktif $berkasInaktif) {}
 
     /**
      * Show the form for editing the specified resource.
@@ -62,7 +77,7 @@ class BerkasInaktifController extends Controller
     public function destroy(BerkasInaktif $berkasInaktif)
     {
         $berkasInaktif->delete();
-     
+
         return redirect()->route('inaktif')->with('success', 'Data berhasil dihapus.');
     }
 }

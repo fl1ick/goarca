@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\Controller;
 use App\Models\BerkasMusnah;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class BerkasMusnahController extends Controller
 {
@@ -13,11 +14,24 @@ class BerkasMusnahController extends Controller
      */
     public function index()
     {
-        // Ambil semua data dari tabel BerkasMusnah
-        $berkasMusnah = BerkasMusnah::all();
+        try {
+            $role = Session::get('role');
 
-        // Kirim data ke view untuk ditampilkan
-        return view('page.berkasmusnah.index', compact('berkasMusnah'));
+            if ($role === 'admin') {
+                $berkasMusnah = BerkasMusnah::all();
+
+                return view('page.berkasmusnah.index', compact('berkasMusnah'));
+            } elseif ($role === 'user') {
+                $berkasMusnah = BerkasMusnah::all();
+
+                return view('page.berkasmusnah.index', compact('berkasMusnah'));
+            }
+
+            // Jika belum login (tidak ada session role), tampilkan halaman login
+            return view('auth.login');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
+        }
     }
     /**
      * Show the form for creating a new resource.
