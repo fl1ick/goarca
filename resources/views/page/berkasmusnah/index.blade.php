@@ -2,6 +2,49 @@
 
 @section('content')
     <main>
+        <h4>Data Berkas Musnah</h4>
+        <div class="row">
+                    <div class="col-sm-3">
+                        <div class="col g-3 align-items-center">
+                            <div class="col-auto">
+                                <label for="search-isi-berkas" class="col-form-label">Cari isi Berkas</label>
+                            </div>
+                            <div class="col-auto">
+                                <input type="text" id="search-isi-berkas" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="col g-3 align-items-center">
+                            <div class="col-auto">
+                                <label for="search-tahun-berkas" class="col-form-label">Cari Tahun Berkas</label>
+                            </div>
+                            <div class="col-auto">
+                                <input type="date" id="search-tahun-berkas" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="col g-3 align-items-center">
+                            <div class="col-auto">
+                                <label for="search-kategori" class="col-form-label">Cari Kategori Berkas</label>
+                            </div>
+                            <div class="col-auto">
+                                <input type="text" id="search-kategori" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="col g-3 align-items-center">
+                            <div class="col-auto">
+                                <label for="search-klasifikasi" class="col-form-label">Cari Klasifikasi Berkas</label>
+                            </div>
+                            <div class="col-auto">
+                                <input type="text" id="search-klasifikasi" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                </div>
         <div class="mt-3">
             <!-- Export Buttons -->
             <div class="mb-3">
@@ -40,6 +83,30 @@
             {title: "Unit Olah", field: "unit_olah", sorter: "string"}
         ]
     });
+
+    // Pencarian Isi Berkas
+                document.getElementById("search-isi-berkas").addEventListener("input", function(e) {
+                    let value = e.target.value;
+                    table.setFilter("isi_berkas", "like", value);
+                });
+
+                // Pencarian Tahun Berkas
+                document.getElementById("search-tahun-berkas").addEventListener("input", function(e) {
+                    let value = e.target.value;
+                    table.setFilter("tahun_berkas", "like", value);
+                });
+
+                // Pencarian Kategori
+                document.getElementById("search-kategori").addEventListener("input", function(e) {
+                    let value = e.target.value;
+                    table.setFilter("kategori", "like", value);
+                });
+
+                // Pencarian Klasifikasi
+                document.getElementById("search-klasifikasi").addEventListener("input", function(e) {
+                    let value = e.target.value;
+                    table.setFilter("klasifikasi", "like", value);
+                });
 
     // Export CSV function
     document.getElementById("export-csv").addEventListener("click", function() {
