@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Frontend\{AddUserController, BerandaController, KategoryController, JraController, BerkasAktifController, DaftarArsipController, BerkasInaktifController, TatacaraController, PenjelasanController, BerkasMusnahController, BerkasPermanenController, AuthController};
+use App\Http\Controllers\Frontend\{AddUserController, ArsipLamaController, BerandaController, KategoryController, JraController, BerkasAktifController, DaftarArsipController, BerkasInaktifController, TatacaraController, PenjelasanController, BerkasMusnahController, BerkasPermanenController, AuthController};
 
 // Route::get('/', function () {return view('beranda');});
 // Route::get('/beranda', function () {return view('beranda');});
@@ -42,3 +42,7 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 // AddUser
 Route::get('/managementuser', [AddUserController::class, 'index'])->name('managementuser');
+
+Route::get('/arsip/lama', [ArsipLamaController::class, 'index'])->name('arsip.lama');
+Route::post('/arsip/lama/reset', [ArsipLamaController::class, 'reset'])->name('arsip.lama.reset');
+Route::delete('/arsip/lama/delete-all', [ArsipLamaController::class, 'deleteAll'])->name('arsip.lama.deleteAll');

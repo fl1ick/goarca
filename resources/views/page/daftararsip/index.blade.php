@@ -70,6 +70,14 @@
                     </button>
                 </div>
 
+                <div>
+                    <form id="form-reset-lama" action="{{ route('arsip.lama.reset') }}" method="POST" style="display: none;">
+                        @csrf
+                    </form>
+                    <button type="button" class="btn btn-danger mb-3" id="btn-reset-lama">
+                        Reset Arsip
+                    </button>
+                </div>
                 <div class="modal fade" id="exampleModal" aria-labelledby="exampleModalLabel" aria-hidden="true"
                     data-bs-backdrop="true" data-bs-keyboard="false" style="overflow:hidden">
                     <div class="modal-dialog modal-lg modal-scrollable"> <!-- Gunakan modal-lg untuk ukuran lebih besar -->
@@ -223,6 +231,22 @@
             @endif
         </script>
         <script>
+            document.getElementById("btn-reset-lama").addEventListener("click", function () {
+            Swal.fire({
+                title: 'Reset Arsip Lama?',
+                text: 'Seluruh arsip lama akan dikembalikan ke kondisi awal!',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Ya, reset!',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    document.getElementById('form-reset-lama').submit();
+                }
+            });
+        });
             // Mengambil klasifikasi berdasarkan kategori yang dipilih
             document.getElementById('kategori').addEventListener('change', function() {
                 var kodeKategori = this.value;

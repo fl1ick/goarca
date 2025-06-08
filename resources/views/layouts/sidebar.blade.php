@@ -39,6 +39,12 @@
                 <span class="text">Berkas Permanen</span>
             </a>
         </li>
+        			        <li class="{{ request()->routeIs('arsip.lama') ? 'active' : '' }}">
+            <a href="{{ route('arsip.lama') }}" style="text-decoration: none;">
+                <i class='bx bxs-folder-open'></i>
+                <span class="text">Berkas Lama</span>
+            </a>
+        </li>
         <li class="{{ request()->routeIs('inaktif') ? 'active' : '' }}">
             <a href="{{ route('inaktif') }}" style="text-decoration: none;">
                 <i class='bx bxs-cabinet'></i>
