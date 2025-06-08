@@ -45,6 +45,12 @@
                 <span class="text">Berkas Inaktif</span>
             </a>
         </li>
+        <li class="{{ request()->routeIs('managementuser') ? 'active' : '' }}">
+            <a href="{{ route('managementuser') }}" style="text-decoration: none;">
+                <i class='bx bxs-cabinet'></i>
+                <span class="text">Manajemen User</span>
+            </a>
+        </li>
         <li class="{{ request()->routeIs('tatacara') ? 'active' : '' }}">
             <a href="{{ route('tatacara') }}" style="text-decoration: none;">
                 <i class='bx bxs-cabinet'></i>

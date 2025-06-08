@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Frontend\{BerandaController, KategoryController, JraController, BerkasAktifController, DaftarArsipController, BerkasInaktifController, TatacaraController, PenjelasanController, BerkasMusnahController, BerkasPermanenController, AuthController};
+use App\Http\Controllers\Frontend\{AddUserController, BerandaController, KategoryController, JraController, BerkasAktifController, DaftarArsipController, BerkasInaktifController, TatacaraController, PenjelasanController, BerkasMusnahController, BerkasPermanenController, AuthController};
 
 // Route::get('/', function () {return view('beranda');});
 // Route::get('/beranda', function () {return view('beranda');});
@@ -39,3 +39,6 @@ Route::get('/get-base64-image', function () {
 Route::get('/login', [AuthController::class, 'index'])->name('auth.login');
 Route::post('/login', [AuthController::class, 'login'])->name('login.action');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+// AddUser
+Route::get('/managementuser', [AddUserController::class, 'index'])->name('managementuser');

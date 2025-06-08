@@ -21,6 +21,7 @@ class UserSeeder extends Seeder
                 'email' => 'arsipkotamagelang@example.com', // Pastikan ini unik
                 'password' => bcrypt('Arsip#1345'),
                 'role' => 'admin',
+                'registration_status' => true,
                 'email_verified_at' => now(),
                 'remember_token' => Str::random(10),
             ],
