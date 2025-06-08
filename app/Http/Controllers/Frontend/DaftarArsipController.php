@@ -108,19 +108,19 @@ class DaftarArsipController extends Controller
             'nasib' => 'required|string|max:255',
             'unit_olah' => 'required|string|max:255',
         ]);
-
+    
         // Ambil nama kategori berdasarkan kode
         $kategori = Kategory::where('kode', $request->kategori)->first();
         if (!$kategori) {
             return back()->withErrors(['error' => 'Kategori tidak ditemukan.']);
         }
-
+    
         // Hitung retensi dan tentukan status
         $tahunBerkas = strtotime($request->tahun_berkas);
         $hasilPenjumlahan = strtotime("+{$request->jumlah_retensi} years", $tahunBerkas);
         $currentDate = time();
         $status = $hasilPenjumlahan > $currentDate ? 'Proses' : 'Inaktif';
-
+    
         // Siapkan data arsip
         $arsipData = [
             'isi_berkas' => $request->isi_berkas,
@@ -135,37 +135,26 @@ class DaftarArsipController extends Controller
             'status' => $status,
             'unit_olah' => $request->unit_olah,
         ];
-
-        // Logika berdasarkan nasib
         if ($request->nasib === 'Permanen') {
-            // Simpan ke DaftarArsip (jika Proses)
+            BerkasPermanen::create($arsipData);  // selalu simpan permanen
+
             if ($status === 'Proses') {
-                DaftarArsip::updateOrCreate([
-                    'isi_berkas' => $arsipData['isi_berkas'],
-                    'tahun_berkas' => $arsipData['tahun_berkas'],
-                    'kategori' => $arsipData['kategori'],
-                    'kode_klasifikasi' => $arsipData['kode_klasifikasi'],
-                ], $arsipData);
-            }
-
-            // Simpan ke BerkasPermanen
-            BerkasPermanen::create($arsipData);
-
-            if ($status === 'Inaktif') {
+                DaftarArsip::create($arsipData);
+            } else if ($status === 'Inaktif') {
                 BerkasInaktif::create($arsipData);
             }
+
             $message = 'Data berhasil disimpan ke Berkas Permanen.';
         } else if ($request->nasib === 'Musnah') {
-            // Simpan ke DaftarArsip dan BerkasMusnah
+        if ($status === 'Proses') {
             DaftarArsip::create($arsipData);
-
-            if ($status === 'Inaktif') {
+        }
+            else if ($status === 'Inaktif') {
                 BerkasInaktif::create($arsipData);
             }
             BerkasMusnah::create($arsipData);
             $message = 'Data berhasil disimpan ke Berkas Musnah.';
         } else {
-            // Jika nasib lainnya, hanya simpan sesuai status
             if ($status === 'Proses') {
                 DaftarArsip::create($arsipData);
             } else {
@@ -173,7 +162,7 @@ class DaftarArsipController extends Controller
             }
             $message = 'Data berhasil disimpan dengan nasib lainnya.';
         }
-
+    
         return redirect()->route('arsip')->with('success', $message);
     }
     /**

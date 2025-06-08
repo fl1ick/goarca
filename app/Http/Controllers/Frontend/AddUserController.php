@@ -15,7 +15,8 @@ class AddUserController extends Controller
             $role = Session::get('role');
 
             if ($role === 'admin') {
-                return view('page.admin.managementuser');
+                $users = User::all();
+                return view('page.admin.managementuser', compact('users'));
             }
 
             // Jika belum login (tidak ada session role), tampilkan halaman login

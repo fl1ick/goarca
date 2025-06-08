@@ -42,6 +42,7 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 // AddUser
 Route::get('/managementuser', [AddUserController::class, 'index'])->name('managementuser');
+Route::post('/managementuser/store', [AddUserController::class, 'storeUser'])->name('storeuser');
 
 Route::get('/arsip/lama', [ArsipLamaController::class, 'index'])->name('arsip.lama');
 Route::post('/arsip/lama/reset', [ArsipLamaController::class, 'reset'])->name('arsip.lama.reset');

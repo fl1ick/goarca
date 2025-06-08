@@ -80,7 +80,7 @@
                 </div>
                 <div class="modal fade" id="exampleModal" aria-labelledby="exampleModalLabel" aria-hidden="true"
                     data-bs-backdrop="true" data-bs-keyboard="false" style="overflow:hidden">
-                    <div class="modal-dialog modal-lg modal-scrollable"> <!-- Gunakan modal-lg untuk ukuran lebih besar -->
+                    <div class="modal-dialog modal-lg modal-dialog-scrollable"> <!-- Gunakan modal-lg untuk ukuran lebih besar -->
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h5 class="modal-title" id="exampleModalLabel">Tambah Arsip</h5>
