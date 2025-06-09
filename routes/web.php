@@ -38,11 +38,13 @@ Route::get('/get-base64-image', function () {
 // AUTH
 Route::get('/login', [AuthController::class, 'index'])->name('auth.login');
 Route::post('/login', [AuthController::class, 'login'])->name('login.action');
+Route::post('/register', [AuthController::class, 'register'])->name('register');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 // AddUser
 Route::get('/managementuser', [AddUserController::class, 'index'])->name('managementuser');
 Route::post('/managementuser/store', [AddUserController::class, 'storeUser'])->name('storeuser');
+Route::get('/user/reset-password/{id}', [AddUserController::class, 'resetPassword'])->name('user.resetPassword');
 
 Route::get('/arsip/lama', [ArsipLamaController::class, 'index'])->name('arsip.lama');
 Route::post('/arsip/lama/reset', [ArsipLamaController::class, 'reset'])->name('arsip.lama.reset');

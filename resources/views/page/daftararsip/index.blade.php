@@ -71,16 +71,17 @@
                 </div>
 
                 <div>
-                    <form id="form-reset-lama" action="{{ route('arsip.lama.reset') }}" method="POST" style="display: none;">
+                    <form id="form-reset-lama" action="{{ route('arsip.lama.reset') }}" method="POST"
+                        style="display: none;">
                         @csrf
                     </form>
                     <button type="button" class="btn btn-danger mb-3" id="btn-reset-lama">
                         Reset Arsip
                     </button>
                 </div>
-                <div class="modal fade" id="exampleModal" aria-labelledby="exampleModalLabel" aria-hidden="true"
-                    data-bs-backdrop="true" data-bs-keyboard="false" style="overflow:hidden">
-                    <div class="modal-dialog modal-lg modal-dialog-scrollable"> <!-- Gunakan modal-lg untuk ukuran lebih besar -->
+                <div class="modal fade" id="exampleModal" data-bs-backdrop="static" data-bs-keyboard="false"
+                    aria-labelledby="exampleModalLabel" aria-hidden="true" style="overflow:hidden">
+                    <div class="modal-dialog modal-lg modal-dialog-scrollable">
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h5 class="modal-title" id="exampleModalLabel">Tambah Arsip</h5>
@@ -91,12 +92,11 @@
                                 <form action="{{ route('arsip.store') }}" method="POST">
                                     @csrf
                                     <div class="p-2 bg-body rounded shadow-sm">
-                                        <div class="row"> <!-- ROW UTAMA -->
+                                        <div class="row">
                                             <div class="mb-3">
                                                 <label for="isi_berkas" class="form-label">Isi Berkas:</label>
                                                 <textarea class="form-control" name="isi_berkas" id="isi_berkas" rows="3" required></textarea>
                                             </div>
-                                            <!-- KOLOM Atas -->
                                             <div class="col-md-6">
                                                 <div class="mb-3">
                                                     <label for="tahun_berkas" class="form-label">Tahun Berkas:</label>
@@ -116,19 +116,13 @@
                                                     </select>
                                                 </div>
                                             </div>
-
-                                            <!-- Kolom Spesial Order -->
                                             <div class="mb-3">
                                                 <label for="klasifikasi" class="form-label">Klasifikasi:</label>
                                                 <select name="klasifikasi" id="klasifikasi" class="form-control select2"
                                                     style="width:100%!important;" required>
-
                                                 </select>
                                             </div>
-
-                                            <!-- KOLOM Bawah -->
                                             <div class="col-md-6">
-                                                <!-- Input Hidden -->
                                                 <input type="hidden" name="klasifikasi_hidden" id="klasifikasi_hidden">
                                                 <div class="mb-3">
                                                     <label for="kode_klasifikasi" class="form-label">Kode
@@ -155,26 +149,22 @@
                                                         id="retensi_inaktif" readonly>
                                                 </div>
                                             </div>
-                                            <!-- Kolom Footer -->
                                             <div class="mb-3">
                                                 <label for="jumlah_retensi" class="form-label">Jumlah Retensi:</label>
                                                 <input class="form-control" type="number" name="jumlah_retensi"
                                                     id="jumlah_retensi" readonly>
                                             </div>
-
                                             <div class="mb-3">
                                                 <label for="unit_olah" class="form-label">Unit Olah:</label>
                                                 <input type="text" class="form-control" name="unit_olah"
                                                     id="unit_olah" placeholder="Masukkan unit olah" required>
                                             </div>
-                                        </div> <!-- END ROW -->
-
+                                        </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary"
                                                 data-bs-dismiss="modal">Close</button>
                                             <button type="submit" class="btn btn-primary">Submit</button>
                                         </div>
-
                                     </div>
                                 </form>
                             </div>
@@ -231,22 +221,22 @@
             @endif
         </script>
         <script>
-            document.getElementById("btn-reset-lama").addEventListener("click", function () {
-            Swal.fire({
-                title: 'Reset Arsip Lama?',
-                text: 'Seluruh arsip lama akan dikembalikan ke kondisi awal!',
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#d33',
-                cancelButtonColor: '#3085d6',
-                confirmButtonText: 'Ya, reset!',
-                cancelButtonText: 'Batal'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    document.getElementById('form-reset-lama').submit();
-                }
+            document.getElementById("btn-reset-lama").addEventListener("click", function() {
+                Swal.fire({
+                    title: 'Reset Arsip Lama?',
+                    text: 'Seluruh arsip lama akan dikembalikan ke kondisi awal!',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#3085d6',
+                    confirmButtonText: 'Ya, reset!',
+                    cancelButtonText: 'Batal'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        document.getElementById('form-reset-lama').submit();
+                    }
+                });
             });
-        });
             // Mengambil klasifikasi berdasarkan kategori yang dipilih
             document.getElementById('kategori').addEventListener('change', function() {
                 var kodeKategori = this.value;
@@ -424,127 +414,179 @@
                 });
 
                 // Fungsi Export PDF
-                document.getElementById("export-pdf").addEventListener("click", function () {
-            fetch('/get-base64-image')
-                .then(response => response.json())
-                .then(data => {
-                    let tableData = table.getData();
+                document.getElementById("export-pdf").addEventListener("click", function() {
+                    fetch('/get-base64-image')
+                        .then(response => response.json())
+                        .then(data => {
+                            let tableData = table.getData();
 
-            // Header kop surat dengan logo di kiri dan teks di tengah
-            let kopSurat = {
-                table: {
-                    widths: ["auto", "*", "auto"], // Logo kiri, teks tetap di tengah
-                    body: [
-                        [
-                            {
-                                image: data.image,
-                                fit: [80, 80],
-                                alignment: "left"
-                            },
-                            {
-                                stack: [
-                                    { text: "PEMERINTAH KOTA MAGELANG", style: "kopJudul" },
-                                    { text: "DINAS PERPUSTAKAAN DAN KEARSIPAN", style: "kopJudul" },
-                                    { text: "Jl. Kartini No.4, Kec. Magelang Tengah", style: "kopAlamat" },
-                                    { text: "Telepon: (0293) 123456 | Fax: (0293) 361775", style: "kopAlamat" },
-                                    { text: "MAGELANG JAWA TENGAH 56121", style: "kopAlamat" }
-                                ],
-                                margin: [-70, 0, 0, 0]
-                            },
-                            {
-                                text: "", // Kolom kosong agar teks tidak terdorong
-                                alignment: "right"
-                            }
-                        ]
-                    ]
-                },
-                layout: "noBorders",
-                margin: [0, 0, 0, 8]
-            };
+                            // Header kop surat dengan logo di kiri dan teks di tengah
+                            let kopSurat = {
+                                table: {
+                                    widths: ["auto", "*", "auto"], // Logo kiri, teks tetap di tengah
+                                    body: [
+                                        [{
+                                                image: data.image,
+                                                fit: [80, 80],
+                                                alignment: "left"
+                                            },
+                                            {
+                                                stack: [{
+                                                        text: "PEMERINTAH KOTA MAGELANG",
+                                                        style: "kopJudul"
+                                                    },
+                                                    {
+                                                        text: "DINAS PERPUSTAKAAN DAN KEARSIPAN",
+                                                        style: "kopJudul"
+                                                    },
+                                                    {
+                                                        text: "Jl. Kartini No.4, Kec. Magelang Tengah",
+                                                        style: "kopAlamat"
+                                                    },
+                                                    {
+                                                        text: "Telepon: (0293) 123456 | Fax: (0293) 361775",
+                                                        style: "kopAlamat"
+                                                    },
+                                                    {
+                                                        text: "MAGELANG JAWA TENGAH 56121",
+                                                        style: "kopAlamat"
+                                                    }
+                                                ],
+                                                margin: [-70, 0, 0, 0]
+                                            },
+                                            {
+                                                text: "", // Kolom kosong agar teks tidak terdorong
+                                                alignment: "right"
+                                            }
+                                        ]
+                                    ]
+                                },
+                                layout: "noBorders",
+                                margin: [0, 0, 0, 8]
+                            };
 
-            // Garis bawah
-            let garisBawah = {
-                canvas: [
-                    { type: "line", x1: 0, y1: 0, x2: 762, y2: 0, lineWidth: 2 }
-                ],
-                margin: [0, 0, 0, 10]
-            };
+                            // Garis bawah
+                            let garisBawah = {
+                                canvas: [{
+                                    type: "line",
+                                    x1: 0,
+                                    y1: 0,
+                                    x2: 762,
+                                    y2: 0,
+                                    lineWidth: 2
+                                }],
+                                margin: [0, 0, 0, 10]
+                            };
 
-            // Header tabel
-            let tableHeaders = [
-                { text: "No", style: "tableHeader" },
-                { text: "Kode Klasifikasi", style: "tableHeader" },
-                { text: "Isi Berkas", style: "tableHeader" },
-                { text: "Tahun Berkas", style: "tableHeader" },
-                { text: "Masalah", style: "tableHeader" },
-                { text: "Retensi Aktif", style: "tableHeader" },
-                { text: "Retensi Inaktif", style: "tableHeader" },
-                { text: "Jumlah Retensi", style: "tableHeader" },
-                { text: "Nasib Akhir", style: "tableHeader" },
-                { text: "Status Berkas", style: "tableHeader" },
-                { text: "Unit Olah", style: "tableHeader" }
-            ];
+                            // Header tabel
+                            let tableHeaders = [{
+                                    text: "No",
+                                    style: "tableHeader"
+                                },
+                                {
+                                    text: "Kode Klasifikasi",
+                                    style: "tableHeader"
+                                },
+                                {
+                                    text: "Isi Berkas",
+                                    style: "tableHeader"
+                                },
+                                {
+                                    text: "Tahun Berkas",
+                                    style: "tableHeader"
+                                },
+                                {
+                                    text: "Masalah",
+                                    style: "tableHeader"
+                                },
+                                {
+                                    text: "Retensi Aktif",
+                                    style: "tableHeader"
+                                },
+                                {
+                                    text: "Retensi Inaktif",
+                                    style: "tableHeader"
+                                },
+                                {
+                                    text: "Jumlah Retensi",
+                                    style: "tableHeader"
+                                },
+                                {
+                                    text: "Nasib Akhir",
+                                    style: "tableHeader"
+                                },
+                                {
+                                    text: "Status Berkas",
+                                    style: "tableHeader"
+                                },
+                                {
+                                    text: "Unit Olah",
+                                    style: "tableHeader"
+                                }
+                            ];
 
-            // Isi tabel dari data
-            let tableBody = tableData.map((row, index) => [
-                index + 1,
-                row.kode_klasifikasi || "-",
-                row.isi_berkas || "-",
-                row.tahun_berkas || "-",
-                row.kategori || "-",
-                row.retensi_aktif || "-",
-                row.retensi_inaktif || "-",
-                row.jumlah_retensi || "-",
-                row.nasib || "-",
-                row.status || "-",
-                row.unit_olah || "-"
-            ]);
+                            // Isi tabel dari data
+                            let tableBody = tableData.map((row, index) => [
+                                index + 1,
+                                row.kode_klasifikasi || "-",
+                                row.isi_berkas || "-",
+                                row.tahun_berkas || "-",
+                                row.kategori || "-",
+                                row.retensi_aktif || "-",
+                                row.retensi_inaktif || "-",
+                                row.jumlah_retensi || "-",
+                                row.nasib || "-",
+                                row.status || "-",
+                                row.unit_olah || "-"
+                            ]);
 
-            // Menyatukan header dan body tabel
-            let tableContent = {
-                table: {
-                    headerRows: 1,
-                    widths: [30, "auto", "auto", "auto", "auto", "auto", "auto", "auto", "auto", "auto", "auto"],
-                    body: [tableHeaders, ...tableBody]
-                },
-                layout: "lightHorizontalLines"
-            };
+                            // Menyatukan header dan body tabel
+                            let tableContent = {
+                                table: {
+                                    headerRows: 1,
+                                    widths: [30, "auto", "auto", "auto", "auto", "auto", "auto", "auto",
+                                        "auto", "auto", "auto"
+                                    ],
+                                    body: [tableHeaders, ...tableBody]
+                                },
+                                layout: "lightHorizontalLines"
+                            };
 
-            // Definisi dokumen PDF
-            let docDefinition = {
-                pageOrientation: "landscape",
-                content: [kopSurat, garisBawah, tableContent],
-                styles: {
-                    kopJudul: {
-                        fontSize: 14,
-                        bold: true,
-                        alignment: "center"
-                    },
-                    kopSubjudul: {
-                        fontSize: 12,
-                        bold: true,
-                        alignment: "center"
-                    },
-                    kopAlamat: {
-                        fontSize: 10,
-                        alignment: "center"
-                    },
-                    tableHeader: {
-                        bold: true,
-                        fontSize: 10,
-                        color: "black"
-                    }
-                },
-                defaultStyle: {
-                    fontSize: 9
-                }
-            };
+                            // Definisi dokumen PDF
+                            let docDefinition = {
+                                pageOrientation: "landscape",
+                                content: [kopSurat, garisBawah, tableContent],
+                                styles: {
+                                    kopJudul: {
+                                        fontSize: 14,
+                                        bold: true,
+                                        alignment: "center"
+                                    },
+                                    kopSubjudul: {
+                                        fontSize: 12,
+                                        bold: true,
+                                        alignment: "center"
+                                    },
+                                    kopAlamat: {
+                                        fontSize: 10,
+                                        alignment: "center"
+                                    },
+                                    tableHeader: {
+                                        bold: true,
+                                        fontSize: 10,
+                                        color: "black"
+                                    }
+                                },
+                                defaultStyle: {
+                                    fontSize: 9
+                                }
+                            };
 
-            // Generate dan download PDF
-            pdfMake.createPdf(docDefinition).download("daftar_arsip.pdf");
-        })
-        .catch(err => console.error("Error fetching image: ", err));
-});
+                            // Generate dan download PDF
+                            pdfMake.createPdf(docDefinition).download("daftar_arsip.pdf");
+                        })
+                        .catch(err => console.error("Error fetching image: ", err));
+                });
             });
         </script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>

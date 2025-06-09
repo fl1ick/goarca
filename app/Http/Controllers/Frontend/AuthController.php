@@ -68,6 +68,33 @@ class AuthController extends Controller
         }
     }
 
+    public function register(Request $request)
+    {
+        $request->validate([
+            'username' => 'required|string',
+            'token' => 'required|string',
+            'passwordRegister' => 'required|string|confirmed',
+        ]);
+
+        // Cari user berdasarkan username dan token
+        $user = User::where('name', $request->username)
+            ->where('token', $request->token)
+            ->where('registration_status', false)
+            ->first();
+
+        if (!$user) {
+            return back()->with('error', 'Username atau token tidak valid, atau akun sudah terdaftar.');
+        }
+
+        // Update data user
+        $user->password = Hash::make($request->passwordRegister);
+        $user->token = null; // hapus token agar tidak bisa digunakan lagi
+        $user->registration_status = true;
+        $user->save();
+
+        return redirect('/login')->with('success', 'Registrasi berhasil. Silakan login.');
+    }
+
     public function logout()
     {
         Session::flush();

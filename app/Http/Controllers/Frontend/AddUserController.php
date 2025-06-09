@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use App\Models\User;
+use Illuminate\Support\Str;
 
 class AddUserController extends Controller
 {
@@ -34,14 +35,39 @@ class AddUserController extends Controller
             'role' => 'required|in:admin,user'
         ]);
 
+        $Token = Str::random(10);
+
         User::create([
             'name' => $request->name,
             'email' => $request->email,
             'role' => $request->role,
             'password' => null,
             'registration_status' => false,
+            'token' => $Token,
         ]);
 
-        return redirect()->back()->with('success', 'User sukses dibuat.');
+        return redirect()->back()
+            ->with('success', 'User sukses dibuat.')
+            ->with('created_username', $request->name)
+            ->with('created_token', $Token);
+    }
+
+
+    public function resetPassword($id)
+    {
+        $user = User::findOrFail($id);
+
+        // Generate token baru dan simpan
+        $newToken = Str::random(10);
+        $user->token = $newToken;
+        $user->registration_status = false;
+        $user->save();
+
+        // Kirim username dan token ke halaman sebelumnya
+        return redirect()->back()->with([
+            'reset_success' => true,
+            'reset_username' => $user->name,
+            'reset_token' => $newToken,
+        ]);
     }
 }

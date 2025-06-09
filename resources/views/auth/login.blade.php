@@ -141,7 +141,7 @@
                                     <div class="form-group">
                                         <div class="input-group">
                                             <input type="password" id="password_confirmation"
-                                                name="password_confirmation" class="form-control"
+                                                name="passwordRegister_confirmation" class="form-control"
                                                 placeholder="Confirm Password" required>
                                             <div class="input-group-append">
                                                 <div class="input-group-text">

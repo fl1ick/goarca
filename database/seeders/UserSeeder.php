@@ -22,6 +22,7 @@ class UserSeeder extends Seeder
                 'password' => bcrypt('Arsip#1345'),
                 'role' => 'admin',
                 'registration_status' => true,
+                'token' => null,
                 'email_verified_at' => now(),
                 'remember_token' => Str::random(10),
             ],
