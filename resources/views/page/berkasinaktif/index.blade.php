@@ -172,6 +172,10 @@
             }
         }
 
+        // Event Listeners
+        ["search-isi-berkas", "search-tahun-berkas", "search-kategori", "search-klasifikasi", "start-date", "end-date"]
+            .forEach(id => document.getElementById(id).addEventListener("input", applyFilter));
+
 
             // Fungsi Export CSV
             document.getElementById("export-csv").addEventListener("click", function() {
