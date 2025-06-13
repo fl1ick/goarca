@@ -44,6 +44,15 @@
                             </div>
                         </div>
                     </div>
+                    <!-- Filter Jangka Waktu -->
+                    <div class="col-sm-3 mt-3">
+                        <label for="start-date" class="form-label">Mulai Tanggal</label>
+                        <input type="date" id="start-date" class="form-control">
+                    </div>
+                    <div class="col-sm-3 mt-3">
+                        <label for="end-date" class="form-label">Sampai Tanggal</label>
+                        <input type="date" id="end-date" class="form-control">
+                    </div>
                 </div>
         <div class="mt-3">
             <!-- Export Buttons -->
@@ -84,29 +93,35 @@
         ]
     });
 
-    // Pencarian Isi Berkas
-                document.getElementById("search-isi-berkas").addEventListener("input", function(e) {
-                    let value = e.target.value;
-                    table.setFilter("isi_berkas", "like", value);
-                });
+    // Fungsi Filter
+        function applyFilter() {
+            table.clearFilter(true);
 
-                // Pencarian Tahun Berkas
-                document.getElementById("search-tahun-berkas").addEventListener("input", function(e) {
-                    let value = e.target.value;
-                    table.setFilter("tahun_berkas", "like", value);
-                });
+            let filters = [
+                { id: "search-isi-berkas", field: "isi_berkas", type: "like" },
+                { id: "search-tahun-berkas", field: "tahun_berkas", type: "like" },
+                { id: "search-kategori", field: "kategori", type: "like" },
+                { id: "search-klasifikasi", field: "klasifikasi", type: "like" }
+            ];
 
-                // Pencarian Kategori
-                document.getElementById("search-kategori").addEventListener("input", function(e) {
-                    let value = e.target.value;
-                    table.setFilter("kategori", "like", value);
-                });
+            filters.forEach(f => {
+                let value = document.getElementById(f.id).value;
+                if (value) table.addFilter(f.field, f.type, value);
+            });
 
-                // Pencarian Klasifikasi
-                document.getElementById("search-klasifikasi").addEventListener("input", function(e) {
-                    let value = e.target.value;
-                    table.setFilter("klasifikasi", "like", value);
-                });
+            // Filter jangka waktu created_at
+            let start = document.getElementById("start-date").value;
+            let end = document.getElementById("end-date").value;
+
+            if (start && end) {
+                table.addFilter("created_at", ">=", start);
+                table.addFilter("created_at", "<=", end);
+            } else if (start) {
+                table.addFilter("created_at", ">=", start);
+            } else if (end) {
+                table.addFilter("created_at", "<=", end);
+            }
+        }
 
     // Export CSV function
     document.getElementById("export-csv").addEventListener("click", function() {
